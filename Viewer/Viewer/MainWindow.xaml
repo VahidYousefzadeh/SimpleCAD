@@ -6,7 +6,33 @@
         xmlns:local="clr-namespace:Viewer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <DockPanel Margin="5">
+        <Grid>
+            <Grid.DataContext>
+                <local:ApplicationModel x:Name="Model"/>
+            </Grid.DataContext>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="227"/>
+            </Grid.ColumnDefinitions>
+
+            <local:ViewPanel View="{Binding View}"/>
+
+            <GridSplitter Grid.Column="1"/>
+            <StackPanel Grid.Column="2">
+                <GroupBox Header="File" Margin="0 2">
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Button FontSize="10" Content="Load" Command="{Binding LoadCommand}" />
+                        <Button FontSize="10" Content="Clear" Command="{Binding ClearCommand}" Grid.Column="2" />
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </Window>
