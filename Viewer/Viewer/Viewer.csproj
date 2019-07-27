@@ -61,6 +61,7 @@
     <Compile Include="CircleGeometry.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Geometry.cs" />
+    <Compile Include="Marker.cs" />
     <Compile Include="MathHelper.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="LineGeometry.cs" />
