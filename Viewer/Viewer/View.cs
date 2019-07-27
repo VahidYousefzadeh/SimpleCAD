@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -54,17 +53,17 @@ namespace Viewer
 
         public void DrawLine(Pen pen, Point startPoint, Point endPoint)
         {
-            m_children.Add(new LineVisual(pen, startPoint, endPoint));
+            m_children.Add(new Line(pen, startPoint, endPoint));
         }
 
         public void DrawCircle(Brush fill, Pen pen, Point center, double radius)
         {
-            m_children.Add(new CircleVisual(fill, pen, center, radius));
+            m_children.Add(new Circle(fill, pen, center, radius));
         }
 
         public void DrawTriangle(Brush fill, Pen pen, Point a, Point b, Point c)
         {
-            m_children.Add(new TriangleVisual(fill, pen, a, b, c));
+            m_children.Add(Polygon.Triangle(fill, pen, a, b, c));
         }
 
         public void Clear()
