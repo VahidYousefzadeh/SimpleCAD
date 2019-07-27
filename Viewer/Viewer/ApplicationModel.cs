@@ -31,9 +31,11 @@ namespace Viewer
         {
             View = new View();
             Pen pen = new Pen(Brushes.Red, 9);
-            View.DrawLine(pen, new Point(10, 10), new Point(1000, 1000));
-            View.DrawCircle(Brushes.Blue, pen, new Point(300, 300), 10);
-            View.DrawTriangle(Brushes.GreenYellow, pen, new Point(0, 0), new Point(100, 100), new Point(50, 100));
+            View.DrawLine(pen, new Point(0, 0), new Point(1000, 1000));
+            View.DrawLine(pen, new Point(0, 1000), new Point(1000, 0));
+            //View.DrawLine(pen, new Point(0, 0), new Point(1000, 300) );
+            //View.DrawCircle(Brushes.Blue, pen, new Point(300, 300), 10);
+            //View.DrawTriangle(Brushes.GreenYellow, pen, new Point(0, 0), new Point(100, 100), new Point(50, 100));
         }
     }
 }

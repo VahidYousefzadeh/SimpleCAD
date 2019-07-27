@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Viewer
 {
@@ -12,6 +11,15 @@ namespace Viewer
         {
             StartPoint = startPoint;
             EndPoint = endPoint;
+        }
+
+
+        internal Vector Direction()
+        {
+            Vector vector = EndPoint - StartPoint;
+            vector.Normalize();
+
+            return vector;
         }
 
         internal override Point[] Intersect(Geometry other)
@@ -27,24 +35,6 @@ namespace Viewer
                 default:
                     return new Point[0];
             }
-        }
-
-        internal Vector Vector()
-        {
-            return EndPoint - StartPoint;
-        }
-
-        internal Vector Direction()
-        {
-            Vector vector = Vector();
-            vector.Normalize();
-
-            return vector;
-        }
-
-        internal double Length()
-        {
-            return (EndPoint - StartPoint).Length;
         }
     }
 }

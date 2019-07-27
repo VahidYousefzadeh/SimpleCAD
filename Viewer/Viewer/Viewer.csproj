@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Annotations.cs" />
     <Compile Include="Circle.cs" />
     <Compile Include="CircleGeometry.cs" />
     <Compile Include="Command.cs" />
