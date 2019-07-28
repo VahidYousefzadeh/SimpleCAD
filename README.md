@@ -1,1 +1,1 @@
-# WSCAD
+# Simple Shape Viewer
