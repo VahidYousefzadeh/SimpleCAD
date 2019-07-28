@@ -4,15 +4,14 @@ namespace Viewer
 {
     internal sealed class LineGeometry : Geometry
     {
-        public Point StartPoint { get; }
-        public Point EndPoint { get; }
+        internal Point StartPoint { get; }
+        internal Point EndPoint { get; }
 
         internal LineGeometry(Point startPoint, Point endPoint)
         {
             StartPoint = startPoint;
             EndPoint = endPoint;
         }
-
 
         internal Vector Direction()
         {

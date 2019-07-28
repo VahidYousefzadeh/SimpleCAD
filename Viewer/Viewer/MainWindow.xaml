@@ -30,6 +30,7 @@
                         </Grid.ColumnDefinitions>
                         <Button FontSize="10" Content="Load" Command="{Binding LoadCommand}" />
                         <Button FontSize="10" Content="Clear" Command="{Binding ClearCommand}" Grid.Column="2" />
+                        <Button FontSize="10" Content="Save JSON" Command="{Binding SaveJSONCommand}" Grid.Column="2" />
                     </Grid>
                 </GroupBox>
             </StackPanel>

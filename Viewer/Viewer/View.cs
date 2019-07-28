@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -9,6 +11,8 @@ namespace Viewer
     {
         private readonly VisualCollection m_children;
 
+        public IList<Shape> Shapes => m_children.OfType<Shape>().ToList();
+
         public View()
         {
             m_children = new VisualCollection(this);
@@ -16,19 +20,14 @@ namespace Viewer
             MouseLeftButtonUp += OnMouseLeftButtonUp;
         }
 
-        // Capture the mouse event and hit test the coordinate point value against
-        // the child visual objects.
         private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            // Retreive the coordinates of the mouse button event.
             Point pt = e.GetPosition((UIElement)sender);
 
-            // Initiate the hit test by setting up a hit test result callback method.
             VisualTreeHelper.HitTest(this, null, HitTestCallback, new PointHitTestParameters(pt));
         }
 
-        // If a child visual object is hit, toggle its opacity to visually indicate a hit.
-        public HitTestResultBehavior HitTestCallback(HitTestResult result)
+        private static HitTestResultBehavior HitTestCallback(HitTestResult result)
         {
             if (result.VisualHit is DrawingVisual visual)
             {
@@ -51,24 +50,9 @@ namespace Viewer
             return m_children[index];
         }
 
-        public void DrawLine(Pen pen, Point startPoint, Point endPoint)
+        public void AddShape(Shape shape)
         {
-            m_children.Add(new Line(pen, startPoint, endPoint));
-        }
-
-        public void DrawCircle(Brush fill, Pen pen, Point center, double radius)
-        {
-            m_children.Add(new Circle(fill, pen, center, radius));
-        }
-
-        public void DrawTriangle(Brush fill, Pen pen, Point a, Point b, Point c)
-        {
-            m_children.Add(Polygon.Triangle(fill, pen, a, b, c));
-        }
-
-        public void Clear()
-        {
-            m_children.Clear();
+            m_children.Add(shape);
         }
     }
 }

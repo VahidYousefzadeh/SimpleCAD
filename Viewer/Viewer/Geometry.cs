@@ -2,7 +2,7 @@
 
 namespace Viewer
 {
-    internal abstract class Geometry
+    public abstract class Geometry
     {
         internal abstract Point[] Intersect(Geometry other);
     }

@@ -2,7 +2,7 @@
 
 namespace Viewer
 {
-    internal abstract class Shape : DrawingVisual
+    public abstract class Shape : DrawingVisual
     {
         public Geometry Geometry { get; protected set; }
     }
