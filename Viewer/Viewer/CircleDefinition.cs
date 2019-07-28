@@ -7,17 +7,17 @@ namespace Viewer
         public override string Type => "circle";
 
         [JsonProperty(PropertyName = "center")]
-        public string C { get; set; }
+        public string Center { get; set; }
 
         [JsonProperty(PropertyName = "radius")]
-        public double R { get; set; }
+        public double Radius { get; set; }
 
         [JsonProperty(PropertyName = "filled")]
         public bool Filled { get; set; }
 
         public override Shape Convert()
         {
-            return new Circle(Filled ? RandomBrush() : null, Pen(), Point(C), R);
+            return new Circle(Filled ? RandomBrush() : null, Pen(), Point(Center), Radius);
         }
     }
 }

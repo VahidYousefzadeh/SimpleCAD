@@ -17,7 +17,7 @@ namespace Viewer
         /// <summary>
         /// Initializes an instance of <see cref="Rectangle"/> class.
         /// </summary>
-        public static Polygon Rectangle(Brush fill, Pen pen, Point a, Point b, int rotation)
+        public static Polygon Rectangle(Brush fill, Pen pen, Point corner, double width, double height, double rotation)
         {
             return null;
         }
