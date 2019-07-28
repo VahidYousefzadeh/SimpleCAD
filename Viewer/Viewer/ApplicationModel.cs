@@ -51,6 +51,8 @@ namespace Viewer
             }
 
             View = view;
+
+
         }
 
         private void Load()

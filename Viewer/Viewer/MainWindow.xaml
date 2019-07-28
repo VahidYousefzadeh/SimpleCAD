@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="227"/>
             </Grid.ColumnDefinitions>
 
-            <local:ViewPanel View="{Binding View}"/>
+            <local:ViewPanel View="{Binding View}" Background="Black"/>
 
             <GridSplitter Grid.Column="1"/>
             <StackPanel Grid.Column="2">

@@ -21,7 +21,7 @@ namespace Viewer
 
         protected Pen Pen()
         {
-            return new Pen(new SolidColorBrush(GetColor()), 1d);
+            return new Pen(Brush(GetColor()), 1d) {DashStyle = DashStyle()};
         }
 
         protected Point Point(string coordinates)
@@ -40,12 +40,37 @@ namespace Viewer
 
         protected Brush RandomBrush()
         {
-            Random rand = new Random();
-            return new SolidColorBrush(Argb(
-                (byte) rand.Next(0, 256),
-                (byte) rand.Next(0, 256),
-                (byte) rand.Next(0, 256),
-                (byte) rand.Next(0, 256)));
+            var rand = new Random();
+
+            return Brush(Argb((byte)rand.Next(0, 256),
+                (byte)rand.Next(0, 256),
+                (byte)rand.Next(0, 256),
+                (byte)rand.Next(0, 256)));
+        }
+
+        private Brush Brush(Color color)
+        {
+            var brush = new SolidColorBrush(color);
+
+            if (brush.CanFreeze)
+                brush.Freeze();
+
+            return brush;
+        }
+
+        private DashStyle DashStyle()
+        {
+            switch (LineType)
+            {
+                case "dash":
+                    return DashStyles.Dash;
+                case "dot":
+                    return DashStyles.Dot;
+                case "dashDot":
+                    return DashStyles.DashDot;
+                default:
+                    return DashStyles.Solid;
+            }
         }
 
         private Color GetColor()
@@ -59,7 +84,7 @@ namespace Viewer
                 : Colors.Black;
         }
 
-        private Color Argb(byte a, byte r, byte g, byte b)
+        private static Color Argb(byte a, byte r, byte g, byte b)
         {
             return System.Windows.Media.Color.FromArgb(a, r, g, b);
         }
