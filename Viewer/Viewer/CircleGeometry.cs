@@ -2,7 +2,7 @@
 
 namespace Viewer
 {
-    internal sealed class CircleGeometry : Geometry
+    public sealed class CircleGeometry : Geometry
     {
         public Point Center { get; }
 
@@ -19,11 +19,11 @@ namespace Viewer
             switch (other)
             {
                 case LineGeometry line:
-                    return MathHelper.LineCircleIntersection(line, this);
+                    return IntersectionHelper.LineCircleIntersection(line, this);
                 case CircleGeometry circle:
-                    return MathHelper.CircleCircleIntersecton(this, circle);
+                    return IntersectionHelper.CircleCircleIntersecton(this, circle);
                 case PolygonGeometry polygon:
-                    return MathHelper.CirclePolygonIntersection(this, polygon);
+                    return IntersectionHelper.CirclePolygonIntersection(this, polygon);
                 default:
                     return new Point[0];
             }

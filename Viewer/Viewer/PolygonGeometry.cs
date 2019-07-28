@@ -2,7 +2,7 @@
 
 namespace Viewer
 {
-    internal sealed class PolygonGeometry : Geometry
+    public sealed class PolygonGeometry : Geometry
     {
         public LineGeometry[] Edges { get; } 
 
@@ -25,11 +25,11 @@ namespace Viewer
             switch (other)
             {
                 case LineGeometry line:
-                    return MathHelper.LinePolygonIntersection(line, this);
+                    return IntersectionHelper.LinePolygonIntersection(line, this);
                 case CircleGeometry circle:
-                    return MathHelper.CirclePolygonIntersection(circle, this);
+                    return IntersectionHelper.CirclePolygonIntersection(circle, this);
                 case PolygonGeometry polygon:
-                    return MathHelper.PolygonPolygonIntersection(polygon, this);
+                    return IntersectionHelper.PolygonPolygonIntersection(polygon, this);
                 default:
                     return new Point[0];
             }

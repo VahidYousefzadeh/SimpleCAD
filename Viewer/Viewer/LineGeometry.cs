@@ -2,7 +2,7 @@
 
 namespace Viewer
 {
-    internal sealed class LineGeometry : Geometry
+    public sealed class LineGeometry : Geometry
     {
         internal Point StartPoint { get; }
         internal Point EndPoint { get; }
@@ -26,11 +26,11 @@ namespace Viewer
             switch (other)
             {
                 case LineGeometry line:
-                    return MathHelper.LineLineIntersection(this, line);
+                    return IntersectionHelper.LineLineIntersection(this, line);
                 case CircleGeometry circle:
-                    return MathHelper.LineCircleIntersection(this, circle);
+                    return IntersectionHelper.LineCircleIntersection(this, circle);
                 case PolygonGeometry polygon:
-                    return MathHelper.LinePolygonIntersection(this, polygon);
+                    return IntersectionHelper.LinePolygonIntersection(this, polygon);
                 default:
                     return new Point[0];
             }
