@@ -14,14 +14,12 @@ namespace Viewer
         }
 
         public static readonly DependencyProperty s_viewProperty = DependencyProperty.Register(
-            nameof(View), typeof(View), typeof(ViewPanel), new PropertyMetadata(OnUiViewPropertyChanged));
+            nameof(View), typeof(View), typeof(ViewPanel), new PropertyMetadata(OnViewPropertyChanged));
 
-        private static void OnUiViewPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnViewPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var panel = (ViewPanel) d;
-            panel.Annotations.Content = new Annotations(panel.View);
+            ((ViewPanel) d).Annotations.Content = new Annotations(((ViewPanel) d).View);
         }
-
 
         public ViewPanel()
         {
