@@ -11,27 +11,21 @@ namespace Viewer
             return typeof(ShapeDefinition).IsAssignableFrom(objectType);
         }
 
-        public override object ReadJson(JsonReader reader,
-            Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JObject item = JObject.Load(reader);
             string type = item["type"].Value<string>();
-            if (type == "line")
+            switch (type)
             {
-                return item.ToObject<LineDefinition>();
+                case "line":
+                    return item.ToObject<LineDefinition>();
+                case "circle":
+                    return item.ToObject<CircleDefinition>();
+                case "triangle":
+                    return item.ToObject<TriangleDefinition>();
+                default:
+                    return null;
             }
-
-            if (type == "circle")
-            {
-                return item.ToObject<CircleDefinition>();
-            }
-
-            if (type == "triangle")
-            {
-                return item.ToObject<TriangleDefinition>();
-            }
-
-            return null;
         }
 
         public override void WriteJson(JsonWriter writer,

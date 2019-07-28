@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using Newtonsoft.Json;
@@ -52,15 +51,12 @@ namespace Viewer
         private Color GetColor()
         {
             string[] tokens = Color.Split(';');
-            if (byte.TryParse(tokens[0], out byte a) &&
-                byte.TryParse(tokens[1], out byte r) &&
-                byte.TryParse(tokens[2], out byte g) &&
-                byte.TryParse(tokens[3], out byte b))
-            {
-                return Argb(a, r, g, b);
-            }
-
-            return Colors.Black;
+            return byte.TryParse(tokens[0], out byte a) &&
+                   byte.TryParse(tokens[1], out byte r) &&
+                   byte.TryParse(tokens[2], out byte g) &&
+                   byte.TryParse(tokens[3], out byte b)
+                ? Argb(a, r, g, b)
+                : Colors.Black;
         }
 
         private Color Argb(byte a, byte r, byte g, byte b)

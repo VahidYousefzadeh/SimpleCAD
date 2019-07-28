@@ -67,8 +67,7 @@
     <Compile Include="Command.cs" />
     <Compile Include="Geometry.cs" />
     <Compile Include="LineDefinition.cs" />
-    <Compile Include="Marker.cs" />
-    <Compile Include="Markers.cs" />
+    <Compile Include="CrossSymbols.cs" />
     <Compile Include="MathHelper.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="LineGeometry.cs" />

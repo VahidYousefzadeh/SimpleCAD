@@ -5,14 +5,14 @@ using System.Windows.Media;
 
 namespace Viewer
 {
-    internal sealed class Markers : DrawingVisual
+    internal sealed class CrossSymbols : DrawingVisual
     {
         private const double Size = 7d;
 
         private static readonly Vector s_p = new Vector(+0.25 * Math.PI, +0.25 * Math.PI) * Size;
         private static readonly Vector s_q = new Vector(+0.25 * Math.PI, -0.25 * Math.PI) * Size;
 
-        public Markers(Pen pen, IEnumerable<Point> locations)
+        public CrossSymbols(Pen pen, IEnumerable<Point> locations)
         {
             if (pen.CanFreeze)
                 pen.Freeze();

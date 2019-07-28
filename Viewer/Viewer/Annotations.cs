@@ -26,7 +26,7 @@ namespace Viewer
 
             if (intersections != null)
             {
-                m_children.Add(new Markers(s_pen, intersections));
+                m_children.Add(new CrossSymbols(s_pen, intersections));
             }
 
             s.Stop();

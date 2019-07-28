@@ -59,7 +59,7 @@ namespace Viewer
 
             Random r = new Random();
             int count = 0;
-            while (count < 10)
+            while (count < 100)
             {
                 double x1 = r.NextDouble() * 1000;
                 double y1 = r.NextDouble() * 1000;
