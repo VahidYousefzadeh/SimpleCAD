@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Viewer
 {
@@ -36,28 +36,21 @@ namespace Viewer
 
         private void Save()
         {
-            var path = "C:/backup/json.txt";
+            string path = "C:/backup/json.txt";
 
-            JsonSerializer serializer = new JsonSerializer();
+            string jsonString = File.ReadAllText(path);
 
+            IList<ShapeDefinition> oo = JsonConvert.DeserializeObject<IList<ShapeDefinition>>(jsonString, new ShapeConverter());
 
-            var json = new StreamReader(path).ReadToEnd();
+            IEnumerable<Shape> shapes = oo.Select(o => o.Convert());
 
-            JArray o = JsonConvert.DeserializeObject<JArray>(json);
-            foreach (JToken token in o)
+            var view = new View();
+            foreach (Shape shape in shapes)
             {
-                
+                view.AddShape(shape);
             }
 
-            var oo = JsonConvert.DeserializeObject<IList<ShapeDefinition>>(json, new ShapeConverter());
-
-            var g = JsonConvert.SerializeObject(oo);
-            //using (StreamWriter sw = new StreamWriter(path))
-            //using (JsonWriter writer = new JsonTextWriter(sw))
-            //{
-            //    serializer.Serialize(writer, shapes);
-            //    // {"ExpiryDate":new Date(1230375600000),"Price":0}
-            //}
+            View = view;
         }
 
         private void Load()
@@ -68,10 +61,10 @@ namespace Viewer
             int count = 0;
             while (count < 10)
             {
-                var x1 = r.NextDouble() * 1000;
-                var y1 = r.NextDouble() * 1000;
-                var x2 = r.NextDouble() * 1000;
-                var y2 = r.NextDouble() * 1000;
+                double x1 = r.NextDouble() * 1000;
+                double y1 = r.NextDouble() * 1000;
+                double x2 = r.NextDouble() * 1000;
+                double y2 = r.NextDouble() * 1000;
 
                 Pen pen = new Pen(Brushes.Red, r.NextDouble() * 10);
                 pen.Freeze();
@@ -91,59 +84,6 @@ namespace Viewer
 
                 count++;
             }
-
-
-            //using (var sr = new StreamReader("C:/lines2.csv"))
-            //{
-            //    int counter = 0;
-
-            //    while (true)
-            //    {
-            //        string line = sr.ReadLine();
-
-            //        if (line == null)
-            //            break;
-
-            //        if (counter > 1000)
-            //            break;
-
-            //        line = line.Trim();
-
-            //        counter++;
-
-            //        string[] tokens = line.Split(',');
-
-            //        double x1 = double.Parse(tokens[1]);
-            //        double y1 = double.Parse(tokens[2]);
-            //        double x2 = double.Parse(tokens[3]);
-            //        double y2 = double.Parse(tokens[4]);
-
-            //        Pen pen = new Pen(Brushes.Red, double.Parse(tokens[8]));
-            //        pen.Freeze();
-
-            //        view.DrawLine(pen, new Point(x1, y1), new Point(x2, y2));
-
-            //        //var line2D = new Line2D(x1, y1, x2, y2);
-            //        //var uiLine = new UiLine(line2D)
-            //        //{
-            //        //    Color = new Color
-            //        //    {
-            //        //        R = byte.Parse(tokens[5]),
-            //        //        G = byte.Parse(tokens[6]),
-            //        //        B = byte.Parse(tokens[7])
-            //        //    },
-
-            //        //    StrokeWidth = float.Parse(tokens[8])
-            //        //};
-
-            //        //uiLayer.AddVisual(uiLine);
-            //    }
-            //}
-
-
-            //View.DrawLine(pen, new Point(0, 0), new Point(1000, 300) );
-            //View.DrawCircle(Brushes.Blue, pen, new Point(300, 300), 10);
-            //View.DrawTriangle(Brushes.GreenYellow, pen, new Point(0, 0), new Point(100, 100), new Point(50, 100));
 
             View = view;
         }

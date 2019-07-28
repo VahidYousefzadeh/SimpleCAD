@@ -12,6 +12,9 @@ namespace Viewer
         {
             Geometry = new LineGeometry(startPoint, endPoint);
 
+            if (pen.CanFreeze)
+                pen.Freeze();
+
             using (DrawingContext drawingContext = RenderOpen())
             {
                 drawingContext.DrawLine(pen, startPoint, endPoint);

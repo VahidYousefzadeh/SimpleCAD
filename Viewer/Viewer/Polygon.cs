@@ -26,6 +26,9 @@ namespace Viewer
         {
             Geometry = new PolygonGeometry(corners);
 
+            if (pen.CanFreeze)
+                pen.Freeze();
+
             var streamGeometry = new StreamGeometry();
             using (StreamGeometryContext geometryContext = streamGeometry.Open())
             {

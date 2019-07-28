@@ -20,12 +20,13 @@ namespace Viewer
             {
                 return item.ToObject<LineDefinition>();
             }
-            else if (type == "circle")
+
+            if (type == "circle")
             {
                 return item.ToObject<CircleDefinition>();
             }
 
-            else if (type == "triangle")
+            if (type == "triangle")
             {
                 return item.ToObject<TriangleDefinition>();
             }
