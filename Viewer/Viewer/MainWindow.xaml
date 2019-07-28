@@ -28,9 +28,9 @@
                             <ColumnDefinition Width="5"/>
                             <ColumnDefinition Width="100"/>
                         </Grid.ColumnDefinitions>
-                        <Button FontSize="10" Content="Load" Command="{Binding LoadCommand}" />
+                        <Button FontSize="10" Content="Load Json" Command="{Binding LoadJsonCommand}" />
                         <Button FontSize="10" Content="Clear" Command="{Binding ClearCommand}" Grid.Column="2" />
-                        <Button FontSize="10" Content="Save JSON" Command="{Binding SaveJSONCommand}" Grid.Column="2" />
+                        <Button FontSize="10" Content="Random Shapes" Command="{Binding RandomShapesCommand}" Grid.Column="2" />
                     </Grid>
                 </GroupBox>
             </StackPanel>

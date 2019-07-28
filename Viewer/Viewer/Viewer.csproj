@@ -65,6 +65,7 @@
     <Compile Include="CircleDefinition.cs" />
     <Compile Include="CircleGeometry.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="Commands.cs" />
     <Compile Include="Geometry.cs" />
     <Compile Include="LineDefinition.cs" />
     <Compile Include="CrossSymbols.cs" />
