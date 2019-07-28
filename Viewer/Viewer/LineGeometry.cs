@@ -35,5 +35,10 @@ namespace Viewer
                     return new Point[0];
             }
         }
+
+        internal override Rect Bounds()
+        {
+            return new Rect(StartPoint, EndPoint);
+        }
     }
 }

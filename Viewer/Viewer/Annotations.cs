@@ -51,7 +51,7 @@ namespace Viewer
             for (int i = 0; i < shapes.Count - 1; i++)
             {
                 Geometry a = shapes[i].Geometry;
-                for (int j = i + 1; j < shapes.Count(); j++)
+                for (int j = i + 1; j < shapes.Count; j++)
                 {
                     Geometry b = shapes[j].Geometry;
                     intersections = intersections == null

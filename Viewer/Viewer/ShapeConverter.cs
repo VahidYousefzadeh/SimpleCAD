@@ -28,10 +28,8 @@ namespace Viewer
             }
         }
 
-        public override void WriteJson(JsonWriter writer,
-            object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
         }
     }
 }

@@ -6,8 +6,8 @@ namespace Viewer
     {
         public override string Type => "rectangle";
 
-        [JsonProperty(PropertyName = "C")]
-        public string C { get; set; }
+        [JsonProperty(PropertyName = "origin")]
+        public string Origin { get; set; }
 
         [JsonProperty(PropertyName = "width")]
         public double Width { get; set; }
@@ -23,7 +23,7 @@ namespace Viewer
 
         public override Shape Convert()
         {
-            return Polygon.Rectangle(Filled ? RandomBrush() : null, Pen(), Point(C), Width, Height, Rotation);
+            return Polygon.Rectangle(Filled ? RandomBrush() : null, Pen(), Point(Origin), Width, Height, Rotation);
         }
     }
 }

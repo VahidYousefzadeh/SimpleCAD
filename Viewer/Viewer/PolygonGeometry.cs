@@ -34,5 +34,16 @@ namespace Viewer
                     return new Point[0];
             }
         }
+
+        internal override Rect Bounds()
+        {
+            Rect bounds = Rect.Empty;
+            foreach (LineGeometry edge in Edges)
+            {
+                bounds.Union(edge.Bounds());
+            }
+
+            return bounds;
+        }
     }
 }

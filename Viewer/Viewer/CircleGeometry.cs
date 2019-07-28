@@ -28,5 +28,13 @@ namespace Viewer
                     return new Point[0];
             }
         }
+
+        internal override Rect Bounds()
+        {
+            var a = new Point(Center.X - Radius, Center.Y + Radius);
+            var b = new Point(Center.X + Radius, Center.Y - Radius);
+
+            return new Rect(a, b);
+        }
     }
 }
