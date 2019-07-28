@@ -22,20 +22,52 @@ namespace Viewer
         protected Pen Pen()
         {
             return new Pen(Brush(GetColor()), 1d) {DashStyle = DashStyle()};
+
+            Color GetColor()
+            {
+                string[] tokens = Color.Split(';');
+                return byte.TryParse(tokens[0], out byte a) &&
+                       byte.TryParse(tokens[1], out byte r) &&
+                       byte.TryParse(tokens[2], out byte g) &&
+                       byte.TryParse(tokens[3], out byte b)
+                    ? Argb(a, r, g, b)
+                    : Colors.Black;
+            }
+
+            DashStyle DashStyle()
+            {
+                switch (LineType)
+                {
+                    case "dash":
+                        return DashStyles.Dash;
+                    case "dot":
+                        return DashStyles.Dot;
+                    case "dashDot":
+                        return DashStyles.DashDot;
+                    default:
+                        return DashStyles.Solid;
+                }
+            }
         }
 
         protected Point Point(string coordinates)
         {
             string[] tokens = coordinates.Split(';');
 
-            var culture = new CultureInfo("de");
-            if (double.TryParse(tokens[0], NumberStyles.Float, culture, out double x) &&
-                double.TryParse(tokens[1], NumberStyles.Float, culture, out double y))
+            return double.TryParse(tokens[0], NumberStyle(), CultureInfo(), out double x) &&
+                   double.TryParse(tokens[1], NumberStyle(), CultureInfo(), out double y)
+                ? new Point(x, y)
+                : default(Point);
+
+            NumberStyles NumberStyle()
             {
-                return new Point(x, y);
+                return NumberStyles.Float;
             }
 
-            return default(Point);
+            CultureInfo CultureInfo()
+            {
+                return new CultureInfo("de");
+            }
         }
 
         protected Brush RandomBrush()
@@ -48,7 +80,7 @@ namespace Viewer
                 (byte)rand.Next(0, 256)));
         }
 
-        private Brush Brush(Color color)
+        private static Brush Brush(Color color)
         {
             var brush = new SolidColorBrush(color);
 
@@ -56,32 +88,6 @@ namespace Viewer
                 brush.Freeze();
 
             return brush;
-        }
-
-        private DashStyle DashStyle()
-        {
-            switch (LineType)
-            {
-                case "dash":
-                    return DashStyles.Dash;
-                case "dot":
-                    return DashStyles.Dot;
-                case "dashDot":
-                    return DashStyles.DashDot;
-                default:
-                    return DashStyles.Solid;
-            }
-        }
-
-        private Color GetColor()
-        {
-            string[] tokens = Color.Split(';');
-            return byte.TryParse(tokens[0], out byte a) &&
-                   byte.TryParse(tokens[1], out byte r) &&
-                   byte.TryParse(tokens[2], out byte g) &&
-                   byte.TryParse(tokens[3], out byte b)
-                ? Argb(a, r, g, b)
-                : Colors.Black;
         }
 
         private static Color Argb(byte a, byte r, byte g, byte b)
