@@ -12,9 +12,6 @@ namespace Viewer
         {
             Geometry = new CircleGeometry(center, radius);
 
-            if (pen.CanFreeze)
-                pen.Freeze();
-
             using (DrawingContext drawingContext = RenderOpen())
             {
                 drawingContext.DrawEllipse(fill, pen, center, radius, radius);

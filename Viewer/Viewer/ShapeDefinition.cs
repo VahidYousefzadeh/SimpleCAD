@@ -21,7 +21,7 @@ namespace Viewer
 
         protected Pen Pen()
         {
-            return new Pen(Brush(GetColor()), 1d) {DashStyle = DashStyle()};
+            return Freeze(new Pen(Brush(GetColor()), 1d) {DashStyle = DashStyle()});
 
             Color GetColor()
             {
@@ -82,17 +82,20 @@ namespace Viewer
 
         private static Brush Brush(Color color)
         {
-            var brush = new SolidColorBrush(color);
-
-            if (brush.CanFreeze)
-                brush.Freeze();
-
-            return brush;
+            return Freeze(new SolidColorBrush(color));
         }
 
         private static Color Argb(byte a, byte r, byte g, byte b)
         {
             return System.Windows.Media.Color.FromArgb(a, r, g, b);
+        }
+
+        private static T Freeze<T>(T freezable) where T : Freezable
+        {
+            if (freezable.CanFreeze)
+                freezable.Freeze();
+
+            return freezable;
         }
     }
 }
