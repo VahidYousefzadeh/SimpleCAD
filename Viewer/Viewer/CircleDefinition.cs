@@ -12,7 +12,7 @@
 
         public override Shape Convert()
         {
-            return new Circle(Filled ? RandomBrush() : null, Pen(), Point(Center), Radius);
+            return new Circle(Filled ? Utility.RandomBrush() : null, Pen(), Point(Center), Radius);
         }
     }
 }

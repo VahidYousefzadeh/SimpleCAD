@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Media;
 
 namespace Viewer
 {
@@ -55,37 +52,15 @@ namespace Viewer
 
         public static View RandomShapes()
         {
-            var view = new View();
+            var generator = new RandomShapeGenerator(1000d , 1000d);
 
-            Random r = new Random();
-            int count = 0;
-            while (count < 100)
+            IList<Shape> shapes = new List<Shape>();
+            for (int i = 0; i < 10; i++)
             {
-                double x1 = r.NextDouble() * 1000;
-                double y1 = r.NextDouble() * 1000;
-                double x2 = r.NextDouble() * 1000;
-                double y2 = r.NextDouble() * 1000;
-
-                Pen pen = new Pen(Brushes.Red, r.NextDouble() * 10);
-                pen.Freeze();
-
-                var line = new Line(pen, new Point(x1, y1), new Point(x2, y2));
-                //view.DrawCircle(null, pen, new Point(r.NextDouble() * 1000, r.NextDouble() * 1000), r.NextDouble() * 100);
-
-
-                var a = new Point(r.NextDouble() * 1000, r.NextDouble() * 1000);
-                var b = new Point(r.NextDouble() * 1000, r.NextDouble() * 1000);
-                var c = new Point(r.NextDouble() * 1000, r.NextDouble() * 1000);
-
-                Polygon triangle = Polygon.Triangle(null, pen, a, b, c);
-
-                view.AddShape(line);
-                view.AddShape(triangle);
-
-                count++;
+                shapes.Add(generator.Generate());
             }
 
-            return view;
+            return new View(shapes);
         }
     }
 }

@@ -16,7 +16,7 @@
 
         public override Shape Convert()
         {
-            return Polygon.Rectangle(Filled ? RandomBrush() : null, Pen(), Point(Origin), Width, Height, Rotation);
+            return Polygon.Rectangle(Filled ? Utility.RandomBrush() : null, Pen(), Point(Origin), Width, Height, Rotation);
         }
     }
 }

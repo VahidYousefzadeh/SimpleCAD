@@ -14,7 +14,7 @@
 
         public override Shape Convert()
         {
-            return Polygon.Triangle(Filled ? RandomBrush() : null, Pen(), Point(A), Point(B), Point(C));
+            return Polygon.Triangle(Filled ? Utility.RandomBrush() : null, Pen(), Point(A), Point(B), Point(C));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
 
@@ -17,7 +16,7 @@ namespace Viewer
 
         protected Pen Pen()
         {
-            return Freeze(new Pen(Brush(GetColor()), 1d) {DashStyle = DashStyle()});
+            return Utility.Freeze(new Pen(Brush(GetColor()), 1d) {DashStyle = DashStyle()});
 
             Color GetColor()
             {
@@ -66,19 +65,9 @@ namespace Viewer
             }
         }
 
-        protected Brush RandomBrush()
-        {
-            var rand = new Random();
-
-            return Brush(Argb((byte)rand.Next(0, 256),
-                (byte)rand.Next(0, 256),
-                (byte)rand.Next(0, 256),
-                (byte)rand.Next(0, 256)));
-        }
-
         private static Brush Brush(Color color)
         {
-            return Freeze(new SolidColorBrush(color));
+            return Utility.Freeze(new SolidColorBrush(color));
         }
 
         private static Color Argb(byte a, byte r, byte g, byte b)
@@ -86,12 +75,6 @@ namespace Viewer
             return System.Windows.Media.Color.FromArgb(a, r, g, b);
         }
 
-        private static T Freeze<T>(T freezable) where T : Freezable
-        {
-            if (freezable.CanFreeze)
-                freezable.Freeze();
 
-            return freezable;
-        }
     }
 }
