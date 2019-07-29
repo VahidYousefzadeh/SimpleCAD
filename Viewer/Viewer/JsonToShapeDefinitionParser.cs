@@ -15,12 +15,18 @@ namespace Viewer
             var nodes = jsonSerializer.Deserialize<dynamic>(File.ReadAllText(path));
             foreach (dynamic node in nodes)
             {
-                if (node["type"] == "line")
-                    shapeDefinitions.Add(JsonToLineDefinition(node));
-                else if (node["type"] == "circle")
-                    shapeDefinitions.Add(JsonToCircleDefinition(node));
-                else if (node["type"] == "triangle")
-                    shapeDefinitions.Add(JsonToTriangleDefinition(node));
+                switch (node["type"])
+                {
+                    case "line":
+                        shapeDefinitions.Add(JsonToLineDefinition(node));
+                        break;
+                    case "circle":
+                        shapeDefinitions.Add(JsonToCircleDefinition(node));
+                        break;
+                    case "triangle":
+                        shapeDefinitions.Add(JsonToTriangleDefinition(node));
+                        break;
+                }
             }
 
             return shapeDefinitions;

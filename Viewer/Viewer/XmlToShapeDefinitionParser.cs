@@ -12,13 +12,18 @@ namespace Viewer
             XElement root = XElement.Load(path);
             foreach (XElement element in root.Descendants())
             {
-                if (element.Name == "Line")
-                    shapeDefinitions.Add(XmlToLineDefinition(element));
-                else if (element.Name == "Circle")
-                    shapeDefinitions.Add(XmlToCircleDefinition(element));
-                else if (element.Name == "Triangle")
-                    shapeDefinitions.Add(XmlToTriangleDefinition(element));
-
+                switch ($"{element.Name}")
+                {
+                    case "Line":
+                        shapeDefinitions.Add(XmlToLineDefinition(element));
+                        break;
+                    case "Circle":
+                        shapeDefinitions.Add(XmlToCircleDefinition(element));
+                        break;
+                    case "Triangle":
+                        shapeDefinitions.Add(XmlToTriangleDefinition(element));
+                        break;
+                }
             }
 
             return shapeDefinitions;
