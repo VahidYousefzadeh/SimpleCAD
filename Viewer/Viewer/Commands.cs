@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -52,10 +53,11 @@ namespace Viewer
 
         public static View RandomShapes()
         {
-            var generator = new RandomShapeGenerator(1000d , 1000d);
+            Random random = new Random((int)DateTime.Now.Ticks);
+            var generator = new RandomShapeGenerator(random, 1000d , 1000d);
 
             IList<Shape> shapes = new List<Shape>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
                 shapes.Add(generator.Generate());
             }

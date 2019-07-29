@@ -1,4 +1,6 @@
-﻿namespace Viewer
+﻿using System;
+
+namespace Viewer
 {
     public sealed class RectangleDefinition : ShapeDefinition
     {
@@ -16,7 +18,13 @@
 
         public override Shape Convert()
         {
-            return Polygon.Rectangle(Filled ? Utility.RandomBrush() : null, Pen(), Point(Origin), Width, Height, Rotation);
+            return Polygon.Rectangle(
+                Filled ? Utility.RandomBrush(new Random()) : null, 
+                Pen(), 
+                Point(Origin), 
+                Width,
+                Height,
+                Rotation);
         }
     }
 }

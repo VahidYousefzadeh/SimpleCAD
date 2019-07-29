@@ -8,8 +8,10 @@ namespace Viewer
     {
         private readonly double m_screenWidth;
         private readonly double m_screenHeight;
-        public RandomShapeGenerator(double screenWidth, double screenHeight)
+        private readonly Random m_random;
+        public RandomShapeGenerator(Random random, double screenWidth, double screenHeight)
         {
+            m_random = random;
             m_screenWidth = screenWidth;
             m_screenHeight = screenHeight;
         }
@@ -17,7 +19,7 @@ namespace Viewer
         public Shape Generate()
         {
             var random = new Random((int)DateTime.Now.Ticks);
-            int type = random.Next(0, 1);
+            int type = random.Next(0, 2);
 
             switch (type)
             {
@@ -32,31 +34,30 @@ namespace Viewer
 
         private Shape RandomLine()
         {
-            double x1 = Utility.RandomDouble(0d, m_screenWidth);
-            double x2 = Utility.RandomDouble(0d, m_screenWidth);
-            double y1 = Utility.RandomDouble(0d, m_screenHeight);
-            double y2 = Utility.RandomDouble(0d, m_screenHeight);
+            double x1 = Utility.RandomDouble(m_random, 0d, m_screenWidth);
+            double x2 = Utility.RandomDouble(m_random, 0d, m_screenWidth);
+            double y1 = Utility.RandomDouble(m_random, 0d, m_screenHeight);
+            double y2 = Utility.RandomDouble(m_random, 0d, m_screenHeight);
 
-            return new Line(RandomPen(), new Point(x1, y1), new Point(x2, y2));
+            return new Line(RandomPen(m_random), new Point(x1, y1), new Point(x2, y2));
         }
 
         private Shape RandomCircle()
         {
-            double x = Utility.RandomDouble(0d, m_screenWidth);
-            double y = Utility.RandomDouble(0d, m_screenHeight);
-            double radius = Utility.RandomDouble(10d, 100d);
+            double x = Utility.RandomDouble(m_random, 0d, m_screenWidth);
+            double y = Utility.RandomDouble(m_random, 0d, m_screenHeight);
+            double radius = Utility.RandomDouble(m_random, 10d, 100d);
 
-            return new Circle(RandomBoolean() ? Utility.RandomBrush() : null, RandomPen(), new Point(x, y), radius);
+            return new Circle(RandomBoolean(m_random) ? Utility.RandomBrush(m_random) : null, RandomPen(m_random), new Point(x, y), radius);
         }
 
-        private static Pen RandomPen()
+        private static Pen RandomPen(Random random)
         {
-            return Utility.Freeze(new Pen(Utility.RandomBrush(), 1d) { DashStyle = RandomDashStyle() });
+            return Utility.Freeze(new Pen(Utility.RandomBrush(random), 3d) { DashStyle = RandomDashStyle() });
         }
 
-        private static bool RandomBoolean()
+        private static bool RandomBoolean(Random random)
         {
-            var random = new Random((int)DateTime.Now.Ticks);
             return random.Next(0, 1) != 0;
         }
 

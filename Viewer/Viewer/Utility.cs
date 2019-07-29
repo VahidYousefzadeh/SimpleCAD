@@ -6,15 +6,13 @@ namespace Viewer
 {
     public static class Utility
     {
-        public static double RandomDouble(double minimum, double maximum)
+        public static double RandomDouble(Random random, double minimum, double maximum)
         {
-            var random = new Random((int)DateTime.Now.Ticks);
             return random.NextDouble() * (maximum - minimum) + minimum;
         }
 
-        public static Brush RandomBrush()
+        public static Brush RandomBrush(Random random)
         {
-            var random = new Random((int)DateTime.Now.Ticks);
             Color color = Color.FromArgb(
                 (byte)random.Next(256),
                 (byte)random.Next(256),

@@ -11,7 +11,7 @@ namespace Viewer
     {
         private readonly VisualCollection m_children;
 
-        private static readonly Pen s_pen = new Pen(Brushes.Blue, 2d);
+        private static readonly Pen s_pen = new Pen(Brushes.Orange, 2d);
 
         public Annotations(View view)
         {

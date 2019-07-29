@@ -1,4 +1,6 @@
-﻿namespace Viewer
+﻿using System;
+
+namespace Viewer
 {
     public class CircleDefinition : ShapeDefinition
     {
@@ -12,7 +14,7 @@
 
         public override Shape Convert()
         {
-            return new Circle(Filled ? Utility.RandomBrush() : null, Pen(), Point(Center), Radius);
+            return new Circle(Filled ? Utility.RandomBrush(new Random()) : null, Pen(), Point(Center), Radius);
         }
     }
 }

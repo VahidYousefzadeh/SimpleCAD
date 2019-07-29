@@ -1,4 +1,6 @@
-﻿namespace Viewer
+﻿using System;
+
+namespace Viewer
 {
     public sealed class TriangleDefinition : ShapeDefinition
     {
@@ -14,7 +16,7 @@
 
         public override Shape Convert()
         {
-            return Polygon.Triangle(Filled ? Utility.RandomBrush() : null, Pen(), Point(A), Point(B), Point(C));
+            return Polygon.Triangle(Filled ? Utility.RandomBrush(new Random()) : null, Pen(), Point(A), Point(B), Point(C));
         }
     }
 }
