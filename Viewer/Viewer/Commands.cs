@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
-using Newtonsoft.Json;
 
 namespace Viewer
 {
@@ -18,14 +17,15 @@ namespace Viewer
 
         public static View LoadXml()
         {
-            OpenFileDialog dialog = new OpenFileDialog()
+            var dialog = new OpenFileDialog()
             {
-                FileName = "Select an XML file",
                 Filter = @"XML files (*.xml)|*.xml",
-                Title = @"Open text file"
+                Title = @"Open XML file"
             };
 
             dialog.ShowDialog();
+
+            if (!File.Exists(dialog.FileName)) return new View();
 
             IEnumerable<Shape> shapes = XmlToShapeDefinitionParser
                 .Parse(dialog.FileName)
@@ -36,21 +36,21 @@ namespace Viewer
 
         public static View LoadJson()
         {
-            string path = "C:/backup/json.txt";
-
-            string jsonString = File.ReadAllText(path);
-
-            IList<ShapeDefinition> oo = JsonConvert.DeserializeObject<IList<ShapeDefinition>>(jsonString, new ShapeConverter());
-
-            IEnumerable<Shape> shapes = oo.Select(o => o.Convert());
-
-            var view = new View();
-            foreach (Shape shape in shapes)
+            var dialog = new OpenFileDialog()
             {
-                view.AddShape(shape);
-            }
+                Filter = @"JSON files (*.json)|*.json",
+                Title = @"Open JSON file"
+            };
 
-            return view;
+            dialog.ShowDialog();
+
+            if (!File.Exists(dialog.FileName)) return new View();
+
+            IEnumerable<Shape> shapes = JsonToShapeDefinitionParser
+                .Parse(dialog.FileName)
+                .Select(o => o.Convert());
+
+            return new View(shapes);
         }
 
         public static View RandomShapes()
