@@ -44,7 +44,7 @@ namespace Viewer
 
             if (!File.Exists(dialog.FileName)) return new View();
 
-            IEnumerable<Shape> shapes = JsonToShapeDefinitionParser
+            IEnumerable<Shape> shapes = JsonToShapeDefinitionConverter
                 .Parse(dialog.FileName)
                 .Select(o => o.Convert());
 
@@ -63,6 +63,12 @@ namespace Viewer
             }
 
             return new View(shapes);
+        }
+
+        public static void SaveJson(View view)
+        {
+            var json = ShapeToJsonConverter.Convert(view.Shapes);
+            Clipboard.SetText(json);
         }
     }
 }

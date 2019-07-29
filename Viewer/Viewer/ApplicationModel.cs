@@ -17,11 +17,13 @@ namespace Viewer
             ClearCommand = new Command(p => { View = Commands.Clear(); }, p => true);
             LoadJsonCommand = new Command(p => { View = Commands.LoadJson(); }, p => true);
             LoadXmlCommand = new Command(p => { View = Commands.LoadXml(); }, p => true);
+            SaveJsonCommand = new Command(p => { Commands.SaveJson(View); }, p => true);
         }
 
         public ICommand RandomShapesCommand { get; }
         public ICommand LoadJsonCommand { get; }
         public ICommand LoadXmlCommand { get; }
         public ICommand ClearCommand { get; }
+        public ICommand SaveJsonCommand { get; }
     }
 }

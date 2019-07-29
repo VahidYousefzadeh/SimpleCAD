@@ -14,10 +14,10 @@ namespace Viewer
         public static Brush RandomBrush(Random random)
         {
             Color color = Color.FromArgb(
-                (byte)random.Next(256),
-                (byte)random.Next(256),
-                (byte)random.Next(256),
-                (byte)random.Next(256));
+                (byte)random.Next(130, 256),
+                (byte)random.Next(130, 256),
+                (byte)random.Next(130, 256),
+                (byte)random.Next(130, 256));
 
             var brush = new SolidColorBrush(color);
             return Freeze(brush);

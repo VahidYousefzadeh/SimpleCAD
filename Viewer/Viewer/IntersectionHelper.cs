@@ -46,29 +46,18 @@ namespace Viewer
                 return new Point[0];
 
             double a1 = a.EndPoint.Y - a.StartPoint.Y;
-            double a2 = b.EndPoint.Y - b.StartPoint.Y;
-
             double b1 = a.StartPoint.X - a.EndPoint.X;
-            double b2 = b.StartPoint.X - b.EndPoint.X;
-
             double c1 = a1 * a.StartPoint.X + b1 * a.StartPoint.Y;
+
+            double a2 = b.EndPoint.Y - b.StartPoint.Y;
+            double b2 = b.StartPoint.X - b.EndPoint.X;
             double c2 = a2 * b.StartPoint.X + b2 * b.StartPoint.Y;
 
             double delta = a1 * b2 - a2 * b1;
 
-            if (delta.AlmostEquals(0))
-                return new Point[0];
-
-            double x = (b2 * c1 - b1 * c2) / delta;
-            double y = (a1 * c2 - a2 * c1) / delta;
-
-            if (Math.Min(a.StartPoint.X, a.EndPoint.X) <= x && x <= Math.Max(a.StartPoint.X, a.EndPoint.X) &&
-                Math.Min(b.StartPoint.X, b.EndPoint.X) <= x && x <= Math.Max(b.StartPoint.X, b.EndPoint.X))
-            {
-                return new[] { new Point(x, y) };
-            }
-
-            return new Point[0];
+            return delta.AlmostEquals(0d) 
+                ? new Point[0] 
+                : new[] {new Point((b2 * c1 - b1 * c2) / delta, (a1 * c2 - a2 * c1) / delta)};
         }
 
         public static Point[] CircleCircleIntersecton(CircleGeometry a, CircleGeometry b)

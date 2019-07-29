@@ -64,21 +64,22 @@ namespace Viewer
         private static DashStyle RandomDashStyle()
         {
             var random = new Random((int)DateTime.Now.Ticks);
-            switch (random.Next(0, 4))
-            {
-                case 0:
-                    return DashStyles.DashDot;
-                case 1:
-                    return DashStyles.Dash;
-                case 2:
-                    return DashStyles.DashDotDot;
-                case 3:
-                    return DashStyles.Dot;
-                case 4:
-                    return DashStyles.Solid;
-                default:
-                    return DashStyles.Solid;
-            }
+            return DashStyles.Solid;
+            //switch (random.Next(0, 4))
+            //{
+            //    case 0:
+            //        return DashStyles.da;
+            //    case 1:
+            //        return DashStyles.Dash;
+            //    case 2:
+            //        return DashStyles.DashDotDot;
+            //    case 3:
+            //        return DashStyles.Dot;
+            //    case 4:
+            //        return DashStyles.Solid;
+            //    default:
+            //        return DashStyles.Solid;
+            //}
         }
 
     }
