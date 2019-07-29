@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Media;
 using Newtonsoft.Json;
 
@@ -17,10 +18,18 @@ namespace Viewer
 
         public static View LoadXml()
         {
-            IList<Shape> shapes = XmlToShapeDefinitionParser
-                .Parse("C:/backup/dada.xml")
-                .Select(o => o.Convert())
-                .ToList();
+            OpenFileDialog dialog = new OpenFileDialog()
+            {
+                FileName = "Select an XML file",
+                Filter = @"XML files (*.xml)|*.xml",
+                Title = @"Open text file"
+            };
+
+            dialog.ShowDialog();
+
+            IEnumerable<Shape> shapes = XmlToShapeDefinitionParser
+                .Parse(dialog.FileName)
+                .Select(o => o.Convert());
 
             return new View(shapes);
         }
