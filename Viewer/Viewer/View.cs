@@ -13,9 +13,15 @@ namespace Viewer
 
         public IList<Shape> Shapes => m_children.OfType<Shape>().ToList();
 
-        public View()
+
+        public View(IEnumerable<Shape> shapes = null)
         {
             m_children = new VisualCollection(this);
+
+            if (shapes != null)
+            {
+                foreach (Shape shape in shapes) AddShape(shape);
+            }
 
             MouseLeftButtonUp += OnMouseLeftButtonUp;
         }

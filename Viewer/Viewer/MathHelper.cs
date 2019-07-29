@@ -9,7 +9,7 @@ namespace Viewer
         /// <summary>
         /// Zero tolerance constant.
         /// </summary>
-        private const double Epsilon = 1.0e-9;
+        public const double Epsilon = 1.0e-9;
 
         /// <summary>
         /// Compare two doubles for equality within a tolerance.

@@ -5,34 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Viewer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <DockPanel Margin="5">
+        Title="MainWindow" Height="450" Width="800" Background="#FFEEEEEE">
+    <DockPanel>
         <Grid>
             <Grid.DataContext>
                 <local:ApplicationModel x:Name="Model"/>
             </Grid.DataContext>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="227"/>
             </Grid.ColumnDefinitions>
 
             <local:ViewPanel View="{Binding View}" Background="Black"/>
 
-            <GridSplitter Grid.Column="1"/>
-            <StackPanel Grid.Column="2">
-                <GroupBox Header="File" Margin="0 2">
-                    <Grid Margin="5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="5"/>
-                            <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
-                        <Button FontSize="10" Content="Load Json" Command="{Binding LoadJsonCommand}" />
-                        <Button FontSize="10" Content="Clear" Command="{Binding ClearCommand}" Grid.Column="2" />
-                        <Button FontSize="10" Content="Random Shapes" Command="{Binding RandomShapesCommand}" Grid.Column="2" />
-                    </Grid>
-                </GroupBox>
+            <StackPanel Grid.Column="1" Margin="5 0">
+                <Button FontSize="10" Content="Load JSON" Command="{Binding LoadJsonCommand}" Margin="0 7 0 0"/>
+                <Button FontSize="10" Content="Load XML" Command="{Binding LoadXmlCommand}" Margin="0 7 0 0"/>
+                <Button FontSize="10" Content="Random Shapes" Command="{Binding RandomShapesCommand}" Margin="0 7 0 0" />
             </StackPanel>
         </Grid>
     </DockPanel>

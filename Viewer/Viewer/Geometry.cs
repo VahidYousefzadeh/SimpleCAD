@@ -6,6 +6,6 @@ namespace Viewer
     {
         internal abstract Point[] Intersect(Geometry other);
 
-        internal abstract Rect Bounds();
+        internal abstract Rect Bounds { get; }
     }
 }

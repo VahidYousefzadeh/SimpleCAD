@@ -15,6 +15,16 @@ namespace Viewer
             return new View();
         }
 
+        public static View LoadXml()
+        {
+            IList<Shape> shapes = XmlToShapeDefinitionParser
+                .Parse("C:/backup/dada.xml")
+                .Select(o => o.Convert())
+                .ToList();
+
+            return new View(shapes);
+        }
+
         public static View LoadJson()
         {
             string path = "C:/backup/json.txt";

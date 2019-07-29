@@ -1,23 +1,17 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 
 namespace Viewer
 {
     public sealed class PolygonGeometry : Geometry
     {
-        public LineGeometry[] Edges { get; } 
+        public LineGeometry[] Edges { get; }
+        internal override Rect Bounds { get; }
 
         public PolygonGeometry(params Point[] points)
         {
-            Edges = new LineGeometry[points.Length];
-
-            int count = 0;
-            while (count < points.Length - 1)
-            {
-                Edges[count] = new LineGeometry(points[count], points[count + 1]);
-                count++;
-            }
-
-            Edges[count] = new LineGeometry(points[count], points[0]);
+            Edges = GetEdges(points);
+            Bounds = GetBounds();
         }
 
         internal override Point[] Intersect(Geometry other)
@@ -35,12 +29,28 @@ namespace Viewer
             }
         }
 
-        internal override Rect Bounds()
+        private static LineGeometry[] GetEdges(IReadOnlyList<Point> points)
+        {
+            LineGeometry[] edges = new LineGeometry[points.Count];
+
+            int count = 0;
+            while (count < points.Count - 1)
+            {
+                edges[count] = new LineGeometry(points[count], points[count + 1]);
+                count++;
+            }
+
+            edges[count] = new LineGeometry(points[count], points[0]);
+
+            return edges;
+        }
+
+        private Rect GetBounds()
         {
             Rect bounds = Rect.Empty;
             foreach (LineGeometry edge in Edges)
             {
-                bounds.Union(edge.Bounds());
+                bounds.Union(edge.Bounds);
             }
 
             return bounds;

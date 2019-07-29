@@ -6,11 +6,13 @@ namespace Viewer
     {
         internal Point StartPoint { get; }
         internal Point EndPoint { get; }
+        internal override Rect Bounds { get; }
 
         internal LineGeometry(Point startPoint, Point endPoint)
         {
             StartPoint = startPoint;
             EndPoint = endPoint;
+            Bounds = GetBounds();
         }
 
         internal Vector Direction()
@@ -36,7 +38,7 @@ namespace Viewer
             }
         }
 
-        internal override Rect Bounds()
+        private Rect GetBounds()
         {
             return new Rect(StartPoint, EndPoint);
         }

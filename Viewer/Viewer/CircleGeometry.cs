@@ -8,10 +8,13 @@ namespace Viewer
 
         public double Radius { get; }
 
+        internal override Rect Bounds { get; }
+
         public CircleGeometry(Point center, double radius)
         {
             Center = center;
             Radius = radius;
+            Bounds = GetBounds();
         }
 
         internal override Point[] Intersect(Geometry other)
@@ -29,7 +32,7 @@ namespace Viewer
             }
         }
 
-        internal override Rect Bounds()
+        private Rect GetBounds()
         {
             var a = new Point(Center.X - Radius, Center.Y + Radius);
             var b = new Point(Center.X + Radius, Center.Y - Radius);
