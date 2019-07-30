@@ -18,7 +18,7 @@ namespace Viewer
 
         public override Shape Convert()
         {
-            return Polygon.Rectangle(
+            return new Rectangle(
                 Filled ? Utility.RandomBrush(new Random()) : null, 
                 Pen(), 
                 Point(Origin), 

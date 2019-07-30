@@ -8,7 +8,7 @@ namespace Viewer
         /// <summary>
         /// Initializes an instance of <see cref="Line"/> class.
         /// </summary>
-        public Line(Pen pen, Point startPoint, Point endPoint)
+        public Line(Pen pen, Point startPoint, Point endPoint) : base(pen)
         {
             Geometry = new LineGeometry(startPoint, endPoint);
 

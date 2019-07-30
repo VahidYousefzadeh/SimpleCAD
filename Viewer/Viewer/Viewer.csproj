@@ -78,9 +78,11 @@
     <Compile Include="PolygonGeometry.cs" />
     <Compile Include="Polygon.cs" />
     <Compile Include="RandomShapeGenerator.cs" />
+    <Compile Include="Rectangle.cs" />
     <Compile Include="RectangleDefinition.cs" />
     <Compile Include="Shape.cs" />
     <Compile Include="ShapeDefinition.cs" />
+    <Compile Include="Triangle.cs" />
     <Compile Include="TriangleDefinition.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="View.cs" />

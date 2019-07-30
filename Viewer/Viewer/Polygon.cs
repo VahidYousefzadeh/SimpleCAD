@@ -4,25 +4,9 @@ using System.Windows.Media;
 
 namespace Viewer
 {
-    internal sealed class Polygon : Shape
+    public abstract class Polygon : Shape
     {
-        /// <summary>
-        /// Initializes an instance of <see cref="Triangle"/> class.
-        /// </summary>
-        public static Polygon Triangle(Brush fill, Pen pen, Point a, Point b, Point c)
-        {
-            return new Polygon(fill, pen, a, b, c);
-        }
-
-        /// <summary>
-        /// Initializes an instance of <see cref="Rectangle"/> class.
-        /// </summary>
-        public static Polygon Rectangle(Brush fill, Pen pen, Point corner, double width, double height, double rotation)
-        {
-            return null;
-        }
-
-        private Polygon(Brush fill, Pen pen, params Point[] corners)
+        protected Polygon(Brush fill, Pen pen, params Point[] corners) : base(pen)
         {
             Geometry = new PolygonGeometry(corners);
 
