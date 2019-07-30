@@ -13,15 +13,13 @@ namespace Viewer
 
         public IList<Shape> Shapes => m_children.OfType<Shape>().ToList();
 
-
         public View(IEnumerable<Shape> shapes = null)
         {
             m_children = new VisualCollection(this);
 
             if (shapes != null)
-            {
-                foreach (Shape shape in shapes) AddShape(shape);
-            }
+                foreach (Shape shape in shapes)
+                    m_children.Add(shape);
 
             MouseLeftButtonUp += OnMouseLeftButtonUp;
         }
@@ -29,7 +27,6 @@ namespace Viewer
         private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Point pt = e.GetPosition((UIElement)sender);
-
             VisualTreeHelper.HitTest(this, null, HitTestCallback, new PointHitTestParameters(pt));
         }
 
@@ -38,9 +35,7 @@ namespace Viewer
             if (result.VisualHit is Shape shape)
             {
                 shape.Opacity = 0.4;
-
-                MessageBox.Show($"{shape}\n{shape.Geometry}");
-
+                MessageBox.Show($"{shape}");
                 shape.Opacity = 1.0;
             }
 
@@ -58,11 +53,6 @@ namespace Viewer
             }
 
             return m_children[index];
-        }
-
-        public void AddShape(Shape shape)
-        {
-            m_children.Add(shape);
         }
     }
 }

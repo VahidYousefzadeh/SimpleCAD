@@ -17,7 +17,8 @@ namespace Viewer
         {
             return $"Type: \t\t {GetType().Name} \n" +
                    $"Color: \t\t {Pen.Brush} \n" +
-                   $"LineType: \t\t {JsonDashStyleHelper.ToJson(Pen.DashStyle).ToUpper()}";
+                   $"LineType: \t\t {JsonDashStyleHelper.ToJson(Pen.DashStyle).ToUpper()} \n" +
+                   Geometry;
         }
     }
 }
