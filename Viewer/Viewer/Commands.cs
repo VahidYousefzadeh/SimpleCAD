@@ -57,7 +57,7 @@ namespace Viewer
             var generator = new RandomShapeGenerator(random, 1000d , 1000d);
 
             IList<Shape> shapes = new List<Shape>();
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 4; i++)
             {
                 shapes.Add(generator.Generate());
             }
