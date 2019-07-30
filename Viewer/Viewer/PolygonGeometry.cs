@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace Viewer
@@ -27,6 +29,20 @@ namespace Viewer
                 default:
                     return new Point[0];
             }
+        }
+
+        public override string ToString()
+        {
+            IList<Point> points = Edges.Select(o => o.StartPoint).ToList();
+
+            string str = "";
+            for (int i = 0; i < Edges.Length; i++)
+            {
+                str = $"X{i + 1}: \t\t {(double) Math.Round((decimal) points[i].X, 3)} \n" +
+                      $"Y{i + 1}: \t\t {(double) Math.Round((decimal) points[i].Y, 3)} \n" + str;
+            }
+
+            return str;
         }
 
         private static LineGeometry[] GetEdges(IReadOnlyList<Point> points)

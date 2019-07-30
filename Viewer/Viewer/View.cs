@@ -35,9 +35,13 @@ namespace Viewer
 
         private static HitTestResultBehavior HitTestCallback(HitTestResult result)
         {
-            if (result.VisualHit is DrawingVisual visual)
+            if (result.VisualHit is Shape shape)
             {
-                visual.Opacity = visual.Opacity >= 1.0 ? 0.4 : 1.0;
+                shape.Opacity = 0.4;
+
+                MessageBox.Show($"{shape}\n{shape.Geometry}");
+
+                shape.Opacity = 1.0;
             }
 
             // Stop the hit test enumeration of objects in the visual tree.

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Viewer
 {
@@ -30,6 +31,13 @@ namespace Viewer
                 default:
                     return new Point[0];
             }
+        }
+
+        public override string ToString()
+        {
+            return $"X: \t\t {(double) Math.Round((decimal) Center.X, 3)} \n" +
+                   $"Y: \t\t {(double) Math.Round((decimal) Center.Y, 3)} \n" +
+                   $"Radius: \t\t {(double) Math.Round((decimal) Radius, 3)}";
         }
 
         private Rect GetBounds()
