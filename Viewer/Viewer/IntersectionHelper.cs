@@ -30,7 +30,6 @@ namespace Viewer
 
                     if (gi.Intersects(interval) || gi.Contains(interval))
                         candidates.Add(geometry);
-
                 }
             }
 

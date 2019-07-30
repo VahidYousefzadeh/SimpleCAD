@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="227"/>
             </Grid.ColumnDefinitions>
 
-            <local:ViewPanel View="{Binding View}" Background="Black"/>
+            <local:ViewPanel View="{Binding View}" Background="Black" ClipToBounds="True"/>
 
             <StackPanel Grid.Column="1" Margin="5 0">
                 <Button FontSize="10" Content="Load JSON" Command="{Binding LoadJsonCommand}" Margin="0 7 0 0"/>
