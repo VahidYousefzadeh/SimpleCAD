@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace Viewer
 {
-    public static class XmlToShapeDefinitionParser
+    public static class XmlToShapeConverter
     {
-        public static IList<ShapeDefinition> Parse(string path)
+        public static IEnumerable<Shape> Parse(string path)
         {
             IList<ShapeDefinition> shapeDefinitions = new List<ShapeDefinition>();
 
@@ -26,7 +27,7 @@ namespace Viewer
                 }
             }
 
-            return shapeDefinitions;
+            return shapeDefinitions.Select(o => o.Convert());
         }
 
         private static ShapeDefinition XmlToLineDefinition(XContainer element)

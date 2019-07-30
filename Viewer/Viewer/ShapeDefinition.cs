@@ -31,17 +31,7 @@ namespace Viewer
 
             DashStyle DashStyle()
             {
-                switch (LineType)
-                {
-                    case "dash":
-                        return DashStyles.Dash;
-                    case "dot":
-                        return DashStyles.Dot;
-                    case "dashDot":
-                        return DashStyles.DashDot;
-                    default:
-                        return DashStyles.Solid;
-                }
+                return JsonDashStyleHelper.FromJson(LineType);
             }
         }
 

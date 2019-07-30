@@ -69,7 +69,8 @@
     <Compile Include="DoubleInterval.cs" />
     <Compile Include="Geometry.cs" />
     <Compile Include="IntersectionHelper.cs" />
-    <Compile Include="JsonToShapeDefinitionConverter.cs" />
+    <Compile Include="JsonDashStyleHelper.cs" />
+    <Compile Include="JsonToShapeConverter.cs" />
     <Compile Include="LineDefinition.cs" />
     <Compile Include="CrossSymbols.cs" />
     <Compile Include="MathHelper.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="RectangleDefinition.cs" />
     <Compile Include="Shape.cs" />
     <Compile Include="ShapeDefinition.cs" />
+    <Compile Include="ShapeToJsonConverter.cs" />
     <Compile Include="Triangle.cs" />
     <Compile Include="TriangleDefinition.cs" />
     <Compile Include="Utility.cs" />
@@ -89,7 +91,7 @@
     <Compile Include="ViewPanel.xaml.cs">
       <DependentUpon>ViewPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XmlToShapeDefinitionParser.cs" />
+    <Compile Include="XmlToShapeConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

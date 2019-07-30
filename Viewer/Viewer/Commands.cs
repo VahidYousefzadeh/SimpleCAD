@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Viewer
@@ -23,13 +22,9 @@ namespace Viewer
 
             dialog.ShowDialog();
 
-            if (!File.Exists(dialog.FileName)) return new View();
-
-            IEnumerable<Shape> shapes = XmlToShapeDefinitionParser
-                .Parse(dialog.FileName)
-                .Select(o => o.Convert());
-
-            return new View(shapes);
+            return !File.Exists(dialog.FileName) 
+                ? new View() 
+                : new View(XmlToShapeConverter.Parse(dialog.FileName));
         }
 
         public static View LoadJson()
@@ -42,13 +37,9 @@ namespace Viewer
 
             dialog.ShowDialog();
 
-            if (!File.Exists(dialog.FileName)) return new View();
-
-            IEnumerable<Shape> shapes = JsonToShapeDefinitionConverter
-                .Parse(dialog.FileName)
-                .Select(o => o.Convert());
-
-            return new View(shapes);
+            return !File.Exists(dialog.FileName) 
+                ? new View() 
+                : new View(JsonToShapeConverter.Parse(dialog.FileName));
         }
 
         public static View RandomShapes()
