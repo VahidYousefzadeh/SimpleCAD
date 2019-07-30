@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Web.Script.Serialization;
+using System.Windows.Media;
 
 namespace Viewer
 {
@@ -16,13 +17,17 @@ namespace Viewer
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("[");
-            foreach (Shape shape in shapes)
+            for (int i = 0; i < shapes.Count; i++)
             {
-                var json = ShapeToJson(shape);
+                Shape shape = shapes[i];
+                string json = ShapeToJson(shape);
                 if (string.IsNullOrEmpty(json))
                     continue;
 
-                sb.AppendLine(json);
+                sb.Append(json);
+
+                if (i != shapes.Count - 1)
+                    sb.Append(",");
             }
 
             sb.AppendLine("]");
@@ -57,13 +62,25 @@ namespace Viewer
             sb.Append($"{lineGeometry.EndPoint.X.ToString(f)}; {lineGeometry.EndPoint.Y.ToString(f)}");
             sb.Append("\",");
 
-            sb.AppendLine("\"color\":\"255; 255; 255; 255\",");
+            sb.AppendLine();
+            sb.AppendLine(ToJson(line.Pen.Brush));
             sb.AppendLine("\"lineType\":\"solid\"");
 
-            sb.AppendLine("},");
+            sb.AppendLine("}");
 
             return sb.ToString();
 
+        }
+
+        private static string ToJson(Brush brush)
+        {
+            if (brush is SolidColorBrush solidColorBrush)
+            {
+                Color color = solidColorBrush.Color;
+                return $"\"color\": \"{color.A}; {color.R}; {color.G}; {color.B}\",";
+            }
+
+            return " \"color\": \"127; 255; 255; 255\",";
         }
     }
     public static class JsonToShapeDefinitionConverter
