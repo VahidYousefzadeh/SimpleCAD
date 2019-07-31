@@ -39,57 +39,31 @@ namespace Viewer
         /// <summary>
         /// Intersection of two line segments
         /// </summary>
-        public static Point[] LineLineIntersection(LineGeometry la, LineGeometry lb)
+        public static Point[] LineSegementsIntersect(LineGeometry a, LineGeometry b)
         {
-            if (!la.Bounds.IntersectsWith(lb.Bounds))
+            if (!a.Bounds.IntersectsWith(b.Bounds))
                 return new Point[0];
 
-            double dx1 = la.EndPoint.X - la.StartPoint.X;
-            double dy1 = la.EndPoint.Y - la.StartPoint.Y;
-            double dx2 = lb.EndPoint.X - lb.StartPoint.X;
-            double dy2 = lb.EndPoint.Y - lb.StartPoint.Y;
-            double d = dy2 * dx1 - dx2 * dy1;
-            // Return if lines are parallel
-            if (Math.Abs(Math.Round(d)) < MathHelper.Epsilon)
-            {
+            var origin = new Point(0d, 0d);
+            Vector a1 = a.StartPoint - origin;
+            Vector a2 = a.EndPoint - origin;
+            Vector b1 = b.StartPoint - origin;
+            Vector b2 = b.EndPoint - origin;
+
+            Vector r = a2 - a1;
+            Vector s = b2 - b1;
+            double rxs = Vector.CrossProduct(r, s);
+
+            // The lines are either collinear or parallel
+            if (rxs.AlmostEquals(0d))
                 return new Point[0];
-            }
 
-            if (Math.Abs(la.StartPoint.X - la.EndPoint.X) < MathHelper.Epsilon &&
-                Math.Abs(lb.StartPoint.X - lb.EndPoint.X) < MathHelper.Epsilon &&
-                Math.Abs(la.StartPoint.X - lb.StartPoint.X) < MathHelper.Epsilon)
-            {
-                return new Point[0];
-            }
+            double t = Vector.CrossProduct(b1 - a1, s) / rxs;
+            double u = Vector.CrossProduct(b1 - a1, r) / rxs;
 
-
-            // We are using Cos of the angle between two lines to account for nearly parallel lines
-            double cosAngle =
-                Math.Abs((dx1 * dx2 + dy1 * dy2) / Math.Sqrt((dx1 * dx1 + dy1 * dy1) * (dx2 * dx2 + dy2 * dy2)));
-            if (cosAngle > 1 - 0.001)
-            {
-                return new Point[0];
-            }
-
-            double na = (lb.EndPoint.X - lb.StartPoint.X) * (la.StartPoint.Y - lb.StartPoint.Y) - (lb.EndPoint.Y - lb.StartPoint.Y) * (la.StartPoint.X - lb.StartPoint.X);
-            double nb = (la.EndPoint.X - la.StartPoint.X) * (la.StartPoint.Y - lb.StartPoint.Y) - (la.EndPoint.Y - la.StartPoint.Y) * (la.StartPoint.X - lb.StartPoint.X);
-
-            double ua = na / d;
-            double ub = nb / d;
-
-            var pt = new Point[1] {new Point(la.StartPoint.X + ua * (la.EndPoint.X - la.StartPoint.X), la.StartPoint.Y + ua * (la.EndPoint.Y - la.StartPoint.Y)) };
-
-            // The lines do not intersect (but they will if they are extended)
-            if (ua + MathHelper.Epsilon < 0 ||
-                ua - MathHelper.Epsilon > 1 ||
-                ub + MathHelper.Epsilon < 0 ||
-                ub - MathHelper.Epsilon > 1)
-            {
-                return new Point[0];
-            }
-
-
-            return pt;
+            return !rxs.AlmostEquals(0d) && (0 <= t && t <= 1) && (0 <= u && u <= 1)
+                ? new[] {new Point((a1 + t * r).X, (a1 + t * r).Y)}
+                : new Point[0];
         }
 
         public static Point[] CircleCircleIntersecton(CircleGeometry a, CircleGeometry b)

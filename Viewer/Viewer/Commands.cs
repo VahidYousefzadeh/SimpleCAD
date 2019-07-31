@@ -42,13 +42,13 @@ namespace Viewer
                 : new View(JsonToShapeConverter.Parse(dialog.FileName));
         }
 
-        public static View RandomShapes()
+        public static View RandomShapes(int numberOfShapes)
         {
             Random random = new Random((int)DateTime.Now.Ticks);
             var generator = new RandomShapeGenerator(random, 1000d , 1000d);
 
             IList<Shape> shapes = new List<Shape>();
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < numberOfShapes; i++)
             {
                 shapes.Add(generator.Generate());
             }

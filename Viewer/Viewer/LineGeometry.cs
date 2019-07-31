@@ -29,7 +29,7 @@ namespace Viewer
             switch (other)
             {
                 case LineGeometry line:
-                    return IntersectionHelper.LineLineIntersection(this, line);
+                    return IntersectionHelper.LineSegementsIntersect(this, line);
                 case CircleGeometry circle:
                     return IntersectionHelper.LineCircleIntersection(this, circle);
                 case PolygonGeometry polygon:
