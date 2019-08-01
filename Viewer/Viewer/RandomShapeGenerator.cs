@@ -18,8 +18,7 @@ namespace Viewer
 
         public Shape Generate()
         {
-            var random = new Random((int)DateTime.Now.Ticks);
-            int type = random.Next(0, 2);
+            int type = m_random.Next(0, 2);
 
             switch (type)
             {
@@ -53,7 +52,7 @@ namespace Viewer
 
         private static Pen RandomPen(Random random)
         {
-            return Utility.Freeze(new Pen(Utility.RandomBrush(random), 3d) { DashStyle = RandomDashStyle() });
+            return Utility.Freeze(new Pen(Utility.RandomBrush(random), 3d) { DashStyle = RandomDashStyle(random) });
         }
 
         private static bool RandomBoolean(Random random)
@@ -61,26 +60,21 @@ namespace Viewer
             return random.Next(0, 1) != 0;
         }
 
-        private static DashStyle RandomDashStyle()
+        private static DashStyle RandomDashStyle(Random random)
         {
-            var random = new Random((int)DateTime.Now.Ticks);
-            return DashStyles.Solid;
-            //switch (random.Next(0, 4))
-            //{
-            //    case 0:
-            //        return DashStyles.da;
-            //    case 1:
-            //        return DashStyles.Dash;
-            //    case 2:
-            //        return DashStyles.DashDotDot;
-            //    case 3:
-            //        return DashStyles.Dot;
-            //    case 4:
-            //        return DashStyles.Solid;
-            //    default:
-            //        return DashStyles.Solid;
-            //}
+            switch (random.Next(0, 4))
+            {
+                case 0:
+                    return DashStyles.DashDot;
+                case 1:
+                    return DashStyles.Dash;
+                case 2:
+                    return DashStyles.Dot;
+                case 3:
+                    return DashStyles.Solid;
+                default:
+                    return DashStyles.Solid;
+            }
         }
-
     }
 }
