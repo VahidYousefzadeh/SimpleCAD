@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Viewer
 {
@@ -72,6 +75,50 @@ namespace Viewer
             Scale = Math.Min(ActualWidth / (xmax - xmin), ActualHeight / (ymax - ymin)) * 0.9;
             Dx = -xc * Scale + 0.5 * ActualWidth;
             Dy = -yc * Scale + 0.5 * ActualHeight;
+        }
+
+        private void OnMouseMove(object sender, MouseEventArgs e)
+        {
+            Cursor = Cursors.None;
+            Point pt = e.GetPosition((UIElement)sender);
+            Rectangle.Visibility = Visibility.Visible;
+
+            Canvas.SetTop(Rectangle, pt.Y);
+            Canvas.SetLeft(Rectangle, pt.X);
+        }
+
+        private void OnMouseLeave(object sender, MouseEventArgs e)
+        {
+            Rectangle.Visibility = Visibility.Collapsed;
+        }
+
+        private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Point pt = e.GetPosition((UIElement)sender);
+
+            var geom = new RectangleGeometry(new Rect(pt.X -5, pt.Y - 5, 10, 10));
+
+            VisualTreeHelper.HitTest(this, HitTestFilterCallback, HitTestCallback, new GeometryHitTestParameters(geom));
+        }
+
+        private static HitTestFilterBehavior HitTestFilterCallback(DependencyObject potentialHitTestTarget)
+        {
+            return potentialHitTestTarget is Shape 
+                ? HitTestFilterBehavior.Continue 
+                : HitTestFilterBehavior.ContinueSkipSelf;
+        }
+
+        private static HitTestResultBehavior HitTestCallback(HitTestResult result)
+        {
+            if (result.VisualHit is Shape shape)
+            {
+                shape.Opacity = 0.4;
+                MessageBox.Show($"{shape}");
+                shape.Opacity = 1.0;
+            }
+
+            // Stop the hit test enumeration of objects in the visual tree.
+            return HitTestResultBehavior.Stop;
         }
     }
 }

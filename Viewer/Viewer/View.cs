@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Viewer
@@ -17,30 +16,10 @@ namespace Viewer
         {
             m_children = new VisualCollection(this);
 
-            if (shapes != null)
-                foreach (Shape shape in shapes)
-                    m_children.Add(shape);
+            if (shapes == null) return;
 
-            MouseLeftButtonUp += OnMouseLeftButtonUp;
-        }
-
-        private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            Point pt = e.GetPosition((UIElement)sender);
-            VisualTreeHelper.HitTest(this, null, HitTestCallback, new PointHitTestParameters(pt));
-        }
-
-        private static HitTestResultBehavior HitTestCallback(HitTestResult result)
-        {
-            if (result.VisualHit is Shape shape)
-            {
-                shape.Opacity = 0.4;
-                MessageBox.Show($"{shape}");
-                shape.Opacity = 1.0;
-            }
-
-            // Stop the hit test enumeration of objects in the visual tree.
-            return HitTestResultBehavior.Stop;
+            foreach (Shape shape in shapes)
+                m_children.Add(shape);
         }
 
         protected override int VisualChildrenCount => m_children.Count;
