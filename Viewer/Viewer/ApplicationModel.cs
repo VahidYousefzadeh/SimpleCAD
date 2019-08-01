@@ -13,7 +13,7 @@ namespace Viewer
 
         public ApplicationModel()
         {
-            RandomShapesCommand = new Command(p => { View = Commands.RandomShapes(100); }, p => true);
+            RandomShapesCommand = new Command(p => { View = Commands.RandomShapes(); }, p => true);
             ClearCommand = new Command(p => { View = Commands.Clear(); }, p => true);
             LoadJsonCommand = new Command(p => { View = Commands.LoadJson(); }, p => true);
             LoadXmlCommand = new Command(p => { View = Commands.LoadXml(); }, p => true);
