@@ -16,7 +16,7 @@ namespace Viewer
 
         protected Pen Pen()
         {
-            return Utility.Freeze(new Pen(Brush(GetColor()), 1d) {DashStyle = DashStyle()});
+            return Utility.Freeze(new Pen(Brush(GetColor()), 3d) {DashStyle = DashStyle()});
 
             Color GetColor()
             {

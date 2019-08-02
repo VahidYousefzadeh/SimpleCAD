@@ -24,18 +24,10 @@ namespace Viewer
             sw.Stop();
             MessageBox.Show(sw.ElapsedMilliseconds.ToString());
 
-
-            Stopwatch s = new Stopwatch();
-            s.Start();
-
-
             if (intersections != null)
             {
                 m_children.Add(new CrossSymbols(s_pen, intersections));
             }
-
-            s.Stop();
-            MessageBox.Show(s.ElapsedMilliseconds.ToString());
         }
 
         protected override int VisualChildrenCount => m_children.Count;
