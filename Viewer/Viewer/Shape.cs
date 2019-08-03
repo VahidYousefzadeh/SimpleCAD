@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows.Media;
-using System.Xml.Linq;
+﻿using System.Windows.Media;
 using Color = System.Windows.Media.Color;
 
 namespace Viewer

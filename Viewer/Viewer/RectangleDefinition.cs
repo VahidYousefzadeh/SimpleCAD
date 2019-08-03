@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Viewer
+﻿namespace Viewer
 {
     public sealed class RectangleDefinition : ShapeDefinition
     {

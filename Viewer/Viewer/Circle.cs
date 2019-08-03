@@ -1,8 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
-using System.Xml.Linq;
-using iText.Kernel.Pdf.Canvas;
 
 namespace Viewer
 {

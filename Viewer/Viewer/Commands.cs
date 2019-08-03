@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
-using System.Windows.Media;
 using System.Xml.Linq;
 using Viewer.Writer;
 using Clipboard = System.Windows.Forms.Clipboard;
