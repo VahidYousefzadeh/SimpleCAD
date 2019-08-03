@@ -20,7 +20,7 @@ namespace Viewer
 
         public static View LoadXml()
         {
-            var dialog = new OpenFileDialog()
+            var dialog = new OpenFileDialog
             {
                 Filter = @"XML files (*.xml)|*.xml",
                 Title = @"Open XML file"
@@ -35,7 +35,7 @@ namespace Viewer
 
         public static View LoadJson()
         {
-            var dialog = new OpenFileDialog()
+            var dialog = new OpenFileDialog
             {
                 Filter = @"JSON files (*.json)|*.json",
                 Title = @"Open JSON file"
@@ -50,16 +50,8 @@ namespace Viewer
 
         public static View RandomShapes(int numberOfShapes, double width, double height)
         {
-            Random random = new Random((int)DateTime.Now.Ticks);
-            var generator = new RandomShapeGenerator(random, width , height);
-
-            IList<Shape> shapes = new List<Shape>();
-            for (int i = 0; i < numberOfShapes; i++)
-            {
-                shapes.Add(generator.Generate());
-            }
-
-            return new View(shapes);
+            var generator = new RandomShapeGenerator(width , height);
+            return new View(generator.Generate(numberOfShapes));
         }
 
         public static void SaveJson(View view)

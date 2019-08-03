@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 
@@ -10,25 +11,24 @@ namespace Viewer
         private readonly double m_screenHeight;
         private readonly Random m_random;
 
-        public RandomShapeGenerator(Random random, double screenWidth, double screenHeight)
+        public RandomShapeGenerator(double screenWidth, double screenHeight)
         {
-            m_random = random;
+            m_random= new Random((int)DateTime.Now.Ticks);
             m_screenWidth = screenWidth;
             m_screenHeight = screenHeight;
         }
 
-        public Shape Generate()
+        public IEnumerable<Shape> Generate(int numberOfShapes)
         {
-            int type = m_random.Next(0, 2);
-
-            switch (type)
+            for (int i = 0; i < numberOfShapes; i++)
             {
-                case 0:
-                    return RandomLine();
-                case 1:
-                    return RandomCircle();
-                default:
-                    return RandomLine();
+                int type = m_random.Next(0, 2);
+
+                if (type == 0)
+                    yield return RandomLine();
+
+                if (type == 1)
+                    yield return RandomCircle();
             }
         }
 
