@@ -20,7 +20,7 @@ namespace Viewer.Writer
 
         public PdfWriter WriteLine(Point a, Point b, Color color, DashStyle dashStyle)
         {
-            SetColor(color);
+            SetColor(color, false);
             WriteLineGeometry(a, b);
 
             return this;
@@ -28,11 +28,17 @@ namespace Viewer.Writer
 
         public PdfWriter WriteCircle(Point center, double radius, Color color, DashStyle dashStyle, bool filled)
         {
+            SetColor(color, filled);
+            WriteCircleGeometry(center, radius, filled);
+
             return this;
         }
 
         public PdfWriter WriteTriangle(Point a, Point b, Point c, Color color, DashStyle dashStyle, bool filled)
         {
+            SetColor(color, filled);
+            WriteTriangleGeometry(a, b, c, filled);
+
             return this;
         }
 
@@ -53,9 +59,31 @@ namespace Viewer.Writer
             m_canvas.MoveTo(a.X, a.Y).LineTo(b.X, b.Y).ClosePathStroke();
         }
 
-        private void SetColor(Color color)
+        private void WriteCircleGeometry(Point center, double radius, bool filled)
+        {
+            m_canvas.Circle(center.X, center.Y, radius);
+
+            if (filled)
+                m_canvas.ClosePathFillStroke();
+            else
+                m_canvas.ClosePathStroke();
+        }
+
+        private void WriteTriangleGeometry(Point a, Point b, Point c, bool filled)
+        {
+            m_canvas.MoveTo(a.X, a.Y).LineTo(b.X, b.Y).LineTo(c.X, c.Y).LineTo(a.X, a.Y);
+
+            if (filled)
+                m_canvas.ClosePathFillStroke();
+            else
+                m_canvas.ClosePathStroke();
+        }
+
+        private void SetColor(Color color, bool filled)
         {
             m_canvas.SetStrokeColor(new DeviceRgb(color.R, color.G, color.B));
+
+            if (filled) m_canvas.SetFillColor(new DeviceRgb(color.R, color.G, color.B));
         }
     }
 }

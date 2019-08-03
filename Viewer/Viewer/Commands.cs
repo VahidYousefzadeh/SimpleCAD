@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using iText.Kernel.Colors;
-using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas;
-using iText.Kernel.Pdf.Colorspace;
-using iText.Layout.Properties;
 using Viewer.Writer;
-using Clipboard = System.Windows.Forms.Clipboard;
-using PdfWriter = Viewer.Writer.PdfWriter;
+
 
 namespace Viewer
 {
@@ -80,7 +73,5 @@ namespace Viewer
             IWriter<PdfWriter> pdfWriter = new PdfWriter(filename, 1000, 1000);
             pdfWriter.WriteView(view).Close();
         }
-
-
     }
 }
