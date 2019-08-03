@@ -27,11 +27,6 @@ namespace Viewer
             return Shapes.Aggregate(Rect.Empty, (current, shape) => Rect.Union(current, shape.Geometry.Bounds));
         }
 
-        public T Write<T>(IWriter<T> writer)
-        {
-            return writer.WriteView(this);
-        }
-
         protected override int VisualChildrenCount => m_children.Count;
 
         protected override Visual GetVisualChild(int index)

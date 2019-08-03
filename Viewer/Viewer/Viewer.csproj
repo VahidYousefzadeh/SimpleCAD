@@ -125,6 +125,7 @@
     <Compile Include="ViewPanel.xaml.cs">
       <DependentUpon>ViewPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Writer\PdfWriter.cs" />
     <Compile Include="XmlToShapeConverter.cs" />
     <Compile Include="Writer\XmlWriter.cs" />
     <Page Include="MainWindow.xaml">

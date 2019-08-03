@@ -4,8 +4,14 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using iText.Kernel.Colors;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Colorspace;
+using iText.Layout.Properties;
 using Viewer.Writer;
 using Clipboard = System.Windows.Forms.Clipboard;
+using PdfWriter = Viewer.Writer.PdfWriter;
 
 namespace Viewer
 {
@@ -56,46 +62,23 @@ namespace Viewer
 
         public static void SaveJson(View view)
         {
-            string json = view.Write(new JsonWriter(s_formatProvider));
+            IWriter<string> jsonWriter = new JsonWriter(s_formatProvider);
+            string json = jsonWriter.WriteView(view);
+
             Clipboard.SetText(json);
         }
 
         public static void SaveXml(View view)
         {
-            XElement xml = view.Write(new XmlWriter(s_formatProvider));
+            IWriter<XElement> xmlWriter = new XmlWriter(s_formatProvider);
+            XElement xml = xmlWriter.WriteView(view);
         }
 
         public static void SavePdf(View view)
         {
-            var dest = "c:/backup/test.pdf";
-
-
-            //PdfWriter writer = new PdfWriter("c:/backup/test.pdf");
-            //PdfDocument pdf = new PdfDocument(writer);
-            //pdf.SetDefaultPageSize(new PageSize(1000, 1000));
-
-            //PdfCanvas c = new PdfCanvas(pdf.AddNewPage());
-
-            //foreach (Shape shape in view.Shapes)
-            //{
-            //    if (shape is Line line)
-            //    {
-            //        line.WritePdf(c);
-            //    }
-            //}
-
-            //pdf.Close();
-
-            //PdfDocument pdfDoc = new PdfDocument(new PdfWriter(dest));
-            //PdfCanvas canvas = new PdfCanvas(pdfDoc.AddNewPage());
-            //Color magentaColor = new DeviceCmyk(0f, 1f, 0f, 0f);
-            //canvas.SetStrokeColor(magentaColor)
-            //    .MoveTo(36, 36)
-            //    .LineTo(36, 806)
-            //    .LineTo(559, 36)
-            //    .LineTo(559, 806)
-            //    .ClosePathStroke();
-            //pdfDoc.Close();
+            string filename = "c:/backup/test.pdf";
+            IWriter<PdfWriter> pdfWriter = new PdfWriter(filename, 1000, 1000);
+            pdfWriter.WriteView(view).Close();
         }
 
 
