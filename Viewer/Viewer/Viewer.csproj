@@ -67,7 +67,6 @@
     <Compile Include="DoubleInterval.cs" />
     <Compile Include="Geometry.cs" />
     <Compile Include="IntersectionHelper.cs" />
-    <Compile Include="JsonDashStyleHelper.cs" />
     <Compile Include="JsonToShapeConverter.cs" />
     <Compile Include="LineDefinition.cs" />
     <Compile Include="CrossSymbols.cs" />
