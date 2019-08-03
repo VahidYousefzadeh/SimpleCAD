@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Viewer
+﻿namespace Viewer
 {
     public class CircleDefinition : ShapeDefinition
     {

@@ -36,7 +36,7 @@ namespace Viewer
         {
             return $"\"type\": \"circle\",\n" +
                    $"{Geometry.ToJson(provider)},\n" +
-                   $"\"filled\": false";
+                   $"\"filled\": {m_filled}";
         }
 
         protected override XElement[] ToXmlInternal(IFormatProvider provider)
@@ -45,7 +45,7 @@ namespace Viewer
             {
                 new XElement("type", "circle"),
                 Geometry.ToXml(provider),
-                new XElement("filled", false)
+                new XElement("filled", m_filled)
             };
         }
     }

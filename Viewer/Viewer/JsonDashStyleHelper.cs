@@ -1,6 +1,4 @@
-﻿using System.Windows.Media;
-
-namespace Viewer
+﻿namespace Viewer
 {
     public static class JsonDashStyleHelper
     {
