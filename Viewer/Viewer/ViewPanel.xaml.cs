@@ -53,6 +53,8 @@ namespace Viewer
             ((ViewPanel) d).Annotations.Content = new Annotations(((ViewPanel) d).View);
 
             ((ViewPanel)d).ZoomToExtents();
+
+            ((ViewPanel)d).Refresh();
         }
 
         public ViewPanel()
@@ -60,9 +62,18 @@ namespace Viewer
             InitializeComponent();
         }
 
+        private void Refresh()
+        {
+            foreach (Shape shape in View.Shapes)
+            {
+                shape.Thickness = 2d / Scale;
+                shape.InvalidateVisual();
+            }
+        }
+
         private void ZoomToExtents()
         {
-            Rect bounds = View.Shapes.Aggregate(Rect.Empty, (current, shape) => Rect.Union(current, shape.Geometry.Bounds));
+            Rect bounds = View.Bounds();
 
             double xmax = bounds.Right;
             double xmin = bounds.Left;
@@ -108,13 +119,16 @@ namespace Viewer
                 : HitTestFilterBehavior.ContinueSkipSelf;
         }
 
-        private static HitTestResultBehavior HitTestCallback(HitTestResult result)
+        private HitTestResultBehavior HitTestCallback(HitTestResult result)
         {
             if (result.VisualHit is Shape shape)
             {
                 shape.Opacity = 0.4;
+                //shape.Color = Colors.Red;
                 MessageBox.Show($"{shape}");
                 shape.Opacity = 1.0;
+
+                shape.InvalidateVisual();
             }
 
             // Stop the hit test enumeration of objects in the visual tree.

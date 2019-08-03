@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media;
+using System.Xml.Linq;
 
 namespace Viewer
 {
@@ -8,14 +11,33 @@ namespace Viewer
         /// <summary>
         /// Initializes an instance of <see cref="Line"/> class.
         /// </summary>
-        public Line(Pen pen, Point startPoint, Point endPoint) : base(pen)
+        public Line(Point startPoint, Point endPoint)
         {
             Geometry = new LineGeometry(startPoint, endPoint);
 
-            using (DrawingContext drawingContext = RenderOpen())
+            InvalidateVisual();
+        }
+
+        protected override void Render(DrawingContext drawingContext)
+        {
+            var lineGeometry = (LineGeometry) Geometry;
+
+            drawingContext.DrawLine(Pen(), lineGeometry.StartPoint, lineGeometry.EndPoint);
+        }
+
+        protected override string ToJsonInternal(IFormatProvider provider)
+        {
+            return $"\"type\": \"line\",\n" +
+                   $"{Geometry.ToJson(provider)}";
+        }
+
+        protected override XElement[] ToXmlInternal(IFormatProvider provider)
+        {
+            return new[]
             {
-                drawingContext.DrawLine(pen, startPoint, endPoint);
-            }
+                new XElement("type", "line"),
+                Geometry.ToXml(provider)
+            };
         }
     }
 }

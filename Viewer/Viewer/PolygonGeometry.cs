@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace Viewer
 {
@@ -9,6 +10,15 @@ namespace Viewer
     {
         public LineGeometry[] Edges { get; }
         internal override Rect Bounds { get; }
+        public override string ToJson(IFormatProvider formatProvider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XElement ToXml(IFormatProvider provider)
+        {
+            throw new NotImplementedException();
+        }
 
         public PolygonGeometry(params Point[] points)
         {

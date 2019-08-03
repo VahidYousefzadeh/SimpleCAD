@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Xml.Linq;
 
 namespace Viewer
 {
@@ -7,5 +9,9 @@ namespace Viewer
         internal abstract Point[] Intersect(Geometry other);
 
         internal abstract Rect Bounds { get; }
+
+        public abstract string ToJson(IFormatProvider provider);
+
+        public abstract XElement ToXml(IFormatProvider provider);
     }
 }

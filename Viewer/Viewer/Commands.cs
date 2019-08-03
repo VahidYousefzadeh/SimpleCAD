@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 
@@ -58,7 +59,7 @@ namespace Viewer
 
         public static void SaveJson(View view)
         {
-            string json = ShapeToJsonConverter.Convert(view.Shapes);
+            string json = view.ToJson(new CultureInfo("de"));
             Clipboard.SetText(json);
         }
     }

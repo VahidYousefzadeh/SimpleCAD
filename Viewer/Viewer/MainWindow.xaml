@@ -9,7 +9,7 @@
     <DockPanel>
         <Grid>
             <Grid.DataContext>
-                <local:ApplicationModel x:Name="Model"/>
+                <local:ApplicationModel/>
             </Grid.DataContext>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

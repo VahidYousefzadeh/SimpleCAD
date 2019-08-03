@@ -81,7 +81,6 @@
     <Compile Include="RectangleDefinition.cs" />
     <Compile Include="Shape.cs" />
     <Compile Include="ShapeDefinition.cs" />
-    <Compile Include="ShapeToJsonConverter.cs" />
     <Compile Include="Triangle.cs" />
     <Compile Include="TriangleDefinition.cs" />
     <Compile Include="Utility.cs" />

@@ -33,36 +33,54 @@ namespace Viewer
 
         private Shape RandomLine()
         {
-            double x1 = Utility.RandomDouble(m_random, 0d, m_screenWidth);
-            double x2 = Utility.RandomDouble(m_random, 0d, m_screenWidth);
-            double y1 = Utility.RandomDouble(m_random, 0d, m_screenHeight);
-            double y2 = Utility.RandomDouble(m_random, 0d, m_screenHeight);
+            double x1 = RandomDouble(0d, m_screenWidth);
+            double x2 = RandomDouble(0d, m_screenWidth);
+            double y1 = RandomDouble(0d, m_screenHeight);
+            double y2 = RandomDouble(0d, m_screenHeight);
 
-            return new Line(RandomPen(m_random), new Point(x1, y1), new Point(x2, y2));
+            return WithStyle(new Line(new Point(x1, y1), new Point(x2, y2)));
         }
 
         private Shape RandomCircle()
         {
-            double x = Utility.RandomDouble(m_random, 0d, m_screenWidth);
-            double y = Utility.RandomDouble(m_random, 0d, m_screenHeight);
-            double radius = Utility.RandomDouble(m_random, 10d, 100d);
+            double x = RandomDouble(0d, m_screenWidth);
+            double y = RandomDouble(0d, m_screenHeight);
+            double radius = RandomDouble(10d, 100d);
 
-            return new Circle(RandomBoolean(m_random) ? Utility.RandomBrush(m_random) : null, RandomPen(m_random), new Point(x, y), radius);
+            return WithStyle(new Circle(new Point(x, y), radius, RandomBoolean()));
         }
 
-        private static Pen RandomPen(Random random)
+        private Shape WithStyle(Shape shape)
         {
-            return Utility.Freeze(new Pen(Utility.RandomBrush(random), 3d) { DashStyle = RandomDashStyle(random) });
+            shape.LineStyle = RandomDashStyle().AsFrozen();
+            shape.Color = RandomColor();
+
+            return shape;
         }
 
-        private static bool RandomBoolean(Random random)
+        public double RandomDouble(double minimum, double maximum)
         {
-            return random.Next(0, 1) != 0;
+            return m_random.NextDouble() * (maximum - minimum) + minimum;
         }
 
-        private static DashStyle RandomDashStyle(Random random)
+
+        private bool RandomBoolean()
         {
-            switch (random.Next(0, 4))
+            return m_random.Next(0, 2) != 0;
+        }
+
+        private Color RandomColor()
+        {
+            return Color.FromArgb(
+                (byte)m_random.Next(130, 256),
+                (byte)m_random.Next(130, 256),
+                (byte)m_random.Next(130, 256),
+                (byte)m_random.Next(130, 256));
+        }
+
+        private DashStyle RandomDashStyle()
+        {
+            switch (m_random.Next(0, 4))
             {
                 case 0:
                     return DashStyles.DashDot;

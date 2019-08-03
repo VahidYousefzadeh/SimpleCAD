@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace Viewer
 {
@@ -8,6 +9,21 @@ namespace Viewer
         internal Point StartPoint { get; }
         internal Point EndPoint { get; }
         internal override Rect Bounds { get; }
+
+
+        public override string ToJson(IFormatProvider provider)
+        {
+            return $"\"a\": \"{StartPoint.X.ToString(provider)}; {StartPoint.Y.ToString(provider)}\",\n" +
+                   $"\"b\": \"{EndPoint.X.ToString(provider)}; {EndPoint.Y.ToString(provider)}\"";
+        }
+
+        public override XElement ToXml(IFormatProvider provider)
+        {
+            return new XElement(
+                "geometry",
+                new XElement("a", $"{StartPoint.X.ToString(provider)}; {StartPoint.Y.ToString(provider)}"),
+                new XElement("b", $"{EndPoint.X.ToString(provider)}; {EndPoint.Y.ToString(provider)}"));
+        }
 
         internal LineGeometry(Point startPoint, Point endPoint)
         {

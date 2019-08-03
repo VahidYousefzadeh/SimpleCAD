@@ -16,7 +16,7 @@ namespace Viewer
 
         protected Pen Pen()
         {
-            return Utility.Freeze(new Pen(Brush(GetColor()), 3d) {DashStyle = DashStyle()});
+            return new Pen(Brush(GetColor()), 3d) {DashStyle = DashStyle()}.AsFrozen();
 
             Color GetColor()
             {
@@ -31,7 +31,7 @@ namespace Viewer
 
             DashStyle DashStyle()
             {
-                return JsonDashStyleHelper.FromJson(LineType);
+                return LineType.AsDashStyle();
             }
         }
 
@@ -57,14 +57,12 @@ namespace Viewer
 
         private static Brush Brush(Color color)
         {
-            return Utility.Freeze(new SolidColorBrush(color));
+            return new SolidColorBrush(color).AsFrozen();
         }
 
         private static Color Argb(byte a, byte r, byte g, byte b)
         {
             return System.Windows.Media.Color.FromArgb(a, r, g, b);
         }
-
-
     }
 }

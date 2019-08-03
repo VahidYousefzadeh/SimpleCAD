@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Media;
 
@@ -20,6 +21,21 @@ namespace Viewer
 
             foreach (Shape shape in shapes)
                 m_children.Add(shape);
+        }
+
+        public Rect Bounds()
+        {
+            return Shapes.Aggregate(Rect.Empty, (current, shape) => Rect.Union(current, shape.Geometry.Bounds));
+        }
+
+        public string ToJson(IFormatProvider provider)
+        {
+            return $"[\n{string.Join(",\n", Shapes.Select(o => o.ToJson(provider)))}\n]";
+        }
+
+        public string ToXml(IFormatProvider provider)
+        {
+            return "";
         }
 
         protected override int VisualChildrenCount => m_children.Count;

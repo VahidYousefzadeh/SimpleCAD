@@ -14,7 +14,7 @@ namespace Viewer
 
         public override Shape Convert()
         {
-            return new Circle(Filled ? Utility.RandomBrush(new Random()) : null, Pen(), Point(Center), Radius);
+            return new Circle(Point(Center), Radius, Filled);
         }
     }
 }

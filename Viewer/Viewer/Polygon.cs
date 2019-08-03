@@ -6,24 +6,29 @@ namespace Viewer
 {
     public abstract class Polygon : Shape
     {
-        protected Polygon(Brush fill, Pen pen, params Point[] corners) : base(pen)
+        protected Polygon(Brush fill, params Point[] corners)
         {
             Geometry = new PolygonGeometry(corners);
 
-            var streamGeometry = new StreamGeometry();
-            using (StreamGeometryContext geometryContext = streamGeometry.Open())
-            {
-                geometryContext.BeginFigure(corners.First(), true, true);
-                geometryContext.PolyLineTo(
-                    new PointCollection(corners.Skip(1)),
-                    true, 
-                    true);
+            InvalidateVisual();
+        }
 
-                using (DrawingContext drawingContext = RenderOpen())
-                {
-                    drawingContext.DrawGeometry(fill, pen, streamGeometry);
-                }
-            }
+        protected override void Render(DrawingContext drawingContext)
+        {
+            PolygonGeometry polygonGeometry = (PolygonGeometry) Geometry;
+
+            //var streamGeometry = new StreamGeometry();
+            //using (StreamGeometryContext geometryContext = streamGeometry.Open())
+            //{
+            //    geometryContext.BeginFigure(polygonGeometry..First(), true, true);
+            //    geometryContext.PolyLineTo(
+            //        new PointCollection(corners.Skip(1)),
+            //        true,
+            //        true);
+
+            //    drawingContext.DrawGeometry(null, GetPen(), streamGeometry);
+
+            //}
         }
     }
 }

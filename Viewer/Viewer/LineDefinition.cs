@@ -10,7 +10,7 @@
 
         public override Shape Convert()
         {
-            return new Line(Pen(), Point(A), Point(B));
+            return new Line(Point(A), Point(B));
         }
     }
 }

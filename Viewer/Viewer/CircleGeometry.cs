@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Net;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace Viewer
 {
@@ -10,6 +12,19 @@ namespace Viewer
         public double Radius { get; }
 
         internal override Rect Bounds { get; }
+        public override string ToJson(IFormatProvider provider)
+        {
+            return $"\"center\": \"{Center.X.ToString(provider)}; {Center.Y.ToString(provider)}\",\n" +
+                   $"\"radius\": \"{Radius.ToString(provider)}\"";
+        }
+
+        public override XElement ToXml(IFormatProvider provider)
+        {
+            return new XElement(
+                "geometry",
+                new XElement("center", $"{Center.X.ToString(provider)}; {Center.Y.ToString(provider)}"),
+                new XElement("radius", $"{Radius.ToString(provider)}"));
+        }
 
         public CircleGeometry(Point center, double radius)
         {
