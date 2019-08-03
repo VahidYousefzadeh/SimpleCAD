@@ -27,7 +27,7 @@ namespace Viewer
         }
 
         public static readonly DependencyProperty s_scaleProperty = DependencyProperty.Register(
-            nameof(Scale), typeof(double), typeof(ViewPanel), null);
+            nameof(Scale), typeof(double), typeof(ViewPanel), new PropertyMetadata(1.0));
 
         public double Dx
         {
@@ -123,11 +123,8 @@ namespace Viewer
             if (result.VisualHit is Shape shape)
             {
                 shape.Opacity = 0.4;
-                //shape.Color = Colors.Red;
                 MessageBox.Show($"{shape}");
                 shape.Opacity = 1.0;
-
-                shape.InvalidateVisual();
             }
 
             // Stop the hit test enumeration of objects in the visual tree.

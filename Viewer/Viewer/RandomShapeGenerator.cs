@@ -9,6 +9,7 @@ namespace Viewer
         private readonly double m_screenWidth;
         private readonly double m_screenHeight;
         private readonly Random m_random;
+
         public RandomShapeGenerator(Random random, double screenWidth, double screenHeight)
         {
             m_random = random;
