@@ -18,6 +18,8 @@ namespace Viewer
             LoadJsonCommand = new Command(p => { View = Commands.LoadJson(); }, p => true);
             LoadXmlCommand = new Command(p => { View = Commands.LoadXml(); }, p => true);
             SaveJsonCommand = new Command(p => { Commands.SaveJson(View); }, p => true);
+            SaveXmlCommand = new Command(p => { Commands.SaveXml(View); }, p => true);
+            SavePdfCommand = new Command(p => { Commands.SavePdf(View); }, p => true);
         }
 
         public ICommand RandomShapesCommand { get; }
@@ -25,5 +27,7 @@ namespace Viewer
         public ICommand LoadXmlCommand { get; }
         public ICommand ClearCommand { get; }
         public ICommand SaveJsonCommand { get; }
+        public ICommand SaveXmlCommand { get; }
+        public ICommand SavePdfCommand { get; }
     }
 }

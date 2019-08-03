@@ -27,14 +27,9 @@ namespace Viewer
             return Shapes.Aggregate(Rect.Empty, (current, shape) => Rect.Union(current, shape.Geometry.Bounds));
         }
 
-        public string ToJson(IFormatProvider provider)
+        public T Write<T>(IWriter<T> writer)
         {
-            return $"[\n{string.Join(",\n", Shapes.Select(o => o.ToJson(provider)))}\n]";
-        }
-
-        public string ToXml(IFormatProvider provider)
-        {
-            return "";
+            return writer.WriteView(this);
         }
 
         protected override int VisualChildrenCount => m_children.Count;

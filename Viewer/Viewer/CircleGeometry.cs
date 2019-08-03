@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Xml.Linq;
 
 namespace Viewer
 {
@@ -39,20 +38,6 @@ namespace Viewer
             return $"X: \t\t {(double) Math.Round((decimal) Center.X, 3)} \n" +
                    $"Y: \t\t {(double) Math.Round((decimal) Center.Y, 3)} \n" +
                    $"Radius: \t\t {(double) Math.Round((decimal) Radius, 3)}";
-        }
-
-        public override string ToJson(IFormatProvider provider)
-        {
-            return $"\"center\": \"{Center.X.ToString(provider)}; {Center.Y.ToString(provider)}\",\n" +
-                   $"\"radius\": \"{Radius.ToString(provider)}\"";
-        }
-
-        public override XElement ToXml(IFormatProvider provider)
-        {
-            return new XElement(
-                "geometry",
-                new XElement("center", $"{Center.X.ToString(provider)}; {Center.Y.ToString(provider)}"),
-                new XElement("radius", $"{Radius.ToString(provider)}"));
         }
 
         private Rect GetBounds()

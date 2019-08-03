@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Xml.Linq;
+using Color = System.Windows.Media.Color;
 
 namespace Viewer
 {
@@ -86,25 +87,6 @@ namespace Viewer
                    Geometry;
         }
 
-        public string ToJson(IFormatProvider provider)
-        {
-            return $"{{\n" +
-                   $"{ToJsonInternal(provider)},\n" +
-                   $"\"color\": \"{m_color.A}; {m_color.R}; {m_color.G}; {m_color.B}\",\n" +
-                   $"\"lineType\": \"{m_lineStyle.AsString()}\"\n" +
-                   $"}}";
-        }
-
-        public XElement ToXml(IFormatProvider provider)
-        {
-            return new XElement(
-                "shape",
-                ToXmlInternal(provider),
-                new XElement("color", $"{m_color}"),
-                new XElement("lineType", $"{m_lineStyle.AsString()}"));
-        }
-
-        protected abstract string ToJsonInternal(IFormatProvider provider);
-        protected abstract XElement[] ToXmlInternal(IFormatProvider provider);
+        public abstract T Write<T>(IWriter<T> writer);
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Xml.Linq;
 
 namespace Viewer
 {
@@ -44,16 +43,6 @@ namespace Viewer
             }
 
             return str;
-        }
-
-        public override string ToJson(IFormatProvider formatProvider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override XElement ToXml(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
         }
 
         private static LineGeometry[] GetEdges(IReadOnlyList<Point> points)

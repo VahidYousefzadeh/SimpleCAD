@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Xml.Linq;
+using iText.Kernel.Pdf.Canvas;
 
 namespace Viewer
 {
@@ -10,8 +11,8 @@ namespace Viewer
         /// <summary>
         /// Initializes an instance of <see cref="Rectangle"/> class.
         /// </summary>
-        public Rectangle(Brush fill, Point origin, double width, double height, double rotation)
-            : base(fill, Corners(origin, width, height, rotation))
+        public Rectangle(Point origin, double width, double height, double rotation, bool filled)
+            : base(filled, Corners(origin, width, height, rotation))
         {
         }
 
@@ -20,12 +21,7 @@ namespace Viewer
             return null;
         }
 
-        protected override string ToJsonInternal(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override XElement[] ToXmlInternal(IFormatProvider provider)
+        public override T Write<T>(IWriter<T> writer)
         {
             throw new NotImplementedException();
         }

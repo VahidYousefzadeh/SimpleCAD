@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Xml.Linq;
 
 namespace Viewer
 {
@@ -46,20 +45,6 @@ namespace Viewer
                    $"Y1: \t\t {(double) Math.Round((decimal) StartPoint.Y, 3)} \n" +
                    $"X2: \t\t {(double) Math.Round((decimal) EndPoint.X, 3)} \n" +
                    $"Y2: \t\t {(double) Math.Round((decimal) EndPoint.Y, 3)} \n";
-        }
-
-        public override string ToJson(IFormatProvider provider)
-        {
-            return $"\"a\": \"{StartPoint.X.ToString(provider)}; {StartPoint.Y.ToString(provider)}\",\n" +
-                   $"\"b\": \"{EndPoint.X.ToString(provider)}; {EndPoint.Y.ToString(provider)}\"";
-        }
-
-        public override XElement ToXml(IFormatProvider provider)
-        {
-            return new XElement(
-                "geometry",
-                new XElement("a", $"{StartPoint.X.ToString(provider)}; {StartPoint.Y.ToString(provider)}"),
-                new XElement("b", $"{EndPoint.X.ToString(provider)}; {EndPoint.Y.ToString(provider)}"));
         }
 
         private Rect GetBounds()

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Xml.Linq;
+using iText.Kernel.Pdf.Canvas;
 
 namespace Viewer
 {
@@ -32,21 +33,10 @@ namespace Viewer
                 circleGeometry.Radius);
         }
 
-        protected override string ToJsonInternal(IFormatProvider provider)
+        public override T Write<T>(IWriter<T> writer)
         {
-            return $"\"type\": \"circle\",\n" +
-                   $"{Geometry.ToJson(provider)},\n" +
-                   $"\"filled\": {m_filled}";
-        }
-
-        protected override XElement[] ToXmlInternal(IFormatProvider provider)
-        {
-            return new[]
-            {
-                new XElement("type", "circle"),
-                Geometry.ToXml(provider),
-                new XElement("filled", m_filled)
-            };
+            var circleGeometry = (CircleGeometry) Geometry;
+            return writer.WriteCircle(circleGeometry.Center, circleGeometry.Radius, Color, LineStyle, m_filled);
         }
     }
 }

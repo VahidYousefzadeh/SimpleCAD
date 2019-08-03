@@ -16,7 +16,7 @@ namespace Viewer
 
         public override Shape Convert()
         {
-            return new Triangle(Filled ? Utility.RandomBrush(new Random()) : null, Point(A), Point(B), Point(C));
+            return new Triangle(Point(A), Point(B), Point(C), Filled);
         }
     }
 }

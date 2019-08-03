@@ -19,11 +19,11 @@ namespace Viewer
         public override Shape Convert()
         {
             return new Rectangle(
-                Filled ? Utility.RandomBrush(new Random()) : null,
                 Point(Origin), 
                 Width,
                 Height,
-                Rotation);
+                Rotation,
+                Filled);
         }
     }
 }

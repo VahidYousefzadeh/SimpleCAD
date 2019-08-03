@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Media;
 using System.Xml.Linq;
+using Point = System.Windows.Point;
 
 namespace Viewer
 {
@@ -24,19 +24,10 @@ namespace Viewer
             drawingContext.DrawLine(Pen(), lineGeometry.StartPoint, lineGeometry.EndPoint);
         }
 
-        protected override string ToJsonInternal(IFormatProvider provider)
+        public override T Write<T>(IWriter<T> writer)
         {
-            return $"\"type\": \"line\",\n" +
-                   $"{Geometry.ToJson(provider)}";
-        }
-
-        protected override XElement[] ToXmlInternal(IFormatProvider provider)
-        {
-            return new[]
-            {
-                new XElement("type", "line"),
-                Geometry.ToXml(provider)
-            };
+            var lineGeometry = (LineGeometry) Geometry;
+            return writer.WriteLine(lineGeometry.StartPoint, lineGeometry.EndPoint, Color, LineStyle);
         }
     }
 }

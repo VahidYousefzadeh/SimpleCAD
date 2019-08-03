@@ -1,7 +1,5 @@
-﻿using System;
+﻿using System.Linq;
 using System.Windows;
-using System.Windows.Media;
-using System.Xml.Linq;
 
 namespace Viewer
 {
@@ -10,21 +8,15 @@ namespace Viewer
         /// <summary>
         /// Initializes an instance of <see cref="Triangle"/> class.
         /// </summary>
-        public Triangle(Brush fill, Point a, Point b, Point c)
-            : base(fill, a, b, c)
-        {
-        }
+        public Triangle(Point a, Point b, Point c, bool filled)
+            : base(filled, a, b, c)
+        { }
 
-        protected override string ToJsonInternal(IFormatProvider provider)
+        public override T Write<T>(IWriter<T> writer)
         {
-            return $"\"type\": \"triangle\",\n" +
-                   $"{Geometry.ToJson(provider)},\n" +
-                   $"\"filled\": false";
-        }
-
-        protected override XElement[] ToXmlInternal(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
+            var geometry = (PolygonGeometry) Geometry;
+            Point[] points = geometry.Edges.Select(o => o.StartPoint).ToArray();
+            return writer.WriteTriangle(points[0], points[1], points[2], Color, LineStyle, m_filled);
         }
     }
 }
