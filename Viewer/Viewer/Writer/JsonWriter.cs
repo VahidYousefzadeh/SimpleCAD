@@ -20,6 +20,7 @@ namespace Viewer.Writer
             return string.Join(
                 Separator,
                 "{",
+                "\"type\": \"line\"",
                 WriteLineGeometry(a, b),
                 WriteColor(color),
                 WriteDashStyle(dashStyle),
@@ -31,6 +32,7 @@ namespace Viewer.Writer
             return string.Join(
                 Separator,
                 "{",
+                "\"type\": \"circle\"",
                 WriteCircleGeometry(center, radius),
                 WriteFilled(filled),
                 WriteColor(color),
@@ -40,7 +42,15 @@ namespace Viewer.Writer
 
         public string WriteTriangle(Point a, Point b, Point c, Color color, DashStyle dashStyle, bool filled)
         {
-            throw new NotImplementedException();
+            return string.Join(
+                Separator,
+                "{",
+                "\"type\": \"triangle\"",
+                WriteTriangleGeometry(a, b, c),
+                WriteFilled(filled),
+                WriteColor(color),
+                WriteDashStyle(dashStyle),
+                "}");
         }
 
         public string WriteView(View view)
@@ -58,6 +68,13 @@ namespace Viewer.Writer
         {
             return $"\"center\": \"{center.X.ToString(m_formatProvider)}; {center.Y.ToString(m_formatProvider)}\"{Separator}" +
                    $"\"radius\": \"{radius.ToString(m_formatProvider)}\"";
+        }
+
+        private string WriteTriangleGeometry(Point a, Point b, Point c)
+        {
+            return $"\"a\": \"{a.X.ToString(m_formatProvider)}; {a.Y.ToString(m_formatProvider)}\"{Separator}" +
+                   $"\"b\": \"{b.X.ToString(m_formatProvider)}; {b.Y.ToString(m_formatProvider)}\"{Separator}" +
+                   $"\"c\": \"{c.X.ToString(m_formatProvider)}; {c.Y.ToString(m_formatProvider)}\"";
         }
 
         private static string WriteColor(Color color)
