@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Xml.Linq;
@@ -35,12 +36,17 @@ namespace Viewer.Writer
 
         public XElement WriteTriangle(Point a, Point b, Point c, Color color, DashStyle dashStyle, bool filled)
         {
-            throw new NotImplementedException();
+            return new XElement(
+                "triangle",
+                WriteTriangleGeometry(a, b, c),
+                WriteFilled(filled),
+                WriteColor(color),
+                WriteDashStyle(dashStyle));
         }
 
         public XElement WriteView(View view)
         {
-            throw new NotImplementedException();
+            return new XElement("root", view.Shapes.Select(o => o.Write(this)));
         }
 
         private XElement WriteLineGeometry(Point a, Point b)
@@ -57,6 +63,15 @@ namespace Viewer.Writer
                 "geometry",
                 new XElement("center", $"{center.X.ToString(m_formatProvider)}; {center.Y.ToString(m_formatProvider)}"),
                 new XElement("radius", $"{radius.ToString(m_formatProvider)}"));
+        }
+
+        private XElement WriteTriangleGeometry(Point a, Point b, Point c)
+        {
+            return new XElement(
+                "geometry",
+                new XElement("a", $"{a.X.ToString(m_formatProvider)}; {a.Y.ToString(m_formatProvider)}"),
+                new XElement("b", $"{b.X.ToString(m_formatProvider)}; {b.Y.ToString(m_formatProvider)}"),
+                new XElement("c", $"{c.X.ToString(m_formatProvider)}; {c.Y.ToString(m_formatProvider)}"));
         }
 
         private static XElement WriteColor(Color color)

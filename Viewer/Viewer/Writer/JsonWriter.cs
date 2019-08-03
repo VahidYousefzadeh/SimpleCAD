@@ -91,6 +91,5 @@ namespace Viewer.Writer
         {
             return $"\"filled\": {filled}";
         }
-
     }
 }
