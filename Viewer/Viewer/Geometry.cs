@@ -6,9 +6,9 @@ namespace Viewer
 {
     public abstract class Geometry
     {
-        internal abstract Point[] Intersect(Geometry other);
+        public abstract Point[] Intersect(Geometry other);
 
-        internal abstract Rect Bounds { get; }
+        public abstract Rect Bounds { get; }
 
         public abstract string ToJson(IFormatProvider provider);
 

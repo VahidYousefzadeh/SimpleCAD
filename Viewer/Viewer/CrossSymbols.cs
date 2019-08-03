@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace Viewer
 {
-    internal sealed class CrossSymbols : DrawingVisual
+    public sealed class CrossSymbols : DrawingVisual
     {
         private const double Size = 7d;
 

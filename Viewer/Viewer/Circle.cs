@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace Viewer
 {
-    internal sealed class Circle : Shape
+    public sealed class Circle : Shape
     {
         private readonly bool m_filled;
 

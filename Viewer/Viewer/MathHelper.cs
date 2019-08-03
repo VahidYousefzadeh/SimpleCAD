@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Viewer
 {
-    internal static class MathHelper
+    public static class MathHelper
     {
         /// <summary>
         /// Zero tolerance constant.

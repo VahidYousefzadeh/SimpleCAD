@@ -9,16 +9,7 @@ namespace Viewer
     public sealed class PolygonGeometry : Geometry
     {
         public LineGeometry[] Edges { get; }
-        internal override Rect Bounds { get; }
-        public override string ToJson(IFormatProvider formatProvider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override XElement ToXml(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
+        public override Rect Bounds { get; }
 
         public PolygonGeometry(params Point[] points)
         {
@@ -26,7 +17,7 @@ namespace Viewer
             Bounds = GetBounds();
         }
 
-        internal override Point[] Intersect(Geometry other)
+        public override Point[] Intersect(Geometry other)
         {
             switch (other)
             {
@@ -53,6 +44,16 @@ namespace Viewer
             }
 
             return str;
+        }
+
+        public override string ToJson(IFormatProvider formatProvider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override XElement ToXml(IFormatProvider provider)
+        {
+            throw new NotImplementedException();
         }
 
         private static LineGeometry[] GetEdges(IReadOnlyList<Point> points)

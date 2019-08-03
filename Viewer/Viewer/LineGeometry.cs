@@ -6,33 +6,18 @@ namespace Viewer
 {
     public sealed class LineGeometry : Geometry
     {
-        internal Point StartPoint { get; }
-        internal Point EndPoint { get; }
-        internal override Rect Bounds { get; }
+        public Point StartPoint { get; }
+        public Point EndPoint { get; }
+        public override Rect Bounds { get; }
 
-
-        public override string ToJson(IFormatProvider provider)
-        {
-            return $"\"a\": \"{StartPoint.X.ToString(provider)}; {StartPoint.Y.ToString(provider)}\",\n" +
-                   $"\"b\": \"{EndPoint.X.ToString(provider)}; {EndPoint.Y.ToString(provider)}\"";
-        }
-
-        public override XElement ToXml(IFormatProvider provider)
-        {
-            return new XElement(
-                "geometry",
-                new XElement("a", $"{StartPoint.X.ToString(provider)}; {StartPoint.Y.ToString(provider)}"),
-                new XElement("b", $"{EndPoint.X.ToString(provider)}; {EndPoint.Y.ToString(provider)}"));
-        }
-
-        internal LineGeometry(Point startPoint, Point endPoint)
+        public LineGeometry(Point startPoint, Point endPoint)
         {
             StartPoint = startPoint;
             EndPoint = endPoint;
             Bounds = GetBounds();
         }
 
-        internal Vector Direction()
+        public Vector Direction()
         {
             Vector vector = EndPoint - StartPoint;
             vector.Normalize();
@@ -40,7 +25,7 @@ namespace Viewer
             return vector;
         }
 
-        internal override Point[] Intersect(Geometry other)
+        public override Point[] Intersect(Geometry other)
         {
             switch (other)
             {
@@ -61,6 +46,20 @@ namespace Viewer
                    $"Y1: \t\t {(double) Math.Round((decimal) StartPoint.Y, 3)} \n" +
                    $"X2: \t\t {(double) Math.Round((decimal) EndPoint.X, 3)} \n" +
                    $"Y2: \t\t {(double) Math.Round((decimal) EndPoint.Y, 3)} \n";
+        }
+
+        public override string ToJson(IFormatProvider provider)
+        {
+            return $"\"a\": \"{StartPoint.X.ToString(provider)}; {StartPoint.Y.ToString(provider)}\",\n" +
+                   $"\"b\": \"{EndPoint.X.ToString(provider)}; {EndPoint.Y.ToString(provider)}\"";
+        }
+
+        public override XElement ToXml(IFormatProvider provider)
+        {
+            return new XElement(
+                "geometry",
+                new XElement("a", $"{StartPoint.X.ToString(provider)}; {StartPoint.Y.ToString(provider)}"),
+                new XElement("b", $"{EndPoint.X.ToString(provider)}; {EndPoint.Y.ToString(provider)}"));
         }
 
         private Rect GetBounds()

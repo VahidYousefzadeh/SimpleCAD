@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace Viewer
 {
-    internal sealed class Line : Shape
+    public sealed class Line : Shape
     {
         /// <summary>
         /// Initializes an instance of <see cref="Line"/> class.
