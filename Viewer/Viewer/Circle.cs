@@ -7,12 +7,16 @@ namespace Viewer
 {
     internal sealed class Circle : Shape
     {
+        private readonly bool m_filled;
+
         /// <summary>
         /// Initializes an instance of <see cref="Circle"/> class.
         /// </summary>
         public Circle(Point center, double radius, bool filled)
         {
             Geometry = new CircleGeometry(center, radius);
+
+            m_filled = filled;
 
             InvalidateVisual();
         }
@@ -21,7 +25,7 @@ namespace Viewer
         {
             var circleGeometry = (CircleGeometry) Geometry;
             drawingContext.DrawEllipse(
-                null,
+                m_filled ? Brush() : null,
                 Pen(),
                 circleGeometry.Center,
                 circleGeometry.Radius,

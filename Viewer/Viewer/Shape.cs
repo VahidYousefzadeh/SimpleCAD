@@ -68,7 +68,7 @@ namespace Viewer
             return m_pen;
         }
 
-        private Brush Brush()
+        protected Brush Brush()
         {
             return new SolidColorBrush(m_color).AsFrozen();
         }
