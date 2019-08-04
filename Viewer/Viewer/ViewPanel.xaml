@@ -25,11 +25,7 @@
                     </TransformGroup>
                 </Canvas.RenderTransform>
             </Canvas>
-            <Rectangle Width="10" Height="10" Stroke="WhiteSmoke" StrokeThickness="1" x:Name="Rectangle">
-                <Rectangle.RenderTransform>
-                    <TranslateTransform X="-5" Y="-5"/>
-                </Rectangle.RenderTransform>
-            </Rectangle>
+            <Rectangle Style="{StaticResource PickCursorStyle}" x:Name="PickCursor"/>
         </Canvas>
     </Border>
 </UserControl>

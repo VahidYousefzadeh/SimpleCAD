@@ -91,15 +91,15 @@ namespace Viewer
         {
             Cursor = Cursors.None;
             Point pt = e.GetPosition((UIElement)sender);
-            Rectangle.Visibility = Visibility.Visible;
+            PickCursor.Visibility = Visibility.Visible;
 
-            Canvas.SetBottom(Rectangle, pt.Y);
-            Canvas.SetLeft(Rectangle, pt.X);
+            Canvas.SetBottom(PickCursor, pt.Y);
+            Canvas.SetLeft(PickCursor, pt.X);
         }
 
         private void OnMouseLeave(object sender, MouseEventArgs e)
         {
-            Rectangle.Visibility = Visibility.Collapsed;
+            PickCursor.Visibility = Visibility.Collapsed;
         }
 
         private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
