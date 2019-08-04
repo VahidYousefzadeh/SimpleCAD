@@ -42,6 +42,14 @@ namespace Viewer.Writer
             return this;
         }
 
+        public PdfWriter WriteRectangle(Point a, Point b, Color color, DashStyle dashStyle, bool filled)
+        {
+            SetColor(color, filled);
+            WriteRectangleGeometry(a, b, filled);
+
+            return this;
+        }
+
         public PdfWriter WriteShapes(Shape[] shapes)
         {
             foreach (Shape shape in shapes) shape.Write(this);
@@ -72,6 +80,20 @@ namespace Viewer.Writer
         private void WriteTriangleGeometry(Point a, Point b, Point c, bool filled)
         {
             m_canvas.MoveTo(a.X, a.Y).LineTo(b.X, b.Y).LineTo(c.X, c.Y).LineTo(a.X, a.Y);
+
+            if (filled)
+                m_canvas.ClosePathFillStroke();
+            else
+                m_canvas.ClosePathStroke();
+        }
+
+        private void WriteRectangleGeometry(Point a, Point b, bool filled)
+        {
+
+            Point c = new Point(b.X, a.Y);
+            Point d = new Point(a.X, b.Y);
+
+            m_canvas.MoveTo(a.X, a.Y).LineTo(c.X, c.Y).LineTo(b.X, b.Y).LineTo(d.X, d.Y).LineTo(a.X, a.Y);
 
             if (filled)
                 m_canvas.ClosePathFillStroke();

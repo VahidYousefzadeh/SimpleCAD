@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using System.Windows;
 
 namespace Viewer
@@ -22,7 +22,14 @@ namespace Viewer
 
         public override T Write<T>(IWriter<T> writer)
         {
-            throw new NotImplementedException();
+            var geometry = (PolygonGeometry)Geometry;
+            Point[] points =
+            {
+                geometry.Edges[0].StartPoint,
+                geometry.Edges[1].EndPoint
+            };
+
+            return writer.WriteRectangle(points[0], points[1], Color, LineStyle, Filled);
         }
     }
 }

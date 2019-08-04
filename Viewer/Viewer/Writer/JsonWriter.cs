@@ -58,6 +58,21 @@ namespace Viewer.Writer
                 "}");
         }
 
+        public string WriteRectangle(Point a, Point b, Color color, DashStyle dashStyle, bool filled)
+        {
+            return string.Join(
+                "\n",
+                "{",
+                string.Join(
+                    ",\n",
+                    "\"type\": \"rectangle\"",
+                    WriteLineGeometry(a, b),
+                    WriteFilled(filled),
+                    WriteColor(color),
+                    WriteDashStyle(dashStyle)),
+                "}");
+        }
+
         public string WriteShapes(Shape[] shapes)
         {
             string json = string.Join(",\n", shapes.Select(o => o.Write(this)));

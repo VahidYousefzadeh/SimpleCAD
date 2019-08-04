@@ -44,6 +44,16 @@ namespace Viewer.Writer
                 WriteDashStyle(dashStyle));
         }
 
+        public XElement WriteRectangle(Point a, Point b, Color color, DashStyle dashStyle, bool filled)
+        {
+            return new XElement(
+                "rectangle",
+                WriteLineGeometry(a, b),
+                WriteFilled(filled),
+                WriteColor(color),
+                WriteDashStyle(dashStyle));
+        }
+
         public XElement WriteShapes(Shape[] shapes)
         {
             return new XElement("root", shapes.Select(o => o.Write(this)));
