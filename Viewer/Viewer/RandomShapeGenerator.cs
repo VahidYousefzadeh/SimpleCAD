@@ -22,7 +22,7 @@ namespace Viewer
         {
             for (int i = 0; i < numberOfShapes; i++)
             {
-                int type = m_random.Next(0, 3);
+                int type = m_random.Next(0, 4);
 
                 if (type == 0)
                     yield return RandomLine();
@@ -32,6 +32,9 @@ namespace Viewer
 
                 if (type == 2)
                     yield return RandomTriangle();
+
+                if (type == 3)
+                    yield return RandomRectangle();
             }
         }
 
@@ -47,11 +50,18 @@ namespace Viewer
 
         private Shape RandomCircle()
         {
-            double radius = RandomDouble(100d, 200d);
+            const double minimumRadius = 100d;
+            const double maximumRadius = 200d;
+
+            double radius = RandomDouble(minimumRadius, maximumRadius);
             double x = RandomDouble(radius, m_screenWidth - radius);
             double y = RandomDouble(radius, m_screenHeight - radius);
-            
-            return WithStyle(new Circle(new Point(x, y), radius) {Filled = RandomBoolean()});
+
+            return WithStyle(
+                new Circle(new Point(x, y), radius)
+                {
+                    Filled = RandomBoolean()
+                });
         }
 
         private Shape RandomTriangle()
@@ -72,6 +82,25 @@ namespace Viewer
                 });
         }
 
+        private Shape RandomRectangle()
+        {
+            const double minimumWidth = 100d;
+            const double maximumWidth = 300d;
+            const double minimumDepth = 100d;
+            const double maximumDepth = 300d;
+
+            double x1 = RandomDouble(0d, m_screenWidth);
+            double y1 = RandomDouble(0d, m_screenHeight);
+            double x2 = x1 + RandomDouble(minimumWidth, maximumWidth);
+            double y2 = y1 + RandomDouble(minimumDepth, maximumDepth);
+
+            return WithStyle(
+                new Rectangle(new Point(x1, y1), new Point(x2, y2))
+                {
+                    Filled = RandomBoolean()
+                });
+        }
+
         private Shape WithStyle(Shape shape)
         {
             shape.LineStyle = RandomDashStyle().AsFrozen();
@@ -84,7 +113,6 @@ namespace Viewer
         {
             return m_random.NextDouble() * (maximum - minimum) + minimum;
         }
-
 
         private bool RandomBoolean()
         {

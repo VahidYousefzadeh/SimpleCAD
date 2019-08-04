@@ -6,16 +6,18 @@ namespace Viewer
     public sealed class Rectangle : Polygon
     {
         /// <summary>
-        /// Initializes an instance of <see cref="Rectangle"/> class.
+        /// Initializes an instance of <see cref="Rectangle"/> class
+        /// exactly large enough to contain the two given points.
         /// </summary>
-        public Rectangle(Point origin, double width, double height, double rotation)
-            : base(Corners(origin, width, height, rotation))
+        public Rectangle(Point firstCorner, Point secondCorner)
+            : base(Corners(firstCorner, secondCorner))
         {
         }
 
-        private static Point[] Corners(Point origin, double width, double height, double rotation)
+        private static Point[] Corners(Point firstCorner, Point secondCorner)
         {
-            return null;
+            var rectangle = new Rect(firstCorner, secondCorner);
+            return new[] {rectangle.TopLeft, rectangle.TopRight, rectangle.BottomRight, rectangle.BottomLeft};
         }
 
         public override T Write<T>(IWriter<T> writer)
