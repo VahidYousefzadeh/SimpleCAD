@@ -30,6 +30,9 @@ namespace Viewer.Reader
                     case "triangle":
                         shapes.Add(ReadTriangle(node));
                         break;
+                    case "rectangle":
+                        shapes.Add(ReadRectangle(node));
+                        break;
                 }
             }
 
@@ -58,6 +61,16 @@ namespace Viewer.Reader
         private Shape ReadTriangle(dynamic node)
         {
             return new Triangle(Point(node["a"]), Point(node["b"]), Point(node["c"]))
+            {
+                Filled = Convert.ToBoolean(node["filled"]),
+                Color = Color(node["color"]),
+                LineStyle = DashStyle(node["lineType"])
+            };
+        }
+
+        private Shape ReadRectangle(dynamic node)
+        {
+            return new Rectangle(Point(node["a"]), Point(node["b"]))
             {
                 Filled = Convert.ToBoolean(node["filled"]),
                 Color = Color(node["color"]),

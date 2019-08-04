@@ -28,6 +28,9 @@ namespace Viewer.Reader
                     case "triangle":
                         shapes.Add(ReadTriangle(element));
                         break;
+                    case "rectangle":
+                        shapes.Add(ReadRectangle(element));
+                        break;
                 }
             }
 
@@ -61,6 +64,16 @@ namespace Viewer.Reader
                 Point(xc.Element("a")?.Value),
                 Point(xc.Element("b")?.Value),
                 Point(xc.Element("c")?.Value))
+            {
+                Filled = Convert.ToBoolean(xc.Element("filled")?.Value),
+                Color = Color(xc.Element("color")?.Value),
+                LineStyle = DashStyle(xc.Element("lineType")?.Value)
+            };
+        }
+
+        private Shape ReadRectangle(XContainer xc)
+        {
+            return new Rectangle(Point(xc.Element("a")?.Value), Point(xc.Element("b")?.Value))
             {
                 Filled = Convert.ToBoolean(xc.Element("filled")?.Value),
                 Color = Color(xc.Element("color")?.Value),

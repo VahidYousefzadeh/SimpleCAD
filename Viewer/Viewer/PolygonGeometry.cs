@@ -38,8 +38,9 @@ namespace Viewer
             string str = "";
             for (int i = 0; i < Edges.Length; i++)
             {
-                str = $"X{i + 1}: \t\t {(double) Math.Round((decimal) points[i].X, 3)} \n" +
-                      $"Y{i + 1}: \t\t {(double) Math.Round((decimal) points[i].Y, 3)} \n" + str;
+                str = str +
+                      $"X{i + 1}: \t\t {(double) Math.Round((decimal) points[i].X, 3)} \n" +
+                      $"Y{i + 1}: \t\t {(double) Math.Round((decimal) points[i].Y, 3)} \n";
             }
 
             return str;
