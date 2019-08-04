@@ -6,6 +6,10 @@ namespace Viewer.Reader
 {
     public sealed class XmlReader : ShapeReader
     {
+        public XmlReader(IFormatProvider formatProvider) : base(formatProvider)
+        {
+        }
+
         public override IEnumerable<Shape> Read(string filename)
         {
             IList<Shape> shapes = new List<Shape>();

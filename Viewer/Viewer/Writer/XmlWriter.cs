@@ -44,9 +44,9 @@ namespace Viewer.Writer
                 WriteDashStyle(dashStyle));
         }
 
-        public XElement WriteView(View view)
+        public XElement WriteShapes(Shape[] shapes)
         {
-            return new XElement("root", view.Shapes.Select(o => o.Write(this)));
+            return new XElement("root", shapes.Select(o => o.Write(this)));
         }
 
         private XElement WriteLineGeometry(Point a, Point b)
@@ -86,7 +86,8 @@ namespace Viewer.Writer
 
         private static XElement WriteFilled(bool filled)
         {
-            return new XElement("filled", $"{filled}");
+            string boolString = filled.ToString().ToLower();
+            return new XElement("filled", $"{boolString}");
         }
     }
 }

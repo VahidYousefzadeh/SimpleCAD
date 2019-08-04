@@ -8,7 +8,6 @@ namespace Viewer.Writer
     public sealed class JsonWriter : IWriter<string>
     {
         private readonly IFormatProvider m_formatProvider;
-        private const string Separator = ",\n";
 
         public JsonWriter(IFormatProvider formatProvider)
         {
@@ -18,62 +17,69 @@ namespace Viewer.Writer
         public string WriteLine(Point a, Point b, Color color, DashStyle dashStyle)
         {
             return string.Join(
-                Separator,
+                "\n",
                 "{",
-                "\"type\": \"line\"",
-                WriteLineGeometry(a, b),
-                WriteColor(color),
-                WriteDashStyle(dashStyle),
+                string.Join(
+                    ",\n",
+                    "\"type\": \"line\"",
+                    WriteLineGeometry(a, b),
+                    WriteColor(color),
+                    WriteDashStyle(dashStyle)),
                 "}");
         }
 
         public string WriteCircle(Point center, double radius, Color color, DashStyle dashStyle, bool filled)
         {
             return string.Join(
-                Separator,
+                "\n",
                 "{",
-                "\"type\": \"circle\"",
-                WriteCircleGeometry(center, radius),
-                WriteFilled(filled),
-                WriteColor(color),
-                WriteDashStyle(dashStyle),
+                string.Join(
+                    ",\n",
+                    "\"type\": \"circle\"",
+                    WriteCircleGeometry(center, radius),
+                    WriteFilled(filled),
+                    WriteColor(color),
+                    WriteDashStyle(dashStyle)),
                 "}");
         }
 
         public string WriteTriangle(Point a, Point b, Point c, Color color, DashStyle dashStyle, bool filled)
         {
             return string.Join(
-                Separator,
+                "\n",
                 "{",
-                "\"type\": \"triangle\"",
-                WriteTriangleGeometry(a, b, c),
-                WriteFilled(filled),
-                WriteColor(color),
-                WriteDashStyle(dashStyle),
+                string.Join(
+                    ",\n",
+                    "\"type\": \"triangle\"",
+                    WriteTriangleGeometry(a, b, c),
+                    WriteFilled(filled),
+                    WriteColor(color),
+                    WriteDashStyle(dashStyle)),
                 "}");
         }
 
-        public string WriteView(View view)
+        public string WriteShapes(Shape[] shapes)
         {
-            return string.Join(",","[", view.Shapes.Select(o => o.Write(this)), "]");
+            string json = string.Join(",\n", shapes.Select(o => o.Write(this)));
+            return string.Join("\n","[", json, "]");
         }
 
         private string WriteLineGeometry(Point a, Point b)
         {
-            return $"\"a\": \"{a.X.ToString(m_formatProvider)}; {a.Y.ToString(m_formatProvider)}\"{Separator}" +
+            return $"\"a\": \"{a.X.ToString(m_formatProvider)}; {a.Y.ToString(m_formatProvider)}\",\n" +
                    $"\"b\": \"{b.X.ToString(m_formatProvider)}; {b.Y.ToString(m_formatProvider)}\"";
         }
 
         private string WriteCircleGeometry(Point center, double radius)
         {
-            return $"\"center\": \"{center.X.ToString(m_formatProvider)}; {center.Y.ToString(m_formatProvider)}\"{Separator}" +
+            return $"\"center\": \"{center.X.ToString(m_formatProvider)}; {center.Y.ToString(m_formatProvider)}\",\n" +
                    $"\"radius\": \"{radius.ToString(m_formatProvider)}\"";
         }
 
         private string WriteTriangleGeometry(Point a, Point b, Point c)
         {
-            return $"\"a\": \"{a.X.ToString(m_formatProvider)}; {a.Y.ToString(m_formatProvider)}\"{Separator}" +
-                   $"\"b\": \"{b.X.ToString(m_formatProvider)}; {b.Y.ToString(m_formatProvider)}\"{Separator}" +
+            return $"\"a\": \"{a.X.ToString(m_formatProvider)}; {a.Y.ToString(m_formatProvider)}\",\n" +
+                   $"\"b\": \"{b.X.ToString(m_formatProvider)}; {b.Y.ToString(m_formatProvider)}\",\n" +
                    $"\"c\": \"{c.X.ToString(m_formatProvider)}; {c.Y.ToString(m_formatProvider)}\"";
         }
 
@@ -89,7 +95,8 @@ namespace Viewer.Writer
 
         private static string WriteFilled(bool filled)
         {
-            return $"\"filled\": {filled}";
+            string boolString = filled.ToString().ToLower();
+            return $"\"filled\": {boolString}";
         }
     }
 }

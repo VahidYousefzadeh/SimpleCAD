@@ -10,7 +10,7 @@ namespace Viewer
     {
         private readonly VisualCollection m_children;
 
-        public IList<Shape> Shapes => m_children.OfType<Shape>().ToList();
+        public Shape[] Shapes => m_children.OfType<Shape>().ToArray();
 
         public View(IEnumerable<Shape> shapes = null)
         {

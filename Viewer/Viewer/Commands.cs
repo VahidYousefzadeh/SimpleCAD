@@ -29,7 +29,7 @@ namespace Viewer
             dialog.ShowDialog();
 
 
-            ShapeReader xmlReader = new XmlReader();
+            ShapeReader xmlReader = new XmlReader(s_formatProvider);
             return !File.Exists(dialog.FileName) 
                 ? new View() 
                 : new View(xmlReader.Read(dialog.FileName));
@@ -45,7 +45,7 @@ namespace Viewer
 
             dialog.ShowDialog();
 
-            ShapeReader jsonReader = new JsonReader();
+            ShapeReader jsonReader = new JsonReader(s_formatProvider);
             return !File.Exists(dialog.FileName) 
                 ? new View() 
                 : new View(jsonReader.Read(dialog.FileName));
@@ -60,7 +60,7 @@ namespace Viewer
         public static void SaveJson(View view)
         {
             IWriter<string> jsonWriter = new JsonWriter(s_formatProvider);
-            string json = jsonWriter.WriteView(view);
+            string json = jsonWriter.WriteShapes(view.Shapes);
 
             Clipboard.SetText(json);
         }
@@ -68,14 +68,15 @@ namespace Viewer
         public static void SaveXml(View view)
         {
             IWriter<XElement> xmlWriter = new XmlWriter(s_formatProvider);
-            XElement xml = xmlWriter.WriteView(view);
+            XElement xml = xmlWriter.WriteShapes(view.Shapes);
+            xml.Save("c:/backup/dada.xml");
         }
 
         public static void SavePdf(View view)
         {
             string filename = "c:/backup/test.pdf";
             IWriter<PdfWriter> pdfWriter = new PdfWriter(filename, 1000, 1000);
-            pdfWriter.WriteView(view).Close();
+            pdfWriter.WriteShapes(view.Shapes).Close();
         }
     }
 }

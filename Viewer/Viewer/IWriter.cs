@@ -8,6 +8,6 @@ namespace Viewer
         T WriteLine(Point a, Point b, Color color, DashStyle dashStyle);
         T WriteCircle(Point center, double radius, Color color, DashStyle dashStyle, bool filled);
         T WriteTriangle(Point a, Point b, Point c, Color color, DashStyle dashStyle, bool filled);
-        T WriteView(View view);
+        T WriteShapes(Shape[] shapes);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 
 namespace Viewer
@@ -40,19 +39,6 @@ namespace Viewer
                 default:
                     return DashStyles.Solid;
             }
-        }
-
-        public static Brush RandomBrush(Random random)
-        {
-            Color color = Color.FromArgb(
-                (byte)random.Next(130, 256),
-                (byte)random.Next(130, 256),
-                (byte)random.Next(130, 256),
-                (byte)random.Next(130, 256));
-
-            var brush = new SolidColorBrush(color);
-            return brush.AsFrozen();
-
         }
 
         public static T AsFrozen<T>(this T freezable) where T : Freezable

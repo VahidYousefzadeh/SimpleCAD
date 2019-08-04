@@ -8,17 +8,26 @@ namespace Viewer.Reader
 {
     public abstract class ShapeReader
     {
-        private readonly IFormatProvider m_formatProvider = new CultureInfo("de");
-        private readonly NumberStyles m_numberStyle = NumberStyles.Float;
+        private readonly IFormatProvider m_formatProvider;
+
+        protected ShapeReader(IFormatProvider formatProvider)
+        {
+            m_formatProvider = formatProvider;
+        }
 
         public abstract IEnumerable<Shape> Read(string filename);
+
+        protected double Double(string doubleString)
+        {
+            return Convert.ToDouble(doubleString, m_formatProvider);
+        }
 
         protected Point Point(string coordinates)
         {
             string[] tokens = coordinates.Split(';');
 
-            return double.TryParse(tokens[0], m_numberStyle, m_formatProvider, out double x) &&
-                   double.TryParse(tokens[1], m_numberStyle, m_formatProvider, out double y)
+            return double.TryParse(tokens[0], NumberStyles.Float, m_formatProvider, out double x) &&
+                   double.TryParse(tokens[1], NumberStyles.Float, m_formatProvider, out double y)
                 ? new Point(x, y)
                 : default(Point);
         }

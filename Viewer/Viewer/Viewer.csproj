@@ -98,8 +98,6 @@
     <Compile Include="CircleGeometry.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Commands.cs" />
-    <Compile Include="DoubleComparer.cs" />
-    <Compile Include="DoubleInterval.cs" />
     <Compile Include="Geometry.cs" />
     <Compile Include="IntersectionHelper.cs" />
     <Compile Include="IWriter.cs" />

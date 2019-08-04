@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
@@ -7,35 +6,6 @@ namespace Viewer
 {
     public static class IntersectionHelper
     {
-        public static Point[] Intersections(Geometry[] geometries)
-        {
-            IList<Rect> bounds = geometries.Select(o => o.Bounds).ToList();
-
-            IList<double> xs = bounds
-                .Select(o => o.Left)
-                .Union(bounds.Select(o => o.Right))
-                .Distinct(new DoubleComparer())
-                .OrderBy(o => o)
-                .ToList();
-
-
-            for (int i = 0; i < xs.Count - 1; i++)
-            {
-                var interval = new DoubleInterval(xs[i], xs[i + 1]);
-
-                IList<Geometry> candidates = new List<Geometry>();
-                foreach (Geometry geometry in geometries)
-                {
-                    var gi = new DoubleInterval(geometry.Bounds.Left, geometry.Bounds.Right);
-
-                    if (gi.Intersects(interval) || gi.Contains(interval))
-                        candidates.Add(geometry);
-                }
-            }
-
-            return null;
-        }
-
         /// <summary>
         /// Intersection of two line segments
         /// </summary>

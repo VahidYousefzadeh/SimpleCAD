@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Collections.Generic;
+using System.Windows.Media;
 using iText.Kernel.Colors;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -42,9 +43,9 @@ namespace Viewer.Writer
             return this;
         }
 
-        public PdfWriter WriteView(View view)
+        public PdfWriter WriteShapes(Shape[] shapes)
         {
-            foreach (Shape shape in view.Shapes) shape.Write(this);
+            foreach (Shape shape in shapes) shape.Write(this);
 
             return this;
         }

@@ -7,6 +7,10 @@ namespace Viewer.Reader
 {
     public class JsonReader : ShapeReader
     {
+        public JsonReader(IFormatProvider formatProvider) : base(formatProvider)
+        {
+        }
+
         public override IEnumerable<Shape> Read(string filename)
         {
             List<Shape> shapes = new List<Shape>();
@@ -43,7 +47,7 @@ namespace Viewer.Reader
 
         private Shape ReadCircle(dynamic node)
         {
-            return new Circle(Point(node["center"]), Convert.ToDouble(node["radius"]))
+            return new Circle(Point(node["center"]), Double(node["radius"]))
             {
                 Filled = Convert.ToBoolean(node["filled"]),
                 Color = Color(node["color"]),
