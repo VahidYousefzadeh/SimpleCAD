@@ -47,7 +47,7 @@ namespace Viewer
 
         private Shape RandomCircle()
         {
-            double radius = RandomDouble(10d, 100d);
+            double radius = RandomDouble(100d, 200d);
             double x = RandomDouble(radius, m_screenWidth - radius);
             double y = RandomDouble(radius, m_screenHeight - radius);
             
@@ -57,11 +57,13 @@ namespace Viewer
         private Shape RandomTriangle()
         {
             double x1 = RandomDouble(0d, m_screenWidth);
-            double x2 = RandomDouble(0d, m_screenWidth);
-            double x3 = RandomDouble(0d, m_screenWidth);
             double y1 = RandomDouble(0d, m_screenHeight);
-            double y2 = RandomDouble(0d, m_screenHeight);
-            double y3 = RandomDouble(0d, m_screenHeight);
+
+            double x2 = x1 + RandomDouble(200d, 500d);
+            double y2 = y1 + RandomDouble(0, 500d);
+
+            double x3 = x1 + RandomDouble(200d, 500d);
+            double y3 = y1 - RandomDouble(100, 500d);
 
             return WithStyle(
                 new Triangle(new Point(x1, y1), new Point(x2, y2), new Point(x3, y3))

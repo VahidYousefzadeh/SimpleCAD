@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using iText.Kernel.Colors;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
