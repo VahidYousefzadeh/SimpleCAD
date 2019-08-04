@@ -19,13 +19,13 @@
             <local:ViewPanel View="{Binding View}" ClipToBounds="True"/>
 
             <StackPanel Grid.Column="1" Margin="5 0">
-                <Button FontSize="10" Content="Clear" Command="{Binding ClearCommand}" Margin="0 7 0 0"/>
-                <Button FontSize="10" Content="Load JSON" Command="{Binding LoadJsonCommand}" Margin="0 7 0 0"/>
-                <Button FontSize="10" Content="Load XML" Command="{Binding LoadXmlCommand}" Margin="0 7 0 0"/>
-                <Button FontSize="10" Content="Random Shapes" Command="{Binding RandomShapesCommand}" Margin="0 7 0 0" />
-                <Button FontSize="10" Content="Save JSON" Command="{Binding SaveJsonCommand}" Margin="0 7 0 0" />
-                <Button FontSize="10" Content="Save XML" Command="{Binding SaveXmlCommand}" Margin="0 7 0 0" />
-                <Button FontSize="10" Content="Save PDF" Command="{Binding SavePdfCommand}" Margin="0 7 0 0" />
+                <Button Content="Clear" Command="{Binding ClearCommand}"/>
+                <Button Content="Load JSON" Command="{Binding LoadJsonCommand}" />
+                <Button Content="Load XML" Command="{Binding LoadXmlCommand}" />
+                <Button Content="Random Shapes" Command="{Binding RandomShapesCommand}" />
+                <Button Content="Save JSON" Command="{Binding SaveJsonCommand}" />
+                <Button Content="Save XML" Command="{Binding SaveXmlCommand}"/>
+                <Button Content="Save PDF" Command="{Binding SavePdfCommand}" />
             </StackPanel>
         </Grid>
     </DockPanel>

@@ -10,5 +10,10 @@
             <Setter Property="Stroke" Value="WhiteSmoke"/>
             <Setter Property="StrokeThickness" Value="1"/>
         </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Margin" Value="0 7 0 0"/>
+        </Style>
     </Application.Resources>
 </Application>
