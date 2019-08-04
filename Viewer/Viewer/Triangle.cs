@@ -10,7 +10,8 @@ namespace Viewer
         /// </summary>
         public Triangle(Point a, Point b, Point c)
             : base(a, b, c)
-        { }
+        {
+        }
 
         public override T Write<T>(IWriter<T> writer)
         {

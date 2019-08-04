@@ -59,6 +59,8 @@ namespace Viewer
 
         public static void SaveJson(View view)
         {
+            if (view == null) return;
+
             IWriter<string> jsonWriter = new JsonWriter(s_formatProvider);
             string json = jsonWriter.WriteShapes(view.Shapes);
 
@@ -67,6 +69,8 @@ namespace Viewer
 
         public static void SaveXml(View view)
         {
+            if (view == null) return;
+
             IWriter<XElement> xmlWriter = new XmlWriter(s_formatProvider);
             XElement xml = xmlWriter.WriteShapes(view.Shapes);
             xml.Save("c:/backup/dada.xml");
@@ -77,6 +81,21 @@ namespace Viewer
             string filename = "c:/backup/test.pdf";
             IWriter<PdfWriter> pdfWriter = new PdfWriter(filename, 1000, 1000);
             pdfWriter.WriteShapes(view.Shapes).Close();
+        }
+
+        public static bool CanExecuteSaveJson(View view)
+        {
+            return view != null && view.Shapes.Length > 0;
+        }
+
+        public static bool CanExecuteSaveXml(View view)
+        {
+            return view != null && view.Shapes.Length > 0;
+        }
+
+        public static bool CanExecuteSavePdf(View view)
+        {
+            return view != null && view.Shapes.Length > 0;
         }
     }
 }
