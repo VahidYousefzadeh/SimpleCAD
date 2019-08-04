@@ -19,6 +19,7 @@
             <local:ViewPanel View="{Binding View}" ClipToBounds="True"/>
 
             <StackPanel Grid.Column="1" Margin="5 0">
+                <Button FontSize="10" Content="Clear" Command="{Binding ClearCommand}" Margin="0 7 0 0"/>
                 <Button FontSize="10" Content="Load JSON" Command="{Binding LoadJsonCommand}" Margin="0 7 0 0"/>
                 <Button FontSize="10" Content="Load XML" Command="{Binding LoadXmlCommand}" Margin="0 7 0 0"/>
                 <Button FontSize="10" Content="Random Shapes" Command="{Binding RandomShapesCommand}" Margin="0 7 0 0" />

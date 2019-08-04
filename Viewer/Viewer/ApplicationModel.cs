@@ -22,7 +22,6 @@ namespace Viewer
             SavePdfCommand = new Command(p => { Commands.SavePdf(View); }, p => Commands.CanExecuteSavePdf(View));
         }
 
-
         public ICommand RandomShapesCommand { get; }
         public ICommand LoadJsonCommand { get; }
         public ICommand LoadXmlCommand { get; }
