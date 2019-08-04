@@ -9,11 +9,6 @@
             <Setter Property="Height" Value="10"/>
             <Setter Property="Stroke" Value="WhiteSmoke"/>
             <Setter Property="StrokeThickness" Value="1"/>
-            <Setter Property="LayoutTransform">
-                <Setter.Value>
-                    <TranslateTransform X="-5" Y="-5"/>
-                </Setter.Value>
-            </Setter>
         </Style>
     </Application.Resources>
 </Application>

@@ -106,7 +106,7 @@ namespace Viewer
         {
             Point pt = e.GetPosition((UIElement)sender);
 
-            var geom = new RectangleGeometry(new Rect(pt.X -5, pt.Y + 5, 10, 10));
+            var geom = new RectangleGeometry(new Rect(pt.X, pt.Y, PickCursor.Width, PickCursor.Height));
 
             VisualTreeHelper.HitTest(this, HitTestFilterCallback, HitTestCallback, new GeometryHitTestParameters(geom));
         }
