@@ -48,7 +48,6 @@ namespace Viewer.Reader
             return dashStyle.AsDashStyle();
         }
 
-
         private static Color Argb(byte a, byte r, byte g, byte b)
         {
             return System.Windows.Media.Color.FromArgb(a, r, g, b);

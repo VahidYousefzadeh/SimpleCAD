@@ -19,13 +19,13 @@ namespace Viewer.Reader
             {
                 switch ($"{element.Name}")
                 {
-                    case "Line":
+                    case "line":
                         shapes.Add(ReadLine(element));
                         break;
-                    case "Circle":
+                    case "circle":
                         shapes.Add(ReadCircle(element));
                         break;
-                    case "Triangle":
+                    case "triangle":
                         shapes.Add(ReadTriangle(element));
                         break;
                 }
@@ -36,22 +36,22 @@ namespace Viewer.Reader
 
         private Shape ReadLine(XContainer xc)
         {
-            return new Line(Point(xc.Element("A")?.Value), Point(xc.Element("B")?.Value))
+            return new Line(Point(xc.Element("a")?.Value), Point(xc.Element("b")?.Value))
             {
-                Color = Color(xc.Element("Color")?.Value),
-                LineStyle = DashStyle(xc.Element("LineType")?.Value)
+                Color = Color(xc.Element("color")?.Value),
+                LineStyle = DashStyle(xc.Element("lineType")?.Value)
             };
         }
 
         private Shape ReadCircle(XContainer xc)
         {
             return new Circle(
-                Point(xc.Element("Center")?.Value),
-                Convert.ToDouble(xc.Element("Radius")?.Value))
+                Point(xc.Element("center")?.Value),
+                Double(xc.Element("radius")?.Value))
             {
-                Filled = Convert.ToBoolean(xc.Element("Filled")?.Value),
-                Color = Color(xc.Element("Color")?.Value),
-                LineStyle = DashStyle(xc.Element("LineType")?.Value)
+                Filled = Convert.ToBoolean(xc.Element("filled")?.Value),
+                Color = Color(xc.Element("color")?.Value),
+                LineStyle = DashStyle(xc.Element("lineType")?.Value)
             };
         }
 
@@ -62,9 +62,9 @@ namespace Viewer.Reader
                 Point(xc.Element("b")?.Value),
                 Point(xc.Element("c")?.Value))
             {
-                Filled = Convert.ToBoolean(xc.Element("Filled")?.Value),
-                Color = Color(xc.Element("Color")?.Value),
-                LineStyle = DashStyle(xc.Element("LineType")?.Value)
+                Filled = Convert.ToBoolean(xc.Element("filled")?.Value),
+                Color = Color(xc.Element("color")?.Value),
+                LineStyle = DashStyle(xc.Element("lineType")?.Value)
             };
         }
     }

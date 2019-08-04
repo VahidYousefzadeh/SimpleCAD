@@ -49,34 +49,37 @@ namespace Viewer.Writer
             return new XElement("root", shapes.Select(o => o.Write(this)));
         }
 
-        private XElement WriteLineGeometry(Point a, Point b)
+        private XElement[] WriteLineGeometry(Point a, Point b)
         {
-            return new XElement(
-                "geometry",
+            return new[]
+            {
                 new XElement("a", $"{a.X.ToString(m_formatProvider)}; {a.Y.ToString(m_formatProvider)}"),
-                new XElement("b", $"{b.X.ToString(m_formatProvider)}; {b.Y.ToString(m_formatProvider)}"));
+                new XElement("b", $"{b.X.ToString(m_formatProvider)}; {b.Y.ToString(m_formatProvider)}")
+            };
         }
 
-        private XElement WriteCircleGeometry(Point center, double radius)
+        private XElement[] WriteCircleGeometry(Point center, double radius)
         {
-            return new XElement(
-                "geometry",
+            return new[]
+            {
                 new XElement("center", $"{center.X.ToString(m_formatProvider)}; {center.Y.ToString(m_formatProvider)}"),
-                new XElement("radius", $"{radius.ToString(m_formatProvider)}"));
+                new XElement("radius", $"{radius.ToString(m_formatProvider)}")
+            };
         }
 
-        private XElement WriteTriangleGeometry(Point a, Point b, Point c)
+        private XElement[] WriteTriangleGeometry(Point a, Point b, Point c)
         {
-            return new XElement(
-                "geometry",
+            return new[]
+            {
                 new XElement("a", $"{a.X.ToString(m_formatProvider)}; {a.Y.ToString(m_formatProvider)}"),
                 new XElement("b", $"{b.X.ToString(m_formatProvider)}; {b.Y.ToString(m_formatProvider)}"),
-                new XElement("c", $"{c.X.ToString(m_formatProvider)}; {c.Y.ToString(m_formatProvider)}"));
+                new XElement("c", $"{c.X.ToString(m_formatProvider)}; {c.Y.ToString(m_formatProvider)}")
+            };
         }
 
         private static XElement WriteColor(Color color)
         {
-            return new XElement("color", $"{color}");
+            return new XElement("color", $"{color.A}; {color.R}; {color.G}; {color.B}");
         }
 
         private static XElement WriteDashStyle(DashStyle dashStyle)
