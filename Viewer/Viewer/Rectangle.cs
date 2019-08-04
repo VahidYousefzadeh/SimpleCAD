@@ -8,8 +8,8 @@ namespace Viewer
         /// <summary>
         /// Initializes an instance of <see cref="Rectangle"/> class.
         /// </summary>
-        public Rectangle(Point origin, double width, double height, double rotation, bool filled)
-            : base(filled, Corners(origin, width, height, rotation))
+        public Rectangle(Point origin, double width, double height, double rotation)
+            : base(Corners(origin, width, height, rotation))
         {
         }
 

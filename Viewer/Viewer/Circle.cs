@@ -5,16 +5,24 @@ namespace Viewer
 {
     public sealed class Circle : Shape
     {
-        private readonly bool m_filled;
+        private bool m_filled;
+
+        public bool Filled
+        {
+            get => m_filled;
+            set
+            {
+                m_filled = value;
+                m_isDirty = true;
+            }
+        }
 
         /// <summary>
         /// Initializes an instance of <see cref="Circle"/> class.
         /// </summary>
-        public Circle(Point center, double radius, bool filled)
+        public Circle(Point center, double radius)
         {
             Geometry = new CircleGeometry(center, radius);
-
-            m_filled = filled;
 
             InvalidateVisual();
         }

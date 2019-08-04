@@ -1,5 +1,5 @@
-﻿using System.Windows.Media;
-using Point = System.Windows.Point;
+﻿using System.Windows;
+using System.Windows.Media;
 
 namespace Viewer
 {

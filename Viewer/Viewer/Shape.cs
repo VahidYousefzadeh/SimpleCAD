@@ -1,11 +1,10 @@
 ﻿using System.Windows.Media;
-using Color = System.Windows.Media.Color;
 
 namespace Viewer
 {
     public abstract class Shape : DrawingVisual
     {
-        private bool m_isDirty = true;
+        protected bool m_isDirty = true;
 
         /// <summary>
         /// Caches the pen to improve performance.

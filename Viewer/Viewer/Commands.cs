@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Viewer.Reader;
 using Viewer.Writer;
 
 
@@ -27,9 +28,11 @@ namespace Viewer
 
             dialog.ShowDialog();
 
+
+            ShapeReader xmlReader = new XmlReader();
             return !File.Exists(dialog.FileName) 
                 ? new View() 
-                : new View(XmlToShapeConverter.Parse(dialog.FileName));
+                : new View(xmlReader.Read(dialog.FileName));
         }
 
         public static View LoadJson()
@@ -42,9 +45,10 @@ namespace Viewer
 
             dialog.ShowDialog();
 
+            ShapeReader jsonReader = new JsonReader();
             return !File.Exists(dialog.FileName) 
                 ? new View() 
-                : new View(JsonToShapeConverter.Parse(dialog.FileName));
+                : new View(jsonReader.Read(dialog.FileName));
         }
 
         public static View RandomShapes(int numberOfShapes, double width, double height)

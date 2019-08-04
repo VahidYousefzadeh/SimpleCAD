@@ -48,7 +48,7 @@ namespace Viewer
             double y = RandomDouble(0d, m_screenHeight);
             double radius = RandomDouble(10d, 100d);
 
-            return WithStyle(new Circle(new Point(x, y), radius, RandomBoolean()));
+            return WithStyle(new Circle(new Point(x, y), radius) {Filled = RandomBoolean()});
         }
 
         private Shape WithStyle(Shape shape)

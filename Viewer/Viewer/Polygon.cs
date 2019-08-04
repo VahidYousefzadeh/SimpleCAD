@@ -5,13 +5,21 @@ namespace Viewer
 {
     public abstract class Polygon : Shape
     {
-        protected readonly bool m_filled;
+        private bool m_filled;
 
-        protected Polygon(bool filled, params Point[] corners)
+        public bool Filled
+        {
+            get => m_filled;
+            set
+            {
+                m_filled = value;
+                m_isDirty = true;
+            }
+        }
+
+        protected Polygon(params Point[] corners)
         {
             Geometry = new PolygonGeometry(corners);
-
-            m_filled = filled;
 
             InvalidateVisual();
         }

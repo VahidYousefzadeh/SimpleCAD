@@ -95,7 +95,6 @@
     </ApplicationDefinition>
     <Compile Include="Annotations.cs" />
     <Compile Include="Circle.cs" />
-    <Compile Include="CircleDefinition.cs" />
     <Compile Include="CircleGeometry.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Commands.cs" />
@@ -104,9 +103,9 @@
     <Compile Include="Geometry.cs" />
     <Compile Include="IntersectionHelper.cs" />
     <Compile Include="IWriter.cs" />
-    <Compile Include="JsonToShapeConverter.cs" />
+    <Compile Include="Reader\JsonReader.cs" />
+    <Compile Include="Reader\ShapeReader.cs" />
     <Compile Include="Writer\JsonWriter.cs" />
-    <Compile Include="LineDefinition.cs" />
     <Compile Include="CrossSymbols.cs" />
     <Compile Include="MathHelper.cs" />
     <Compile Include="Line.cs" />
@@ -115,18 +114,15 @@
     <Compile Include="Polygon.cs" />
     <Compile Include="RandomShapeGenerator.cs" />
     <Compile Include="Rectangle.cs" />
-    <Compile Include="RectangleDefinition.cs" />
     <Compile Include="Shape.cs" />
-    <Compile Include="ShapeDefinition.cs" />
     <Compile Include="Triangle.cs" />
-    <Compile Include="TriangleDefinition.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="View.cs" />
     <Compile Include="ViewPanel.xaml.cs">
       <DependentUpon>ViewPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Writer\PdfWriter.cs" />
-    <Compile Include="XmlToShapeConverter.cs" />
+    <Compile Include="Reader\XmlReader.cs" />
     <Compile Include="Writer\XmlWriter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
