@@ -22,13 +22,16 @@ namespace Viewer
         {
             for (int i = 0; i < numberOfShapes; i++)
             {
-                int type = m_random.Next(0, 2);
+                int type = m_random.Next(0, 3);
 
                 if (type == 0)
                     yield return RandomLine();
 
                 if (type == 1)
                     yield return RandomCircle();
+
+                if (type == 2)
+                    yield return RandomTriangle();
             }
         }
 
@@ -44,11 +47,27 @@ namespace Viewer
 
         private Shape RandomCircle()
         {
-            double x = RandomDouble(0d, m_screenWidth);
-            double y = RandomDouble(0d, m_screenHeight);
             double radius = RandomDouble(10d, 100d);
-
+            double x = RandomDouble(radius, m_screenWidth - radius);
+            double y = RandomDouble(radius, m_screenHeight - radius);
+            
             return WithStyle(new Circle(new Point(x, y), radius) {Filled = RandomBoolean()});
+        }
+
+        private Shape RandomTriangle()
+        {
+            double x1 = RandomDouble(0d, m_screenWidth);
+            double x2 = RandomDouble(0d, m_screenWidth);
+            double x3 = RandomDouble(0d, m_screenWidth);
+            double y1 = RandomDouble(0d, m_screenHeight);
+            double y2 = RandomDouble(0d, m_screenHeight);
+            double y3 = RandomDouble(0d, m_screenHeight);
+
+            return WithStyle(
+                new Triangle(new Point(x1, y1), new Point(x2, y2), new Point(x3, y3))
+                {
+                    Filled = RandomBoolean()
+                });
         }
 
         private Shape WithStyle(Shape shape)

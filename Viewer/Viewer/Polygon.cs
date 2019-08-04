@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 
 namespace Viewer
@@ -26,20 +28,21 @@ namespace Viewer
 
         protected override void Render(DrawingContext drawingContext)
         {
-            PolygonGeometry polygonGeometry = (PolygonGeometry) Geometry;
+            var polygonGeometry = (PolygonGeometry) Geometry;
+            Point[] corners = polygonGeometry.Edges.Select(o => o.StartPoint).ToArray();
 
-            //var streamGeometry = new StreamGeometry();
-            //using (StreamGeometryContext geometryContext = streamGeometry.Open())
-            //{
-            //    geometryContext.BeginFigure(polygonGeometry..First(), true, true);
-            //    geometryContext.PolyLineTo(
-            //        new PointCollection(corners.Skip(1)),
-            //        true,
-            //        true);
+            var streamGeometry = new StreamGeometry();
+            using (StreamGeometryContext geometryContext = streamGeometry.Open())
+            {
+                geometryContext.BeginFigure(corners.First(), true, true);
+                geometryContext.PolyLineTo(
+                    new PointCollection(corners.Skip(1)),
+                    true,
+                    true);
 
-            //    drawingContext.DrawGeometry(null, GetPen(), streamGeometry);
+                drawingContext.DrawGeometry(m_filled ? Brush() : null, Pen(), streamGeometry);
 
-            //}
+            }
         }
     }
 }
