@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="227"/>
             </Grid.ColumnDefinitions>
 
-            <local:ViewPanel View="{Binding View}" ClipToBounds="True"/>
+            <local:ViewPanel View="{Binding View}"/>
 
             <StackPanel Grid.Column="1" Margin="5 0">
                 <Button Content="Clear" Command="{Binding ClearCommand}"/>
@@ -26,6 +26,7 @@
                 <Button Content="Save JSON" Command="{Binding SaveJsonCommand}" />
                 <Button Content="Save XML" Command="{Binding SaveXmlCommand}"/>
                 <Button Content="Save PDF" Command="{Binding SavePdfCommand}" />
+                <Button Content="Save Image" Command="{Binding SaveImageCommand}" />
             </StackPanel>
         </Grid>
     </DockPanel>

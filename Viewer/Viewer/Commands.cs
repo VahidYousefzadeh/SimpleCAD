@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using Viewer.Reader;
 using Viewer.Writer;
+using Clipboard = System.Windows.Forms.Clipboard;
 
 
 namespace Viewer
@@ -79,8 +83,31 @@ namespace Viewer
         public static void SavePdf(View view)
         {
             string filename = "c:/backup/test.pdf";
-            IWriter<PdfWriter> pdfWriter = new PdfWriter(filename, 1000, 1000);
+            IWriter<PdfWriter> pdfWriter = new PdfWriter(
+                filename, 
+                new Size(300d, 300d), 
+                view.Bounds());
+
             pdfWriter.WriteShapes(view.Shapes).Close();
+        }
+
+        public static void SaveImage(View view)
+        {
+            RenderTargetBitmap rtb = new RenderTargetBitmap(300, 300, 96, 96, PixelFormats.Pbgra32);
+            foreach (Shape shape in view.Shapes)
+            {
+                rtb.Render(shape);
+            }
+
+            var crop = new CroppedBitmap(rtb, new Int32Rect(0, 0, 1000, 1000));
+
+            BitmapEncoder pngEncoder = new PngBitmapEncoder();
+            pngEncoder.Frames.Add(BitmapFrame.Create(crop));
+
+            using (var fs = System.IO.File.OpenWrite("c:/backup/logo.png"))
+            {
+                pngEncoder.Save(fs);
+            }
         }
 
         public static bool CanExecuteSaveJson(View view)
