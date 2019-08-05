@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace Viewer
+namespace Viewer.Geometry
 {
     public sealed class LineGeometry : Geometry
     {

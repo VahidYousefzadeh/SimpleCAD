@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 
-namespace Viewer
+namespace Viewer.Geometry
 {
     public static class IntersectionHelper
     {

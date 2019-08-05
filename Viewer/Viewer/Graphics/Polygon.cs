@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using Viewer.Geometry;
 
-namespace Viewer
+namespace Viewer.Graphics
 {
     public abstract class Polygon : Shape
     {

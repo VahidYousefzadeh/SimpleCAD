@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Viewer
+namespace Viewer.Geometry
 {
     public abstract class Geometry
     {

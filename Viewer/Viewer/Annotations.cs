@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using Viewer.Graphics;
 
 namespace Viewer
 {
@@ -51,10 +52,10 @@ namespace Viewer
             Point[] intersections = null;
             for (int i = 0; i < shapes.Count - 1; i++)
             {
-                Geometry a = shapes[i].Geometry;
+                Geometry.Geometry a = shapes[i].Geometry;
                 for (int j = i + 1; j < shapes.Count; j++)
                 {
-                    Geometry b = shapes[j].Geometry;
+                    Geometry.Geometry b = shapes[j].Geometry;
                     intersections = intersections == null
                         ? a.Intersect(b)
                         : intersections.Union(a.Intersect(b)).ToArray();

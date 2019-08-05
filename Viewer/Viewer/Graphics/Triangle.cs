@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using System.Windows;
+using Viewer.Geometry;
 
-namespace Viewer
+namespace Viewer.Graphics
 {
     public sealed class Triangle : Polygon
     {

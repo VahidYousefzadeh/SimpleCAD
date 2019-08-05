@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace Viewer
+namespace Viewer.Graphics
 {
     public abstract class Shape : DrawingVisual
     {
@@ -15,7 +15,7 @@ namespace Viewer
         private Color m_color = Colors.White;
         private DashStyle m_lineStyle = DashStyles.Solid;
 
-        public Geometry Geometry { get; protected set; }
+        public Geometry.Geometry Geometry { get; protected set; }
 
         public DashStyle LineStyle
         {

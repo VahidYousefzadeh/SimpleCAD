@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
+using Viewer.Graphics;
 
-namespace Viewer
+namespace Viewer.Dialogs
 {
     public sealed class ApplicationModel : ObservableObject
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Web.Script.Serialization;
+using Viewer.Graphics;
 
 namespace Viewer.Reader
 {

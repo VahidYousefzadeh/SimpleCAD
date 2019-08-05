@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Viewer
+namespace Viewer.Dialogs
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -1,7 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Media;
+using LineGeometry = Viewer.Geometry.LineGeometry;
 
-namespace Viewer
+namespace Viewer.Graphics
 {
     public sealed class Line : Shape
     {

@@ -3,8 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Viewer.Graphics;
 
-namespace Viewer
+namespace Viewer.Dialogs
 {
     /// <summary>
     /// Interaction logic for ViewPanel.xaml

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
+using Viewer.Geometry;
 
-namespace Viewer
+namespace Viewer.Graphics
 {
     public sealed class Rectangle : Polygon
     {

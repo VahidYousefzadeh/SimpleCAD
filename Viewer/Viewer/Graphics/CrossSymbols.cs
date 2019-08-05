@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 
-namespace Viewer
+namespace Viewer.Graphics
 {
     public sealed class CrossSymbols : DrawingVisual
     {

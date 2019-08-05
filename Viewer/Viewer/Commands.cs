@@ -7,10 +7,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using Viewer.Dialogs;
+using Viewer.Graphics;
 using Viewer.Reader;
 using Viewer.Writer;
 using Clipboard = System.Windows.Forms.Clipboard;
 using MessageBox = System.Windows.MessageBox;
+using View = Viewer.Graphics.View;
 
 
 namespace Viewer

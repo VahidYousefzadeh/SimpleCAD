@@ -1,22 +1,23 @@
-﻿<Window x:Class="Viewer.MainWindow"
+﻿<Window x:Class="Viewer.Dialogs.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Viewer"
+        xmlns:dialogs="clr-namespace:Viewer.Dialogs"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FFEEEEEE">
+        Title="Simple CAD" Height="450" Width="800" Background="#FFEEEEEE">
     <DockPanel>
         <Grid>
             <Grid.DataContext>
-                <local:ApplicationModel/>
+                <dialogs:ApplicationModel/>
             </Grid.DataContext>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="227"/>
             </Grid.ColumnDefinitions>
 
-            <local:ViewPanel View="{Binding View}"/>
+            <dialogs:ViewPanel View="{Binding View}"/>
 
             <StackPanel Grid.Column="1" Margin="5 0">
                 <Button Content="Clear" Command="{Binding ClearCommand}"/>

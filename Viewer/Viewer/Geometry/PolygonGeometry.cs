@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
-namespace Viewer
+namespace Viewer.Geometry
 {
     public sealed class PolygonGeometry : Geometry
     {

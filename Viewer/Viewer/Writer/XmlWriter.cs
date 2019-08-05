@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Xml.Linq;
+using Viewer.Graphics;
 
 namespace Viewer.Writer
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
-namespace Viewer
+namespace Viewer.Graphics
 {
     public sealed class View : FrameworkElement
     {

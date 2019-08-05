@@ -94,13 +94,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Annotations.cs" />
-    <Compile Include="Circle.cs" />
-    <Compile Include="CircleGeometry.cs" />
+    <Compile Include="Graphics\Circle.cs" />
+    <Compile Include="Geometry\CircleGeometry.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Dialogs\PdfExportModel.cs" />
-    <Compile Include="Geometry.cs" />
-    <Compile Include="IntersectionHelper.cs" />
+    <Compile Include="Geometry\Geometry.cs" />
+    <Compile Include="Geometry\IntersectionHelper.cs" />
     <Compile Include="IWriter.cs" />
     <Compile Include="Dialogs\PdfExportDialog.xaml.cs">
       <DependentUpon>PdfExportDialog.xaml</DependentUpon>
@@ -108,25 +108,25 @@
     <Compile Include="Reader\JsonReader.cs" />
     <Compile Include="Reader\ShapeReader.cs" />
     <Compile Include="Writer\JsonWriter.cs" />
-    <Compile Include="CrossSymbols.cs" />
-    <Compile Include="MathHelper.cs" />
-    <Compile Include="Line.cs" />
-    <Compile Include="LineGeometry.cs" />
-    <Compile Include="PolygonGeometry.cs" />
-    <Compile Include="Polygon.cs" />
+    <Compile Include="Graphics\CrossSymbols.cs" />
+    <Compile Include="Geometry\MathHelper.cs" />
+    <Compile Include="Graphics\Line.cs" />
+    <Compile Include="Geometry\LineGeometry.cs" />
+    <Compile Include="Geometry\PolygonGeometry.cs" />
+    <Compile Include="Graphics\Polygon.cs" />
     <Compile Include="RandomShapeGenerator.cs" />
-    <Compile Include="Rectangle.cs" />
-    <Compile Include="Shape.cs" />
-    <Compile Include="Triangle.cs" />
+    <Compile Include="Graphics\Rectangle.cs" />
+    <Compile Include="Graphics\Shape.cs" />
+    <Compile Include="Graphics\Triangle.cs" />
     <Compile Include="Utility.cs" />
-    <Compile Include="View.cs" />
-    <Compile Include="ViewPanel.xaml.cs">
+    <Compile Include="Graphics\View.cs" />
+    <Compile Include="Dialogs\ViewPanel.xaml.cs">
       <DependentUpon>ViewPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Writer\PdfWriter.cs" />
     <Compile Include="Reader\XmlReader.cs" />
     <Compile Include="Writer\XmlWriter.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="Dialogs\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -134,8 +134,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ApplicationModel.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Dialogs\ApplicationModel.cs" />
+    <Compile Include="Dialogs\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -143,7 +143,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewPanel.xaml">
+    <Page Include="Dialogs\ViewPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
