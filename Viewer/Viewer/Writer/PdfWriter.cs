@@ -14,9 +14,11 @@ namespace Viewer.Writer
     {
         private readonly PdfCanvas m_canvas;
         private readonly PdfDocument m_pdfDocument;
-        private readonly double m_scale = 1d;
+
+        private readonly double m_scale;
         private readonly double m_dx;
         private readonly double m_dy;
+
         public PdfWriter(string filename, Size pageSize, Rect drawingBounds)
         {
             double ymax = drawingBounds.Bottom;

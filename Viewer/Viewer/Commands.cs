@@ -67,31 +67,48 @@ namespace Viewer
         {
             if (view == null) return;
 
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "JSON File (*.json)|*.json",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            };
+
+            bool? result = saveFileDialog.ShowDialog();
+            if (result == null || result != true) return;
+
             IWriter<string> jsonWriter = new JsonWriter(s_formatProvider);
             string json = jsonWriter.WriteShapes(view.Shapes);
 
-            Clipboard.SetText(json);
+            File.WriteAllText(saveFileDialog.FileName, json);
         }
 
         public static void SaveXml(View view)
         {
             if (view == null) return;
 
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "XML File (*.xml)|*.xml",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            };
+
+            bool? result = saveFileDialog.ShowDialog();
+            if (result == null || result != true) return;
+
             IWriter<XElement> xmlWriter = new XmlWriter(s_formatProvider);
             XElement xml = xmlWriter.WriteShapes(view.Shapes);
-            xml.Save("c:/backup/dada.xml");
+            xml.Save(saveFileDialog.FileName);
         }
 
         public static void SavePdf(View view)
         {
-            PdfExportDialog dialog = new PdfExportDialog();
+            var dialog = new PdfExportDialog();
             dialog.ShowDialog();
 
             if (dialog.DialogResult != true) return;
 
             var saveFileDialog = new Microsoft.Win32.SaveFileDialog
             {
-                DefaultExt = "untitled.pdf",
                 Filter = "PDF File (*.pdf)|*.pdf",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             };
