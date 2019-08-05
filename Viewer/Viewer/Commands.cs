@@ -6,9 +6,11 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
+using Viewer.Dialogs;
 using Viewer.Reader;
 using Viewer.Writer;
 using Clipboard = System.Windows.Forms.Clipboard;
+using MessageBox = System.Windows.MessageBox;
 
 
 namespace Viewer
@@ -82,13 +84,31 @@ namespace Viewer
 
         public static void SavePdf(View view)
         {
-            string filename = "c:/backup/test.pdf";
+            PdfExportDialog dialog = new PdfExportDialog();
+            dialog.ShowDialog();
+
+            if (dialog.DialogResult != true) return;
+
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                DefaultExt = "untitled.pdf",
+                Filter = "PDF File (*.pdf)|*.pdf",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            };
+
+            bool? result = saveFileDialog.ShowDialog();
+            if (result == null || result != true) return;
+
+            var exportModel = (PdfExportModel)dialog.DataContext;
+
             IWriter<PdfWriter> pdfWriter = new PdfWriter(
-                filename, 
-                new Size(300d, 300d), 
+                saveFileDialog.FileName,
+                new Size(exportModel.PdfPageWidth, exportModel.PdfPageHeight),
                 view.Bounds());
 
             pdfWriter.WriteShapes(view.Shapes).Close();
+
+            MessageBox.Show("The pdf was created successfully!");
         }
 
         public static void SaveImage(View view)

@@ -24,15 +24,9 @@ namespace Viewer.Writer
             double xmax = drawingBounds.Right;
             double xmin = drawingBounds.Left;
 
-            double sx =  pageSize.Width / (xmax - xmin);
-            double sy = pageSize.Height / (ymax - ymin);
-            m_scale = Math.Min(sx, sy);
-
+            m_scale = Math.Min(pageSize.Width / (xmax - xmin), pageSize.Height / (ymax - ymin));
             m_dx = -xmin;
             m_dy = -ymin;
-
-            //var widthPoints = (72f / 96f) * widthPixels;
-            //var heightPoints = (72f / 96f) * heightPixels;
 
             m_pdfDocument = new PdfDocument(new iText.Kernel.Pdf.PdfWriter(filename));
             m_canvas = new PdfCanvas(m_pdfDocument.AddNewPage(new PageSize((float) pageSize.Width, (float) pageSize.Height)));

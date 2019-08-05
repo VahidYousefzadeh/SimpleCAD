@@ -98,9 +98,13 @@
     <Compile Include="CircleGeometry.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Commands.cs" />
+    <Compile Include="Dialogs\PdfExportModel.cs" />
     <Compile Include="Geometry.cs" />
     <Compile Include="IntersectionHelper.cs" />
     <Compile Include="IWriter.cs" />
+    <Compile Include="Dialogs\PdfExportDialog.xaml.cs">
+      <DependentUpon>PdfExportDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Reader\JsonReader.cs" />
     <Compile Include="Reader\ShapeReader.cs" />
     <Compile Include="Writer\JsonWriter.cs" />
@@ -135,6 +139,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Dialogs\PdfExportDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
