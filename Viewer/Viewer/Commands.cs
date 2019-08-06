@@ -2,56 +2,75 @@
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using System.Windows.Forms;
 using System.Xml.Linq;
 using Viewer.Dialogs;
+using Viewer.Graphics;
 using Viewer.Reader;
 using Viewer.Writer;
-using View = Viewer.Graphics.View;
-
 
 namespace Viewer
 {
     public static class Commands
     {
-        private readonly static IFormatProvider s_formatProvider = new CultureInfo("de");
+        private static readonly IFormatProvider s_formatProvider = new CultureInfo("de");
 
         public static View Clear()
         {
             return new View();
         }
 
-        public static View LoadXml()
+        public static View LoadXml(View view)
         {
-            var dialog = new OpenFileDialog
+            var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 Filter = @"XML files (*.xml)|*.xml",
                 Title = @"Open XML file"
             };
 
-            dialog.ShowDialog();
+            bool? result = dialog.ShowDialog();
 
+            if (result == null || result != true) return view;
 
-            ShapeReader xmlReader = new XmlReader(s_formatProvider);
-            return !File.Exists(dialog.FileName) 
-                ? new View() 
-                : new View(xmlReader.Read(dialog.FileName));
+            try
+            {
+                ShapeReader xmlReader = new XmlReader(s_formatProvider);
+                return !File.Exists(dialog.FileName)
+                    ? new View()
+                    : new View(xmlReader.Read(dialog.FileName));
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(@"An error occurred while loading the file.");
+                Console.WriteLine(e);
+                return new View();
+            }
         }
 
-        public static View LoadJson()
+        public static View LoadJson(View view)
         {
-            var dialog = new OpenFileDialog
+            var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 Filter = @"JSON files (*.json)|*.json",
                 Title = @"Open JSON file"
             };
 
-            dialog.ShowDialog();
+            bool? result = dialog.ShowDialog();
 
-            ShapeReader jsonReader = new JsonReader(s_formatProvider);
-            return !File.Exists(dialog.FileName) 
-                ? new View() 
-                : new View(jsonReader.Read(dialog.FileName));
+            if (result == null || result != true) return view;
+
+            try
+            {
+                ShapeReader jsonReader = new JsonReader(s_formatProvider);
+                return !File.Exists(dialog.FileName)
+                    ? new View()
+                    : new View(jsonReader.Read(dialog.FileName));
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(@"An error occurred while loading the file.");
+                Console.WriteLine(e);
+                return new View();
+            }
         }
 
         public static View RandomShapes(int numberOfShapes, double width, double height)
@@ -73,10 +92,20 @@ namespace Viewer
             bool? result = saveFileDialog.ShowDialog();
             if (result == null || result != true) return;
 
-            IWriter<string> jsonWriter = new JsonWriter(s_formatProvider);
-            string json = jsonWriter.WriteShapes(view.Shapes);
+            try
+            {
+                IWriter<string> jsonWriter = new JsonWriter(s_formatProvider);
+                string json = jsonWriter.WriteShapes(view.Shapes);
 
-            File.WriteAllText(saveFileDialog.FileName, json);
+                File.WriteAllText(saveFileDialog.FileName, json);
+                MessageBox.Show(@"The file was saved successfully.");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(@"An error occurred while saving the file.");
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public static void SaveXml(View view)
@@ -92,9 +121,19 @@ namespace Viewer
             bool? result = saveFileDialog.ShowDialog();
             if (result == null || result != true) return;
 
-            IWriter<XElement> xmlWriter = new XmlWriter(s_formatProvider);
-            XElement xml = xmlWriter.WriteShapes(view.Shapes);
-            xml.Save(saveFileDialog.FileName);
+            try
+            {
+                IWriter<XElement> xmlWriter = new XmlWriter(s_formatProvider);
+                XElement xml = xmlWriter.WriteShapes(view.Shapes);
+                xml.Save(saveFileDialog.FileName);
+                MessageBox.Show(@"The file was saved successfully.");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(@"An error occurred while saving the file.");
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public static void SavePdf(View view)
@@ -113,14 +152,23 @@ namespace Viewer
             bool? result = saveFileDialog.ShowDialog();
             if (result == null || result != true) return;
 
-            var exportModel = (PdfExportModel)dialog.DataContext;
+            try
+            {
+                var exportModel = (PdfExportModel)dialog.DataContext;
 
-            IWriter<PdfWriter> pdfWriter = new PdfWriter(
-                saveFileDialog.FileName,
-                new Size(exportModel.PdfPageWidth, exportModel.PdfPageHeight),
-                view.Bounds());
+                IWriter<PdfWriter> pdfWriter = new PdfWriter(
+                    saveFileDialog.FileName,
+                    new Size(exportModel.PdfPageWidth, exportModel.PdfPageHeight),
+                    view.Bounds());
 
-            pdfWriter.WriteShapes(view.Shapes).Close();
+                pdfWriter.WriteShapes(view.Shapes).Close();
+                MessageBox.Show(@"The file was saved successfully.");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(@"An error occurred while saving the file.");
+                Console.WriteLine(e);
+            }
         }
 
         public static bool CanExecuteSaveJson(View view)
