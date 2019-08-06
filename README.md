@@ -1,1 +1,1 @@
-# Simple Shape Viewer
+# Simple Vector Shapes Viewer
