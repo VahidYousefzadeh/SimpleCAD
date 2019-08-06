@@ -19,7 +19,7 @@ namespace Viewer.Geometry
             double dx2 = lb.EndPoint.X - lb.StartPoint.X;
             double dy2 = lb.EndPoint.Y - lb.StartPoint.Y;
             double d = dy2 * dx1 - dx2 * dy1;
-            // Return if lines are parallel
+
             if (Math.Abs(Math.Round(d)) < MathHelper.Epsilon)
             {
                 return new Point[0];
@@ -32,8 +32,6 @@ namespace Viewer.Geometry
                 return new Point[0];
             }
 
-
-            // We are using Cos of the angle between two lines to account for nearly parallel lines
             double cosAngle =
                 Math.Abs((dx1 * dx2 + dy1 * dy2) / Math.Sqrt((dx1 * dx1 + dy1 * dy1) * (dx2 * dx2 + dy2 * dy2)));
             if (cosAngle > 1 - 0.001)
@@ -47,7 +45,7 @@ namespace Viewer.Geometry
             double ua = na / d;
             double ub = nb / d;
 
-            Point[] pt = new Point[1] {new Point(la.StartPoint.X + ua * (la.EndPoint.X - la.StartPoint.X), la.StartPoint.Y + ua * (la.EndPoint.Y - la.StartPoint.Y)) };
+            Point[] pt = {new Point(la.StartPoint.X + ua * (la.EndPoint.X - la.StartPoint.X), la.StartPoint.Y + ua * (la.EndPoint.Y - la.StartPoint.Y)) };
 
             // The lines do not intersect (but they will if they are extended)
             if (ua + MathHelper.Epsilon < 0 ||
@@ -64,56 +62,47 @@ namespace Viewer.Geometry
 
         public static Point[] CircleCircleIntersecton(CircleGeometry circle1, CircleGeometry circle2)
         {
-            var cx0 = circle1.Center.X;
-            var cx1 = circle2.Center.X;
-            var cy0 = circle1.Center.Y;
-            var cy1 = circle2.Center.Y;
+            double cx0 = circle1.Center.X;
+            double cx1 = circle2.Center.X;
+            double cy0 = circle1.Center.Y;
+            double cy1 = circle2.Center.Y;
 
-            var radius0 = circle1.Radius;
-            var radius1 = circle2.Radius;
+            double radius0 = circle1.Radius;
+            double radius1 = circle2.Radius;
 
-            // Find the distance between the centers.
             double dx = cx0 - cx1;
             double dy = cy0 - cy1;
             double dist = Math.Sqrt(dx * dx + dy * dy);
 
-            // See how many solutions there are.
             if (dist > radius0 + radius1)
             {
-                // No solutions, the circles are too far apart.
                 return new Point[0];
             }
-            else if (dist < Math.Abs(radius0 - radius1))
-            {
-                // No solutions, one circle contains the other.
-                return new Point[0];
-            }
-            else if ((dist.AlmostEquals(0d)) && (radius0.AlmostEquals(radius1)))
-            {
-                // No solutions, the circles coincide.
-                return new Point[0];
-            }
-            else
-            {
-                // Find a and h.
-                double a = (radius0 * radius0 -
-                            radius1 * radius1 + dist * dist) / (2 * dist);
-                double h = Math.Sqrt(radius0 * radius0 - a * a);
 
-                // Find P2.
-                double cx2 = cx0 + a * (cx1 - cx0) / dist;
-                double cy2 = cy0 + a * (cy1 - cy0) / dist;
-
-                return new []
-                {
-                    new Point(
-                        cx2 + h * (cy1 - cy0) / dist,
-                        cy2 - h * (cx1 - cx0) / dist),
-                    new Point(
-                        cx2 - h * (cy1 - cy0) / dist,
-                        cy2 + h * (cx1 - cx0) / dist)
-                };
+            if (dist < Math.Abs(radius0 - radius1))
+            {
+                return new Point[0];
             }
+            if ((dist.AlmostEquals(0d)) && (radius0.AlmostEquals(radius1)))
+            {
+                return new Point[0];
+            }
+
+            double a = (radius0 * radius0 - radius1 * radius1 + dist * dist) / (2 * dist);
+            double h = Math.Sqrt(radius0 * radius0 - a * a);
+
+            double cx2 = cx0 + a * (cx1 - cx0) / dist;
+            double cy2 = cy0 + a * (cy1 - cy0) / dist;
+
+            return new []
+            {
+                new Point(
+                    cx2 + h * (cy1 - cy0) / dist,
+                    cy2 - h * (cx1 - cx0) / dist),
+                new Point(
+                    cx2 - h * (cy1 - cy0) / dist,
+                    cy2 + h * (cx1 - cx0) / dist)
+            };
         }
 
         public static Point[] PolygonPolygonIntersection(PolygonGeometry a, PolygonGeometry b)
@@ -152,7 +141,6 @@ namespace Viewer.Geometry
                 return new Point[0];
             }
 
-
             discriminant = Math.Sqrt(discriminant);
 
             double t1 = (-b - discriminant) / (2 * a);
@@ -162,16 +150,43 @@ namespace Viewer.Geometry
             Point p2 = line.StartPoint + Vector.Multiply(d, t2);
 
             if (IsPointOnLineSegment(p1, line) && IsPointOnLineSegment(p2, line))
-                return new Point[2] {p1, p2};
+                return new[] {p1, p2};
 
             if (IsPointOnLineSegment(p1, line))
-                return new Point[] {p1};
+                return new[] {p1};
 
             if (IsPointOnLineSegment(p2, line))
-                return new Point[] {p2};
+                return new[] {p2};
 
             return new Point[0];
+        }
 
+        public static Point[] LinePolygonIntersection(LineGeometry line, PolygonGeometry polygon)
+        {
+            return GeometryPolygonIntersection(line, polygon);
+        }
+
+        public static Point[] CirclePolygonIntersection(CircleGeometry circle, PolygonGeometry polygon)
+        {
+            return GeometryPolygonIntersection(circle, polygon);
+        }
+
+        private static Point[] GeometryPolygonIntersection(Geometry geometry, PolygonGeometry polygon)
+        {
+            if (!geometry.Bounds.IntersectsWith(polygon.Bounds))
+                return new Point[0];
+
+            LineGeometry[] edges = polygon.Edges;
+
+            Point[] intersections = null;
+            foreach (LineGeometry edge in edges)
+            {
+                intersections = intersections == null
+                    ? geometry.Intersect(edge)
+                    : intersections.Union(geometry.Intersect(edge)).ToArray();
+            }
+
+            return intersections;
         }
 
         private static bool IsPointOnLineSegment(Point a, LineGeometry line)
@@ -212,34 +227,6 @@ namespace Viewer.Geometry
             }
 
             return ((x - x1) / (x2 - x1)).AlmostEquals((y - y1) / (y2 - y1));
-        }
-
-        public static Point[] LinePolygonIntersection(LineGeometry line, PolygonGeometry polygon)
-        {
-            return GeometryPolygonIntersection(line, polygon);
-        }
-
-        public static Point[] CirclePolygonIntersection(CircleGeometry circle, PolygonGeometry polygon)
-        {
-            return GeometryPolygonIntersection(circle, polygon);
-        }
-
-        private static Point[] GeometryPolygonIntersection(Geometry geometry, PolygonGeometry polygon)
-        {
-            if (!geometry.Bounds.IntersectsWith(polygon.Bounds))
-                return new Point[0];
-
-            LineGeometry[] edges = polygon.Edges;
-
-            Point[] intersections = null;
-            foreach (LineGeometry edge in edges)
-            {
-                intersections = intersections == null
-                    ? geometry.Intersect(edge)
-                    : intersections.Union(geometry.Intersect(edge)).ToArray();
-            }
-
-            return intersections;
         }
     }
 }

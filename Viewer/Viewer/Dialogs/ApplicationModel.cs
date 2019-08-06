@@ -15,7 +15,7 @@ namespace Viewer.Dialogs
         public ApplicationModel()
         {
             ClearCommand = new Command(p => { View = Commands.Clear(); }, p => true);
-            RandomShapesCommand = new Command(p => { View = Commands.RandomShapes(60, 3000, 3000); }, p => true);
+            RandomShapesCommand = new Command(p => { View = Commands.RandomShapes(30, 1000, 1000); }, p => true);
             LoadJsonCommand = new Command(p => { View = Commands.LoadJson(View); }, p => true);
             LoadXmlCommand = new Command(p => { View = Commands.LoadXml(View); }, p => true);
             SaveJsonCommand = new Command(p => { Commands.SaveJson(View); }, p => Commands.CanExecuteSaveJson(View));

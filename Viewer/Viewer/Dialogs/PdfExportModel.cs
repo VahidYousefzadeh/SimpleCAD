@@ -24,7 +24,7 @@ namespace Viewer.Dialogs
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
             bool canConvert = int.TryParse(value as string, out int result);
-            canConvert = canConvert && result >= 100;
+            canConvert = canConvert && result >= 1;
             return new ValidationResult(canConvert, "Not a valid value");
         }
     }

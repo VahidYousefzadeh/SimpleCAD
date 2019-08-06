@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using Viewer.Geometry;
 
 namespace Viewer.Graphics
 {
@@ -48,8 +49,9 @@ namespace Viewer.Graphics
                         : intersections.Union(a.Intersect(b)).ToArray();
                 }
             }
-
-            return intersections;
+            return intersections == null 
+                ? new Point[0] 
+                : intersections.Distinct(new PointComparer()).ToArray();
         }
     }
 }
