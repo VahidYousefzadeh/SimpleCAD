@@ -7,24 +7,27 @@ namespace Viewer.Graphics
 {
     public sealed class CrossSymbols : DrawingVisual
     {
-        private const double Size = 7d;
-
-        private static readonly Vector s_p = new Vector(+0.25 * Math.PI, +0.25 * Math.PI) * Size;
-        private static readonly Vector s_q = new Vector(+0.25 * Math.PI, -0.25 * Math.PI) * Size;
-
-        public CrossSymbols(Pen pen, IEnumerable<Point> locations)
+        private const double Size = 5d;
+        public CrossSymbols(double scale, IEnumerable<Point> locations)
         {
-            if (pen.CanFreeze)
-                pen.Freeze();
+            Pen pen = Pen(scale).AsFrozen();
+
+            Vector p = new Vector(+0.25 * Math.PI, +0.25 * Math.PI) * Size / scale;
+            Vector q = new Vector(+0.25 * Math.PI, -0.25 * Math.PI) * Size / scale;
 
             using (DrawingContext drawingContext = RenderOpen())
             {
                 foreach (Point location in locations)
                 {
-                    drawingContext.DrawLine(pen, location + s_p, location - s_p);
-                    drawingContext.DrawLine(pen, location + s_q, location - s_q);
+                    drawingContext.DrawLine(pen, location + p, location - p);
+                    drawingContext.DrawLine(pen, location + q, location - q);
                 }
             }
+        }
+
+        private static Pen Pen(double scale)
+        {
+            return new Pen(Brushes.Orange, 3d / scale);
         }
     }
 }

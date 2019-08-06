@@ -50,11 +50,11 @@ namespace Viewer.Dialogs
 
         private static void OnViewPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((ViewPanel) d).Annotations.Content = new Annotations(((ViewPanel) d).View);
-
             ((ViewPanel)d).ZoomToExtents();
 
             ((ViewPanel)d).Refresh();
+
+            ((ViewPanel)d).Annotations.Content = new Annotations(((ViewPanel)d).View, ((ViewPanel)d).Scale);
         }
 
         public ViewPanel()

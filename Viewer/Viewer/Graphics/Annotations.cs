@@ -4,20 +4,16 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
-using Viewer.Graphics;
 
-namespace Viewer
+namespace Viewer.Graphics
 {
     public sealed class Annotations : FrameworkElement
     {
         private readonly VisualCollection m_children;
 
-        private static readonly Pen s_pen = new Pen(Brushes.Orange, 2d);
-
-        public Annotations(View view)
+        public Annotations(View view, double scale)
         {
             m_children = new VisualCollection(this);
-
 
             var sw = new Stopwatch();
             sw.Start();
@@ -27,7 +23,7 @@ namespace Viewer
 
             if (intersections != null)
             {
-                m_children.Add(new CrossSymbols(s_pen, intersections));
+                m_children.Add(new CrossSymbols(scale, intersections));
             }
         }
 
