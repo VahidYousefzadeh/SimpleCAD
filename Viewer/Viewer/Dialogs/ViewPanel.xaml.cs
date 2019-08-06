@@ -54,7 +54,7 @@ namespace Viewer.Dialogs
 
             ((ViewPanel)d).Refresh();
 
-            ((ViewPanel)d).Annotations.Content = new Annotations(((ViewPanel)d).View, ((ViewPanel)d).Scale);
+            ((ViewPanel)d).Annotations.Content = new Intersections(((ViewPanel)d).View, ((ViewPanel)d).Scale);
         }
 
         public ViewPanel()

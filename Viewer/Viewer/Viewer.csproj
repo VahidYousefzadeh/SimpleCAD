@@ -93,7 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Graphics\Annotations.cs" />
+    <Compile Include="Graphics\Intersections.cs" />
     <Compile Include="Graphics\Circle.cs" />
     <Compile Include="Geometry\CircleGeometry.cs" />
     <Compile Include="Dialogs\Command.cs" />

@@ -7,11 +7,11 @@ using System.Windows.Media;
 
 namespace Viewer.Graphics
 {
-    public sealed class Annotations : FrameworkElement
+    public sealed class Intersections : FrameworkElement
     {
         private readonly VisualCollection m_children;
 
-        public Annotations(View view, double scale)
+        public Intersections(View view, double scale)
         {
             m_children = new VisualCollection(this);
 
