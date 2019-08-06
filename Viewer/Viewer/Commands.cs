@@ -104,7 +104,6 @@ namespace Viewer
             {
                 MessageBox.Show(@"An error occurred while saving the file.");
                 Console.WriteLine(e);
-                throw;
             }
         }
 
@@ -132,7 +131,6 @@ namespace Viewer
             {
                 MessageBox.Show(@"An error occurred while saving the file.");
                 Console.WriteLine(e);
-                throw;
             }
         }
 
