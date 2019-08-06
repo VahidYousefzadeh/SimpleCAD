@@ -20,13 +20,12 @@
 
             <StackPanel Grid.Column="1" Margin="5 0">
                 <Button Content="Clear" Command="{Binding ClearCommand}"/>
+                <Button Content="Random Shapes" Command="{Binding RandomShapesCommand}" />
                 <Button Content="Load JSON" Command="{Binding LoadJsonCommand}" />
                 <Button Content="Load XML" Command="{Binding LoadXmlCommand}" />
-                <Button Content="Random Shapes" Command="{Binding RandomShapesCommand}" />
                 <Button Content="Save JSON" Command="{Binding SaveJsonCommand}" />
                 <Button Content="Save XML" Command="{Binding SaveXmlCommand}"/>
                 <Button Content="Save PDF" Command="{Binding SavePdfCommand}" />
-                <Button Content="Save Image" Command="{Binding SaveImageCommand}" />
             </StackPanel>
         </Grid>
     </DockPanel>
