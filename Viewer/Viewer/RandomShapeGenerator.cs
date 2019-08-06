@@ -10,6 +10,7 @@ namespace Viewer
     {
         private readonly double m_screenWidth;
         private readonly double m_screenHeight;
+        private readonly double m_seed;
         private readonly Random m_random;
 
         public RandomShapeGenerator(double screenWidth, double screenHeight)
@@ -17,6 +18,7 @@ namespace Viewer
             m_random= new Random((int)DateTime.Now.Ticks);
             m_screenWidth = screenWidth;
             m_screenHeight = screenHeight;
+            m_seed = 0.04 * Math.Min(m_screenWidth, m_screenHeight);
         }
 
         public IEnumerable<Shape> Generate(int numberOfShapes)
@@ -51,8 +53,8 @@ namespace Viewer
 
         private Shape RandomCircle()
         {
-            const double minimumRadius = 100d;
-            const double maximumRadius = 200d;
+            double minimumRadius = m_seed;
+            double maximumRadius = 2 * m_seed;
 
             double radius = RandomDouble(minimumRadius, maximumRadius);
             double x = RandomDouble(radius, m_screenWidth - radius);
@@ -70,11 +72,11 @@ namespace Viewer
             double x1 = RandomDouble(0d, m_screenWidth);
             double y1 = RandomDouble(0d, m_screenHeight);
 
-            double x2 = x1 + RandomDouble(200d, 500d);
-            double y2 = y1 + RandomDouble(0, 500d);
+            double x2 = x1 + RandomDouble(2 * m_seed, 5 * m_seed);
+            double y2 = y1 + RandomDouble(0, 5 * m_seed);
 
-            double x3 = x1 + RandomDouble(200d, 500d);
-            double y3 = y1 - RandomDouble(100, 500d);
+            double x3 = x1 + RandomDouble(2 * m_seed, 5 * m_seed);
+            double y3 = y1 - RandomDouble(m_seed, 5 * m_seed);
 
             return WithStyle(
                 new Triangle(new Point(x1, y1), new Point(x2, y2), new Point(x3, y3))
@@ -85,10 +87,10 @@ namespace Viewer
 
         private Shape RandomRectangle()
         {
-            const double minimumWidth = 100d;
-            const double maximumWidth = 300d;
-            const double minimumDepth = 100d;
-            const double maximumDepth = 300d;
+            double minimumWidth = m_seed;
+            double maximumWidth = 3 * m_seed;
+            double minimumDepth = m_seed;
+            double maximumDepth = 3 * m_seed;
 
             double x1 = RandomDouble(0d, m_screenWidth);
             double y1 = RandomDouble(0d, m_screenHeight);
