@@ -27,7 +27,7 @@ namespace Viewer.Graphics
 
         private static Pen Pen(double scale)
         {
-            return new Pen(Brushes.Orange, 3d / scale);
+            return new Pen(Brushes.Gold, 3d / scale);
         }
     }
 }

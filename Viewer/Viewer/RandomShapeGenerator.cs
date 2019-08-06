@@ -27,17 +27,21 @@ namespace Viewer
             {
                 int type = m_random.Next(0, 4);
 
-                if (type == 0)
-                    yield return RandomLine();
-
-                if (type == 1)
-                    yield return RandomCircle();
-
-                if (type == 2)
-                    yield return RandomTriangle();
-
-                if (type == 3)
-                    yield return RandomRectangle();
+                switch (type)
+                {
+                    case 0:
+                        yield return RandomLine();
+                        break;
+                    case 1:
+                        yield return RandomCircle();
+                        break;
+                    case 2:
+                        yield return RandomTriangle();
+                        break;
+                    case 3:
+                        yield return RandomRectangle();
+                        break;
+                }
             }
         }
 

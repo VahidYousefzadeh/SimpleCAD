@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -15,11 +14,7 @@ namespace Viewer.Graphics
         {
             m_children = new VisualCollection(this);
 
-            var sw = new Stopwatch();
-            sw.Start();
             Point[] intersections = FindIntersections(view.Shapes);
-            sw.Stop();
-            MessageBox.Show(sw.ElapsedMilliseconds.ToString());
 
             if (intersections != null)
             {
@@ -41,10 +36,6 @@ namespace Viewer.Graphics
 
         private static Point[] FindIntersections(IList<Shape> shapes)
         {
-            //var f = shapes.Select(o => o.Geometry);
-
-            //var dd = IntersectionHelper.Intersections(f.ToArray());
-
             Point[] intersections = null;
             for (int i = 0; i < shapes.Count - 1; i++)
             {

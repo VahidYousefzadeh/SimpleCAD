@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 
 namespace Viewer.Geometry
 {
@@ -16,11 +15,6 @@ namespace Viewer.Geometry
         public static bool AlmostEquals(this double a, double b, double epsilon = Epsilon)
         {
             return Math.Abs(a - b) < epsilon;
-        }
-
-        public static double DistanceTo(this Point a, Point b)
-        {
-            return Math.Sqrt(Math.Pow(b.X - a.X, 2) + Math.Pow(b.Y - a.Y, 2));
         }
     }
 }

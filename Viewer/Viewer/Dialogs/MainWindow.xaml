@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dialogs="clr-namespace:Viewer.Dialogs"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Title="Vector Viewer" Height="450" Width="800" Background="#FFEEEEEE">
     <DockPanel>
         <Grid>

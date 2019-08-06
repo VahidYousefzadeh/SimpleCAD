@@ -16,14 +16,6 @@ namespace Viewer.Geometry
             Bounds = GetBounds();
         }
 
-        public Vector Direction()
-        {
-            Vector vector = EndPoint - StartPoint;
-            vector.Normalize();
-
-            return vector;
-        }
-
         public override Point[] Intersect(Geometry other)
         {
             switch (other)
