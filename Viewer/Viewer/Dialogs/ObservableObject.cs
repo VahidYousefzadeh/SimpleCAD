@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Viewer
+namespace Viewer.Dialogs
 {
     /// <summary>
     /// The base class for all the objects that notify their changes.

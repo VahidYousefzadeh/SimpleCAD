@@ -3,10 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Viewer"
         xmlns:dialogs="clr-namespace:Viewer.Dialogs"
         mc:Ignorable="d"
-        Title="Simple CAD" Height="450" Width="800" Background="#FFEEEEEE">
+        Title="Vector Viewer" Height="450" Width="800" Background="#FFEEEEEE">
     <DockPanel>
         <Grid>
             <Grid.DataContext>

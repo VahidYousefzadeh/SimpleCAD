@@ -96,7 +96,7 @@
     <Compile Include="Annotations.cs" />
     <Compile Include="Graphics\Circle.cs" />
     <Compile Include="Geometry\CircleGeometry.cs" />
-    <Compile Include="Command.cs" />
+    <Compile Include="Dialogs\Command.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Dialogs\PdfExportModel.cs" />
     <Compile Include="Geometry\Geometry.cs" />
@@ -149,7 +149,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ObservableObject.cs" />
+    <Compile Include="Dialogs\ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

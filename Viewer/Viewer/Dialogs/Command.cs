@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Viewer
+namespace Viewer.Dialogs
 {
     public sealed class Command : ICommand
     {
