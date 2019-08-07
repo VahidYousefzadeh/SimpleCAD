@@ -102,7 +102,7 @@ namespace Viewer
 
             try
             {
-                IWriter<string> jsonWriter = new JsonWriter(SFormatProvider);
+                JsonWriter jsonWriter = new JsonWriter(SFormatProvider);
                 string json = jsonWriter.WriteShapes(view.Shapes());
 
                 File.WriteAllText(saveFileDialog.FileName, json);
@@ -131,7 +131,7 @@ namespace Viewer
 
             try
             {
-                IWriter<XElement> xmlWriter = new XmlWriter(SFormatProvider);
+                var xmlWriter = new XmlWriter(SFormatProvider);
                 XElement xml = xmlWriter.WriteShapes(view.Shapes());
                 xml.Save(saveFileDialog.FileName);
                 MessageBox.Show("The file was saved successfully.");
