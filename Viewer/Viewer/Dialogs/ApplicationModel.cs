@@ -5,7 +5,7 @@ namespace Viewer.Dialogs
 {
     public sealed class ApplicationModel : ObservableObject
     {
-        private View m_view;
+        private View m_view = new View();
 
         public View View
         {

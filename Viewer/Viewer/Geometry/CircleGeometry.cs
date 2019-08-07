@@ -25,7 +25,7 @@ namespace Viewer.Geometry
                 case LineGeometry line:
                     return IntersectionHelper.LineCircleIntersection(line, this);
                 case CircleGeometry circle:
-                    return IntersectionHelper.CircleCircleIntersecton(this, circle);
+                    return IntersectionHelper.CircleCircleIntersection(this, circle);
                 case PolygonGeometry polygon:
                     return IntersectionHelper.GeometryPolygonIntersection(this, polygon);
                 default:

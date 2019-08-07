@@ -62,7 +62,7 @@ namespace Viewer.Geometry
             return pt;
         }
 
-        public static Point[] CircleCircleIntersecton(CircleGeometry firstCircle, CircleGeometry secondCircle)
+        public static Point[] CircleCircleIntersection(CircleGeometry firstCircle, CircleGeometry secondCircle)
         {
             if (firstCircle == null || secondCircle == null)
                 return new Point[0];
