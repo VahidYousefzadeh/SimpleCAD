@@ -11,7 +11,7 @@ using Point = System.Windows.Point;
 
 namespace Viewer.Writer
 {
-    public sealed class PdfWriter : IWriter<PdfWriter>
+    public sealed class PdfWriter : IWriter<PdfWriter>, IDisposable
     {
         private readonly PdfCanvas m_canvas;
         private readonly PdfDocument m_pdfDocument;
@@ -81,6 +81,7 @@ namespace Viewer.Writer
         public void Close()
         {
             m_pdfDocument.Close();
+            Dispose();
         }
 
         private void WriteLineGeometry(Point a, Point b)
@@ -156,6 +157,11 @@ namespace Viewer.Writer
         private double Ty(double y)
         {
             return (y + m_dy) * m_scale;
+        }
+
+        public void Dispose()
+        {
+            ((IDisposable) m_pdfDocument)?.Dispose();
         }
     }
 }
