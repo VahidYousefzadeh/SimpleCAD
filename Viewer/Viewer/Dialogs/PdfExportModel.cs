@@ -5,6 +5,7 @@ namespace Viewer.Dialogs
     public sealed class PdfExportModel : ObservableObject
     {
         private int m_pdfPageWidth = 700;
+
         public int PdfPageWidth
         {
             get => m_pdfPageWidth;
@@ -12,6 +13,7 @@ namespace Viewer.Dialogs
         }
 
         private int m_pdfPageHeight = 700;
+
         public int PdfPageHeight
         {
             get => m_pdfPageHeight;

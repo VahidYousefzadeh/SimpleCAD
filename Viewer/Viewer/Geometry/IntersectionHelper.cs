@@ -18,7 +18,7 @@ namespace Viewer.Geometry
             double dy1 = la.EndPoint.Y - la.StartPoint.Y;
             double dx2 = lb.EndPoint.X - lb.StartPoint.X;
             double dy2 = lb.EndPoint.Y - lb.StartPoint.Y;
-            double d = dy2 * dx1 - dx2 * dy1;
+            double d = (dy2 * dx1) - (dx2 * dy1);
 
             if (Math.Abs(Math.Round(d)) < MathHelper.Epsilon)
             {
@@ -33,19 +33,19 @@ namespace Viewer.Geometry
             }
 
             double cosAngle =
-                Math.Abs((dx1 * dx2 + dy1 * dy2) / Math.Sqrt((dx1 * dx1 + dy1 * dy1) * (dx2 * dx2 + dy2 * dy2)));
+                Math.Abs(((dx1 * dx2) + (dy1 * dy2)) / Math.Sqrt(((dx1 * dx1) + (dy1 * dy1)) * ((dx2 * dx2) + (dy2 * dy2))));
             if (cosAngle > 1 - 0.001)
             {
                 return new Point[0];
             }
 
-            double na = (lb.EndPoint.X - lb.StartPoint.X) * (la.StartPoint.Y - lb.StartPoint.Y) - (lb.EndPoint.Y - lb.StartPoint.Y) * (la.StartPoint.X - lb.StartPoint.X);
-            double nb = (la.EndPoint.X - la.StartPoint.X) * (la.StartPoint.Y - lb.StartPoint.Y) - (la.EndPoint.Y - la.StartPoint.Y) * (la.StartPoint.X - lb.StartPoint.X);
+            double na = ((lb.EndPoint.X - lb.StartPoint.X) * (la.StartPoint.Y - lb.StartPoint.Y)) - ((lb.EndPoint.Y - lb.StartPoint.Y) * (la.StartPoint.X - lb.StartPoint.X));
+            double nb = ((la.EndPoint.X - la.StartPoint.X) * (la.StartPoint.Y - lb.StartPoint.Y)) - ((la.EndPoint.Y - la.StartPoint.Y) * (la.StartPoint.X - lb.StartPoint.X));
 
             double ua = na / d;
             double ub = nb / d;
 
-            Point[] pt = {new Point(la.StartPoint.X + ua * (la.EndPoint.X - la.StartPoint.X), la.StartPoint.Y + ua * (la.EndPoint.Y - la.StartPoint.Y)) };
+            Point[] pt = {new Point(la.StartPoint.X + (ua * (la.EndPoint.X - la.StartPoint.X)), la.StartPoint.Y + (ua * (la.EndPoint.Y - la.StartPoint.Y))) };
 
             // The lines do not intersect (but they will if they are extended)
             if (ua + MathHelper.Epsilon < 0 ||
@@ -55,7 +55,6 @@ namespace Viewer.Geometry
             {
                 return new Point[0];
             }
-
 
             return pt;
         }
@@ -72,7 +71,7 @@ namespace Viewer.Geometry
 
             double dx = cx0 - cx1;
             double dy = cy0 - cy1;
-            double dist = Math.Sqrt(dx * dx + dy * dy);
+            double dist = Math.Sqrt((dx * dx) + (dy * dy));
 
             if (dist > radius0 + radius1)
             {
@@ -88,20 +87,20 @@ namespace Viewer.Geometry
                 return new Point[0];
             }
 
-            double a = (radius0 * radius0 - radius1 * radius1 + dist * dist) / (2 * dist);
-            double h = Math.Sqrt(radius0 * radius0 - a * a);
+            double a = ((radius0 * radius0) - (radius1 * radius1) + (dist * dist)) / (2 * dist);
+            double h = Math.Sqrt((radius0 * radius0) - (a * a));
 
-            double cx2 = cx0 + a * (cx1 - cx0) / dist;
-            double cy2 = cy0 + a * (cy1 - cy0) / dist;
+            double cx2 = cx0 + (a * (cx1 - cx0) / dist);
+            double cy2 = cy0 + (a * (cy1 - cy0) / dist);
 
             return new []
             {
                 new Point(
-                    cx2 + h * (cy1 - cy0) / dist,
-                    cy2 - h * (cx1 - cx0) / dist),
+                    cx2 + (h * (cy1 - cy0) / dist),
+                    cy2 - (h * (cx1 - cx0) / dist)),
                 new Point(
-                    cx2 - h * (cy1 - cy0) / dist,
-                    cy2 + h * (cx1 - cx0) / dist)
+                    cx2 - (h * (cy1 - cy0) / dist),
+                    cy2 + (h * (cx1 - cx0) / dist))
             };
         }
 
@@ -132,10 +131,10 @@ namespace Viewer.Geometry
             Vector f = line.StartPoint - circle.Center;
 
             double a = d * d;
-            double b = 2 * f * (d);
-            double c = f * (f) - circle.Radius * circle.Radius;
+            double b = 2 * f * d;
+            double c = (f * f) - (circle.Radius * circle.Radius);
 
-            double discriminant = b * b - 4 * a * c;
+            double discriminant = (b * b) - (4 * a * c);
             if (discriminant < 0)
             {
                 return new Point[0];

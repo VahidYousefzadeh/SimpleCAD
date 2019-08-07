@@ -6,6 +6,7 @@ namespace Viewer.Dialogs
     public sealed class ApplicationModel : ObservableObject
     {
         private View m_view;
+
         public View View
         {
             get => m_view;
@@ -14,13 +15,13 @@ namespace Viewer.Dialogs
 
         public ApplicationModel()
         {
-            ClearCommand = new Command(p => { View = Commands.Clear(); }, p => true);
-            RandomShapesCommand = new Command(p => { View = Commands.RandomShapes(30, 1000, 1000); }, p => true);
-            LoadJsonCommand = new Command(p => { View = Commands.LoadJson(View); }, p => true);
-            LoadXmlCommand = new Command(p => { View = Commands.LoadXml(View); }, p => true);
-            SaveJsonCommand = new Command(p => { Commands.SaveJson(View); }, p => Commands.CanExecuteSaveJson(View));
-            SaveXmlCommand = new Command(p => { Commands.SaveXml(View); }, p => Commands.CanExecuteSaveXml(View));
-            SavePdfCommand = new Command(p => { Commands.SavePdf(View); }, p => Commands.CanExecuteSavePdf(View));
+            ClearCommand = new Command(_ => View = Commands.Clear(), _ => true);
+            RandomShapesCommand = new Command(_ => View = Commands.RandomShapes(30, 1000, 1000), _ => true);
+            LoadJsonCommand = new Command(_ => View = Commands.LoadJson(View), _ => true);
+            LoadXmlCommand = new Command(_ => View = Commands.LoadXml(View), _ => true);
+            SaveJsonCommand = new Command(_ => Commands.SaveJson(View), _ => Commands.CanExecuteSaveJson(View));
+            SaveXmlCommand = new Command(_ => Commands.SaveXml(View), _ => Commands.CanExecuteSaveXml(View));
+            SavePdfCommand = new Command(_ => Commands.SavePdf(View), _ => Commands.CanExecuteSavePdf(View));
         }
 
         public ICommand ClearCommand { get; }

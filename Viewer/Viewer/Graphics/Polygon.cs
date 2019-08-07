@@ -34,14 +34,13 @@ namespace Viewer.Graphics
             var streamGeometry = new StreamGeometry();
             using (StreamGeometryContext geometryContext = streamGeometry.Open())
             {
-                geometryContext.BeginFigure(corners.First(), true, true);
+                geometryContext.BeginFigure(corners[0], true, true);
                 geometryContext.PolyLineTo(
                     new PointCollection(corners.Skip(1)),
                     true,
                     true);
 
                 drawingContext.DrawGeometry(m_filled ? Brush() : null, Pen(), streamGeometry);
-
             }
         }
     }

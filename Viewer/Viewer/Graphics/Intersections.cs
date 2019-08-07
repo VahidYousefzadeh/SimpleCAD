@@ -49,8 +49,8 @@ namespace Viewer.Graphics
                         : intersections.Union(a.Intersect(b)).ToArray();
                 }
             }
-            return intersections == null 
-                ? new Point[0] 
+            return intersections == null
+                ? new Point[0]
                 : intersections.Distinct(new PointComparer()).ToArray();
         }
     }

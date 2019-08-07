@@ -8,6 +8,7 @@ namespace Viewer.Graphics
     public sealed class CrossSymbols : DrawingVisual
     {
         private const double Size = 5d;
+
         public CrossSymbols(double scale, IEnumerable<Point> locations)
         {
             Pen pen = Pen(scale).AsFrozen();

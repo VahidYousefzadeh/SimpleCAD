@@ -114,8 +114,8 @@ namespace Viewer.Dialogs
 
         private static HitTestFilterBehavior HitTestFilterCallback(DependencyObject potentialHitTestTarget)
         {
-            return potentialHitTestTarget is Shape 
-                ? HitTestFilterBehavior.Continue 
+            return potentialHitTestTarget is Shape
+                ? HitTestFilterBehavior.Continue
                 : HitTestFilterBehavior.ContinueSkipSelf;
         }
 
