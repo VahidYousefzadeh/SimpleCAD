@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using System.Xml.Linq;
 using Microsoft.Win32;
 using Viewer.Dialogs;
 using Viewer.Graphics;
@@ -13,7 +12,7 @@ namespace Viewer
 {
     public static class Commands
     {
-        private static readonly IFormatProvider SFormatProvider = new CultureInfo("de");
+        private static readonly IFormatProvider s_formatProvider = new CultureInfo("de");
 
         public static View Clear()
         {
@@ -25,19 +24,19 @@ namespace Viewer
             if (view == null)
                 throw new ArgumentNullException(nameof(view));
 
-            OpenFileDialog dialog = new OpenFileDialog
+            var dialog = new OpenFileDialog
             {
                 Filter = "XML files (*.xml)|*.xml",
                 Title = "Open XML file"
             };
 
-            var result = dialog.ShowDialog();
+            bool? result = dialog.ShowDialog();
 
             if (result == null || result != true) return view;
 
             try
             {
-                ShapeReader xmlReader = new XmlReader(SFormatProvider);
+                ShapeReader xmlReader = new XmlReader(s_formatProvider);
                 return !File.Exists(dialog.FileName)
                     ? new View()
                     : new View(xmlReader.Read(dialog.FileName));
@@ -55,19 +54,19 @@ namespace Viewer
             if (view == null)
                 throw new ArgumentNullException(nameof(view));
 
-            OpenFileDialog dialog = new OpenFileDialog
+            var dialog = new OpenFileDialog
             {
                 Filter = "JSON files (*.json)|*.json",
                 Title = "Open JSON file"
             };
 
-            var result = dialog.ShowDialog();
+            bool? result = dialog.ShowDialog();
 
             if (result == null || result != true) return view;
 
             try
             {
-                ShapeReader jsonReader = new JsonReader(SFormatProvider);
+                ShapeReader jsonReader = new JsonReader(s_formatProvider);
                 return !File.Exists(dialog.FileName)
                     ? new View()
                     : new View(jsonReader.Read(dialog.FileName));
@@ -82,7 +81,7 @@ namespace Viewer
 
         public static View RandomShapes(int numberOfShapes, double width, double height)
         {
-            RandomShapeGenerator generator = new RandomShapeGenerator(width , height);
+            var generator = new RandomShapeGenerator(width , height);
             return new View(generator.Generate(numberOfShapes));
         }
 
@@ -91,21 +90,20 @@ namespace Viewer
             if (view == null)
                 throw new ArgumentNullException(nameof(view));
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog
+            var saveFileDialog = new SaveFileDialog
             {
                 Filter = "JSON File (*.json)|*.json",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             };
 
-            var result = saveFileDialog.ShowDialog();
+            bool? result = saveFileDialog.ShowDialog();
             if (result == null || result != true) return;
 
             try
             {
-                JsonWriter jsonWriter = new JsonWriter(SFormatProvider);
-                string json = jsonWriter.WriteShapes(view.Shapes());
+                var jsonWriter = new JsonWriter(s_formatProvider);
+                jsonWriter.WriteShapes(saveFileDialog.FileName, view.Shapes());
 
-                File.WriteAllText(saveFileDialog.FileName, json);
                 MessageBox.Show("The file was saved successfully.");
             }
             catch (Exception e)
@@ -120,20 +118,20 @@ namespace Viewer
             if (view == null)
                 throw new ArgumentNullException(nameof(view));
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog
+            var saveFileDialog = new SaveFileDialog
             {
                 Filter = "XML File (*.xml)|*.xml",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             };
 
-            var result = saveFileDialog.ShowDialog();
+            bool? result = saveFileDialog.ShowDialog();
             if (result == null || result != true) return;
 
             try
             {
-                var xmlWriter = new XmlWriter(SFormatProvider);
-                XElement xml = xmlWriter.WriteShapes(view.Shapes());
-                xml.Save(saveFileDialog.FileName);
+                var xmlWriter = new XmlWriter(s_formatProvider);
+                xmlWriter.WriteShapes(saveFileDialog.FileName, view.Shapes());
+
                 MessageBox.Show("The file was saved successfully.");
             }
             catch (Exception e)
@@ -148,31 +146,31 @@ namespace Viewer
             if (view == null)
                 throw new ArgumentNullException(nameof(view));
 
-            PdfExportDialog dialog = new PdfExportDialog();
+            var dialog = new PdfExportDialog();
             dialog.ShowDialog();
 
             if (dialog.DialogResult != true) return;
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog
+            var saveFileDialog = new SaveFileDialog
             {
                 Filter = "PDF File (*.pdf)|*.pdf",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             };
 
-            var result = saveFileDialog.ShowDialog();
+            bool? result = saveFileDialog.ShowDialog();
             if (result == null || result != true) return;
 
             PdfWriter pdfWriter = null;
             try
             {
-                PdfExportModel exportModel = (PdfExportModel) dialog.DataContext;
+                var exportModel = (PdfExportModel) dialog.DataContext;
 
                 pdfWriter = new PdfWriter(
                     saveFileDialog.FileName,
                     new Size(exportModel.PdfPageWidth, exportModel.PdfPageHeight),
                     view.Bounds());
 
-                pdfWriter.WriteShapes(view.Shapes()).Close();
+                pdfWriter.WriteShapes(view.Shapes());
                 MessageBox.Show("The file was saved successfully.");
             }
             catch (Exception e)

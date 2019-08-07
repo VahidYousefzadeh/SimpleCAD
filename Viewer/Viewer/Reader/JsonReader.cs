@@ -6,7 +6,7 @@ using Viewer.Graphics;
 
 namespace Viewer.Reader
 {
-    public class JsonReader : ShapeReader
+    public sealed class JsonReader : ShapeReader
     {
         public JsonReader(IFormatProvider formatProvider) : base(formatProvider)
         {
@@ -14,11 +14,10 @@ namespace Viewer.Reader
 
         public override IEnumerable<Shape> Read(string fileName)
         {
-            var shapes = new List<Shape>();
+            List<Shape> shapes = new List<Shape>();
 
-            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-            dynamic nodes = jsonSerializer.Deserialize<dynamic>(File.ReadAllText(fileName));
-            foreach (dynamic node in nodes)
+            var jsonSerializer = new JavaScriptSerializer();
+            foreach (dynamic node in jsonSerializer.Deserialize<dynamic>(File.ReadAllText(fileName)))
             {
                 switch (node["type"])
                 {

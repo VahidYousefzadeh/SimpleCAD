@@ -25,9 +25,7 @@ namespace Viewer
         {
             for (int i = 0; i < numberOfShapes; i++)
             {
-                int type = m_random.Next(0, 4);
-
-                switch (type)
+                switch (m_random.Next(0, 4))
                 {
                     case 0:
                         yield return RandomLine();
@@ -145,8 +143,6 @@ namespace Viewer
                     return DashStyles.Dash;
                 case 2:
                     return DashStyles.Dot;
-                case 3:
-                    return DashStyles.Solid;
                 default:
                     return DashStyles.Solid;
             }

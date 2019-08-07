@@ -118,7 +118,7 @@ namespace Viewer.Geometry
             if (!firstPolygon.Bounds.IntersectsWith(secondPolygon.Bounds))
                 return new Point[0];
 
-            var edges = firstPolygon.Edges;
+            LineGeometry[] edges = firstPolygon.Edges;
 
             Point[] intersections = null;
             foreach (LineGeometry aEdge in edges)
@@ -172,7 +172,7 @@ namespace Viewer.Geometry
             return new Point[0];
         }
 
-        public static Point[] GeometryPolygonIntersection(Geometry geometry, PolygonGeometry polygon)
+        public static Point[] GeometryPolygonIntersection(ShapeGeometry geometry, PolygonGeometry polygon)
         {
             if (geometry == null || polygon == null)
                 return null;
@@ -180,7 +180,7 @@ namespace Viewer.Geometry
             if (!geometry.Bounds.IntersectsWith(polygon.Bounds))
                 return new Point[0];
 
-            var edges = polygon.Edges;
+            LineGeometry[] edges = polygon.Edges;
 
             Point[] intersections = null;
             foreach (LineGeometry edge in edges)

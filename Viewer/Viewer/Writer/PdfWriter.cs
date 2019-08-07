@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
-using iText.Kernel.Colors;
-using iText.Kernel.Geom;
-using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas;
 using Viewer.Graphics;
-using Color = System.Windows.Media.Color;
-using Point = System.Windows.Point;
+using ITextColor = iText.Kernel.Colors;
+using ITextGeom = iText.Kernel.Geom;
+using ITextPdf = iText.Kernel.Pdf;
+using ITextCanvas = iText.Kernel.Pdf.Canvas;
+
 
 namespace Viewer.Writer
 {
     public sealed class PdfWriter : IWriter<PdfWriter>, IDisposable
     {
-        private readonly PdfCanvas m_canvas;
-        private readonly PdfDocument m_pdfDocument;
+        private readonly ITextCanvas.PdfCanvas m_canvas;
+        private readonly ITextPdf.PdfDocument m_pdfDocument;
 
         private readonly double m_scale;
         private readonly double m_dx;
@@ -31,8 +30,8 @@ namespace Viewer.Writer
             m_dx = -xmin;
             m_dy = -ymin;
 
-            m_pdfDocument = new PdfDocument(new iText.Kernel.Pdf.PdfWriter(fileName));
-            m_canvas = new PdfCanvas(m_pdfDocument.AddNewPage(new PageSize((float) pageSize.Width, (float) pageSize.Height)));
+            m_pdfDocument = new ITextPdf.PdfDocument(new iText.Kernel.Pdf.PdfWriter(fileName));
+            m_canvas = new ITextCanvas.PdfCanvas(m_pdfDocument.AddNewPage(new ITextGeom.PageSize((float) pageSize.Width, (float) pageSize.Height)));
         }
 
         public PdfWriter WriteLine(Point startPoint, Point endPoint, Color color, DashStyle dashStyle)
@@ -71,18 +70,13 @@ namespace Viewer.Writer
             return this;
         }
 
-        public PdfWriter WriteShapes(Shape[] shapes)
+        public void WriteShapes(Shape[] shapes)
         {
             if (shapes == null)
                 throw new ArgumentNullException(nameof(shapes));
 
             foreach (Shape shape in shapes) shape.Write(this);
 
-            return this;
-        }
-
-        public void Close()
-        {
             m_pdfDocument.Close();
             Dispose();
         }
@@ -121,8 +115,8 @@ namespace Viewer.Writer
 
         private void WriteRectangleGeometry(Point a, Point b, bool filled)
         {
-            Point c = new Point(b.X, a.Y);
-            Point d = new Point(a.X , b.Y);
+            var c = new Point(b.X, a.Y);
+            var d = new Point(a.X , b.Y);
 
             m_canvas
                 .MoveTo(Tx(a.X), Ty(a.Y))
@@ -139,14 +133,14 @@ namespace Viewer.Writer
 
         private void SetColor(Color color, bool filled)
         {
-            m_canvas.SetStrokeColor(new DeviceRgb(color.R, color.G, color.B));
+            m_canvas.SetStrokeColor(new ITextColor.DeviceRgb(color.R, color.G, color.B));
 
-            if (filled) m_canvas.SetFillColor(new DeviceRgb(color.R, color.G, color.B));
+            if (filled) m_canvas.SetFillColor(new ITextColor.DeviceRgb(color.R, color.G, color.B));
         }
 
         private void SetDashStyle(DashStyle dashStyle)
         {
-            var floats = new float[dashStyle.Dashes.Count];
+            float[] floats = new float[dashStyle.Dashes.Count];
             for (int i = 0; i < dashStyle.Dashes.Count; i++) floats[i] = (float) dashStyle.Dashes[i];
 
             m_canvas.SetLineDash(floats, 0f);

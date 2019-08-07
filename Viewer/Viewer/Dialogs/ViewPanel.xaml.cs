@@ -14,38 +14,38 @@ namespace Viewer.Dialogs
     {
         public View View
         {
-            get => (View)GetValue(SViewProperty);
-            set => SetValue(SViewProperty, value);
+            get => (View)GetValue(s_viewProperty);
+            set => SetValue(s_viewProperty, value);
         }
 
-        public static readonly DependencyProperty SViewProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty s_viewProperty = DependencyProperty.Register(
             nameof(View), typeof(View), typeof(ViewPanel), new PropertyMetadata(OnViewPropertyChanged));
 
         public double Scale
         {
-            get => (double)GetValue(SScaleProperty);
-            set => SetValue(SScaleProperty, value);
+            get => (double)GetValue(s_scaleProperty);
+            set => SetValue(s_scaleProperty, value);
         }
 
-        public static readonly DependencyProperty SScaleProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty s_scaleProperty = DependencyProperty.Register(
             nameof(Scale), typeof(double), typeof(ViewPanel), new PropertyMetadata(1.0));
 
         public double Dx
         {
-            get => (double)GetValue(SDxProperty);
-            set => SetValue(SDxProperty, value);
+            get => (double)GetValue(s_dxProperty);
+            set => SetValue(s_dxProperty, value);
         }
 
-        public static readonly DependencyProperty SDxProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty s_dxProperty = DependencyProperty.Register(
             nameof(Dx), typeof(double), typeof(ViewPanel), null);
 
         public double Dy
         {
-            get => (double)GetValue(SDyProperty);
-            set => SetValue(SDyProperty, value);
+            get => (double)GetValue(s_dyProperty);
+            set => SetValue(s_dyProperty, value);
         }
 
-        public static readonly DependencyProperty SDyProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty s_dyProperty = DependencyProperty.Register(
             nameof(Dy), typeof(double), typeof(ViewPanel), null);
 
         private static void OnViewPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -110,7 +110,7 @@ namespace Viewer.Dialogs
         {
             Point pt = e.GetPosition((UIElement)sender);
 
-            RectangleGeometry geom = new RectangleGeometry(new Rect(pt.X, pt.Y, PickCursor.Width, PickCursor.Height));
+            var geom = new RectangleGeometry(new Rect(pt.X, pt.Y, PickCursor.Width, PickCursor.Height));
 
             VisualTreeHelper.HitTest(this, HitTestFilterCallback, HitTestCallback, new GeometryHitTestParameters(geom));
         }

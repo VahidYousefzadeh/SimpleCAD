@@ -20,8 +20,8 @@ namespace Viewer.Graphics
             if (writer == null)
                 throw new ArgumentNullException(nameof(writer));
 
-            PolygonGeometry geometry = (PolygonGeometry) Geometry;
-            var points = geometry.Edges.Select(o => o.StartPoint).ToArray();
+            var geometry = (PolygonGeometry) Geometry;
+            Point[] points = geometry.Edges.Select(o => o.StartPoint).ToArray();
             return writer.WriteTriangle(points[0], points[1], points[2], Color, LineStyle, Filled);
         }
     }

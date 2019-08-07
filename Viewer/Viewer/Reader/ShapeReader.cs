@@ -28,7 +28,7 @@ namespace Viewer.Reader
             if (string.IsNullOrWhiteSpace(coordinates))
                 throw new ArgumentNullException(nameof(coordinates));
 
-            var tokens = coordinates.Split(';');
+            string[] tokens = coordinates.Split(';');
 
             return double.TryParse(tokens[0], NumberStyles.Float, m_formatProvider, out double x) &&
                    double.TryParse(tokens[1], NumberStyles.Float, m_formatProvider, out double y)
@@ -41,7 +41,7 @@ namespace Viewer.Reader
             if (string.IsNullOrWhiteSpace(colorValue))
                 throw new ArgumentNullException(nameof(colorValue));
 
-            var tokens = colorValue.Split(';');
+            string[] tokens = colorValue.Split(';');
             return byte.TryParse(tokens[0], out byte a) &&
                    byte.TryParse(tokens[1], out byte r) &&
                    byte.TryParse(tokens[2], out byte g) &&

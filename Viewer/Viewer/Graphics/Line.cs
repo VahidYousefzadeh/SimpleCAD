@@ -21,7 +21,7 @@ namespace Viewer.Graphics
         {
             if (drawingContext == null) return;
 
-            LineGeometry lineGeometry = (LineGeometry) Geometry;
+            var lineGeometry = (LineGeometry) Geometry;
 
             drawingContext.DrawLine(Pen(), lineGeometry.StartPoint, lineGeometry.EndPoint);
         }
@@ -31,7 +31,7 @@ namespace Viewer.Graphics
             if (writer == null)
                 throw new ArgumentNullException(nameof(writer));
 
-            LineGeometry lineGeometry = (LineGeometry) Geometry;
+            var lineGeometry = (LineGeometry) Geometry;
             return writer.WriteLine(lineGeometry.StartPoint, lineGeometry.EndPoint, Color, LineStyle);
         }
     }

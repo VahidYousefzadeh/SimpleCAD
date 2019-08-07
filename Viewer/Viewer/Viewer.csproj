@@ -102,7 +102,7 @@
     <Compile Include="Dialogs\Command.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Dialogs\PdfExportModel.cs" />
-    <Compile Include="Geometry\Geometry.cs" />
+    <Compile Include="Geometry\ShapeGeometry.cs" />
     <Compile Include="Geometry\IntersectionHelper.cs" />
     <Compile Include="IWriter.cs" />
     <Compile Include="Dialogs\PdfExportDialog.xaml.cs">

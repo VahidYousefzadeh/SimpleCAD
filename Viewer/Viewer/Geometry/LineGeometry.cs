@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Viewer.Geometry
 {
-    public sealed class LineGeometry : Geometry
+    public sealed class LineGeometry : ShapeGeometry
     {
         public Point StartPoint { get; }
         public Point EndPoint { get; }
@@ -16,7 +16,7 @@ namespace Viewer.Geometry
             Bounds = GetBounds();
         }
 
-        public override Point[] Intersect(Geometry other)
+        public override Point[] Intersect(ShapeGeometry other)
         {
             switch (other)
             {

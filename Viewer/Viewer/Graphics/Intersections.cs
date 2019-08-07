@@ -18,7 +18,7 @@ namespace Viewer.Graphics
 
             m_children = new VisualCollection(this);
 
-            var intersections = FindIntersections(view.Shapes());
+            Point[] intersections = FindIntersections(view.Shapes());
 
             m_children.Add(new CrossSymbols(scale, intersections));
         }
@@ -40,10 +40,10 @@ namespace Viewer.Graphics
             Point[] intersections = null;
             for (int i = 0; i < shapes.Count - 1; i++)
             {
-                Geometry.Geometry a = shapes[i].Geometry;
+                ShapeGeometry a = shapes[i].Geometry;
                 for (int j = i + 1; j < shapes.Count; j++)
                 {
-                    Geometry.Geometry b = shapes[j].Geometry;
+                    ShapeGeometry b = shapes[j].Geometry;
                     intersections = intersections == null
                         ? a.Intersect(b)
                         : intersections.Union(a.Intersect(b)).ToArray();

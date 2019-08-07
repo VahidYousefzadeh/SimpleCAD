@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace Viewer.Geometry
 {
-    public sealed class PolygonGeometry : Geometry
+    public sealed class PolygonGeometry : ShapeGeometry
     {
         public LineGeometry[] Edges { get; }
         public override Rect Bounds { get; }
@@ -16,7 +16,7 @@ namespace Viewer.Geometry
             Bounds = GetBounds();
         }
 
-        public override Point[] Intersect(Geometry other)
+        public override Point[] Intersect(ShapeGeometry other)
         {
             switch (other)
             {
@@ -48,7 +48,7 @@ namespace Viewer.Geometry
 
         private static LineGeometry[] GetEdges(IReadOnlyList<Point> points)
         {
-            var edges = new LineGeometry[points.Count];
+            LineGeometry[] edges = new LineGeometry[points.Count];
 
             int count = 0;
             while (count < points.Count - 1)

@@ -55,9 +55,10 @@ namespace Viewer.Writer
                 WriteDashStyle(dashStyle));
         }
 
-        public XElement WriteShapes(Shape[] shapes)
+        public void WriteShapes(string fileName, Shape[] shapes)
         {
-            return new XElement("root", shapes.Select(o => o.Write(this)));
+            var xml = new XElement("root", shapes.Select(o => o.Write(this)));
+            xml.Save(fileName);
         }
 
         private XElement[] WriteLineGeometry(Point a, Point b)

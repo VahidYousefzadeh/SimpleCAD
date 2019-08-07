@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Viewer.Geometry
 {
-    public sealed class CircleGeometry : Geometry
+    public sealed class CircleGeometry : ShapeGeometry
     {
         public Point Center { get; }
 
@@ -18,7 +18,7 @@ namespace Viewer.Geometry
             Bounds = GetBounds();
         }
 
-        public override Point[] Intersect(Geometry other)
+        public override Point[] Intersect(ShapeGeometry other)
         {
             switch (other)
             {
@@ -42,8 +42,8 @@ namespace Viewer.Geometry
 
         private Rect GetBounds()
         {
-            Point a = new Point(Center.X - Radius, Center.Y + Radius);
-            Point b = new Point(Center.X + Radius, Center.Y - Radius);
+            var a = new Point(Center.X - Radius, Center.Y + Radius);
+            var b = new Point(Center.X + Radius, Center.Y - Radius);
 
             return new Rect(a, b);
         }

@@ -17,7 +17,7 @@ namespace Viewer.Graphics
 
         private static Point[] Corners(Point firstCorner, Point secondCorner)
         {
-            Rect rectangle = new Rect(firstCorner, secondCorner);
+            var rectangle = new Rect(firstCorner, secondCorner);
             return new[] {rectangle.TopLeft, rectangle.TopRight, rectangle.BottomRight, rectangle.BottomLeft};
         }
 
@@ -26,7 +26,7 @@ namespace Viewer.Graphics
             if (writer == null)
                 throw new ArgumentNullException(nameof(writer));
 
-            PolygonGeometry geometry = (PolygonGeometry)Geometry;
+            var geometry = (PolygonGeometry)Geometry;
             Point[] points =
             {
                 geometry.Edges[0].StartPoint,

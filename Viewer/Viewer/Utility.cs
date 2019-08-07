@@ -18,8 +18,6 @@ namespace Viewer
                 return Dash;
             if (dashStyle == DashStyles.Dot)
                 return Dot;
-            if (dashStyle == DashStyles.Solid)
-                return Solid;
 
             return Solid;
         }
@@ -34,8 +32,6 @@ namespace Viewer
                     return DashStyles.Dash;
                 case Dot:
                     return DashStyles.Dot;
-                case Solid:
-                    return DashStyles.Solid;
                 default:
                     return DashStyles.Solid;
             }

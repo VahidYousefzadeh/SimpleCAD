@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -74,10 +75,10 @@ namespace Viewer.Writer
                 "}");
         }
 
-        public string WriteShapes(Shape[] shapes)
+        public void WriteShapes(string fileName, Shape[] shapes)
         {
             string json = string.Join(",\n", shapes.Select(o => o.Write(this)));
-            return string.Join("\n","[", json, "]");
+            File.WriteAllText(fileName, string.Join("\n","[", json, "]"));
         }
 
         private string WriteLineGeometry(Point a, Point b)

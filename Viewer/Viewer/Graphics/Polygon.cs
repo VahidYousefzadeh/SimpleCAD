@@ -15,7 +15,7 @@ namespace Viewer.Graphics
             set
             {
                 m_filled = value;
-                IsDirty = true;
+                m_isDirty = true;
             }
         }
 
@@ -30,10 +30,10 @@ namespace Viewer.Graphics
         {
             if (drawingContext == null) return;
 
-            PolygonGeometry polygonGeometry = (PolygonGeometry) Geometry;
-            var corners = polygonGeometry.Edges.Select(o => o.StartPoint).ToArray();
+            var polygonGeometry = (PolygonGeometry) Geometry;
+            Point[] corners = polygonGeometry.Edges.Select(o => o.StartPoint).ToArray();
 
-            StreamGeometry streamGeometry = new StreamGeometry();
+            var streamGeometry = new StreamGeometry();
             using (StreamGeometryContext geometryContext = streamGeometry.Open())
             {
                 geometryContext.BeginFigure(corners[0], true, true);

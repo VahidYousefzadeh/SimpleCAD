@@ -15,7 +15,7 @@ namespace Viewer.Graphics
             set
             {
                 m_filled = value;
-                IsDirty = true;
+                m_isDirty = true;
             }
         }
 
@@ -33,7 +33,7 @@ namespace Viewer.Graphics
         {
             if (drawingContext == null) return;
 
-            CircleGeometry circleGeometry = (CircleGeometry) Geometry;
+            var circleGeometry = (CircleGeometry) Geometry;
             drawingContext.DrawEllipse(
                 m_filled ? Brush() : null,
                 Pen(),
@@ -47,7 +47,7 @@ namespace Viewer.Graphics
             if (writer == null)
                 throw new ArgumentNullException(nameof(writer));
 
-            CircleGeometry circleGeometry = (CircleGeometry) Geometry;
+            var circleGeometry = (CircleGeometry) Geometry;
             return writer.WriteCircle(circleGeometry.Center, circleGeometry.Radius, Color, LineStyle, m_filled);
         }
     }

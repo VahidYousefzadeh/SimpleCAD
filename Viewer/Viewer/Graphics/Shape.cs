@@ -1,10 +1,11 @@
 ﻿using System.Windows.Media;
+using Viewer.Geometry;
 
 namespace Viewer.Graphics
 {
     public abstract class Shape : DrawingVisual
     {
-        protected bool IsDirty { get; set; } = true;
+        protected bool m_isDirty { get; set; } = true;
 
         /// <summary>
         /// Caches the pen to improve performance.
@@ -15,7 +16,7 @@ namespace Viewer.Graphics
         private Color m_color = Colors.White;
         private DashStyle m_lineStyle = DashStyles.Solid;
 
-        public Geometry.Geometry Geometry { get; protected set; }
+        public ShapeGeometry Geometry { get; protected set; }
 
         public DashStyle LineStyle
         {
@@ -23,7 +24,7 @@ namespace Viewer.Graphics
             set
             {
                 m_lineStyle = value;
-                IsDirty = true;
+                m_isDirty = true;
             }
         }
 
@@ -33,7 +34,7 @@ namespace Viewer.Graphics
             set
             {
                 m_color = value;
-                IsDirty = true;
+                m_isDirty = true;
             }
         }
 
@@ -43,24 +44,24 @@ namespace Viewer.Graphics
             set
             {
                 m_thickness = value;
-                IsDirty = true;
+                m_isDirty = true;
             }
         }
 
         public void InvalidateVisual()
         {
-            if (!IsDirty) return;
+            if (!m_isDirty) return;
 
             using (DrawingContext drawingContext = RenderOpen()) Render(drawingContext);
 
-            IsDirty = false;
+            m_isDirty = false;
         }
 
         protected abstract void Render(DrawingContext drawingContext);
 
         protected Pen Pen()
         {
-            if (IsDirty || m_pen == null)
+            if (m_isDirty || m_pen == null)
                 m_pen = new Pen(Brush(), m_thickness) {DashStyle = DashStyle()}.AsFrozen();
 
             return m_pen;
