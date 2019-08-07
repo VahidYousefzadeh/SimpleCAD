@@ -15,7 +15,7 @@ namespace Viewer.Graphics
             set
             {
                 m_filled = value;
-                m_isDirty = true;
+                IsDirty = true;
             }
         }
 
@@ -28,10 +28,12 @@ namespace Viewer.Graphics
 
         protected override void Render(DrawingContext drawingContext)
         {
-            var polygonGeometry = (PolygonGeometry) Geometry;
-            Point[] corners = polygonGeometry.Edges.Select(o => o.StartPoint).ToArray();
+            if (drawingContext == null) return;
 
-            var streamGeometry = new StreamGeometry();
+            PolygonGeometry polygonGeometry = (PolygonGeometry) Geometry;
+            var corners = polygonGeometry.Edges.Select(o => o.StartPoint).ToArray();
+
+            StreamGeometry streamGeometry = new StreamGeometry();
             using (StreamGeometryContext geometryContext = streamGeometry.Open())
             {
                 geometryContext.BeginFigure(corners[0], true, true);

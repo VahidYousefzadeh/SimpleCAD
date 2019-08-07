@@ -16,11 +16,11 @@ namespace Viewer.Writer
             m_formatProvider = formatProvider;
         }
 
-        public XElement WriteLine(Point a, Point b, Color color, DashStyle dashStyle)
+        public XElement WriteLine(Point startPoint, Point endPoint, Color color, DashStyle dashStyle)
         {
             return new XElement(
                 "line",
-                WriteLineGeometry(a, b),
+                WriteLineGeometry(startPoint, endPoint),
                 WriteColor(color),
                 WriteDashStyle(dashStyle));
         }
@@ -35,21 +35,21 @@ namespace Viewer.Writer
                 WriteDashStyle(dashStyle));
         }
 
-        public XElement WriteTriangle(Point a, Point b, Point c, Color color, DashStyle dashStyle, bool filled)
+        public XElement WriteTriangle(Point firstCorner, Point secondCorner, Point thirdCorner, Color color, DashStyle dashStyle, bool filled)
         {
             return new XElement(
                 "triangle",
-                WriteTriangleGeometry(a, b, c),
+                WriteTriangleGeometry(firstCorner, secondCorner, thirdCorner),
                 WriteFilled(filled),
                 WriteColor(color),
                 WriteDashStyle(dashStyle));
         }
 
-        public XElement WriteRectangle(Point a, Point b, Color color, DashStyle dashStyle, bool filled)
+        public XElement WriteRectangle(Point firstCorner, Point secondCorner, Color color, DashStyle dashStyle, bool filled)
         {
             return new XElement(
                 "rectangle",
-                WriteLineGeometry(a, b),
+                WriteLineGeometry(firstCorner, secondCorner),
                 WriteFilled(filled),
                 WriteColor(color),
                 WriteDashStyle(dashStyle));

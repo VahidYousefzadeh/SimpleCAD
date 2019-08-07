@@ -20,7 +20,7 @@ namespace Viewer.Writer
         private readonly double m_dx;
         private readonly double m_dy;
 
-        public PdfWriter(string filename, Size pageSize, Rect drawingBounds)
+        public PdfWriter(string fileName, Size pageSize, Rect drawingBounds)
         {
             double ymax = drawingBounds.Bottom;
             double ymin = drawingBounds.Top;
@@ -31,15 +31,15 @@ namespace Viewer.Writer
             m_dx = -xmin;
             m_dy = -ymin;
 
-            m_pdfDocument = new PdfDocument(new iText.Kernel.Pdf.PdfWriter(filename));
+            m_pdfDocument = new PdfDocument(new iText.Kernel.Pdf.PdfWriter(fileName));
             m_canvas = new PdfCanvas(m_pdfDocument.AddNewPage(new PageSize((float) pageSize.Width, (float) pageSize.Height)));
         }
 
-        public PdfWriter WriteLine(Point a, Point b, Color color, DashStyle dashStyle)
+        public PdfWriter WriteLine(Point startPoint, Point endPoint, Color color, DashStyle dashStyle)
         {
             SetDashStyle(dashStyle);
             SetColor(color, false);
-            WriteLineGeometry(a, b);
+            WriteLineGeometry(startPoint, endPoint);
 
             return this;
         }
@@ -53,26 +53,29 @@ namespace Viewer.Writer
             return this;
         }
 
-        public PdfWriter WriteTriangle(Point a, Point b, Point c, Color color, DashStyle dashStyle, bool filled)
+        public PdfWriter WriteTriangle(Point firstCorner, Point secondCorner, Point thirdCorner, Color color, DashStyle dashStyle, bool filled)
         {
             SetDashStyle(dashStyle);
             SetColor(color, filled);
-            WriteTriangleGeometry(a, b, c, filled);
+            WriteTriangleGeometry(firstCorner, secondCorner, thirdCorner, filled);
 
             return this;
         }
 
-        public PdfWriter WriteRectangle(Point a, Point b, Color color, DashStyle dashStyle, bool filled)
+        public PdfWriter WriteRectangle(Point firstCorner, Point secondCorner, Color color, DashStyle dashStyle, bool filled)
         {
             SetDashStyle(dashStyle);
             SetColor(color, filled);
-            WriteRectangleGeometry(a, b, filled);
+            WriteRectangleGeometry(firstCorner, secondCorner, filled);
 
             return this;
         }
 
         public PdfWriter WriteShapes(Shape[] shapes)
         {
+            if (shapes == null)
+                throw new ArgumentNullException(nameof(shapes));
+
             foreach (Shape shape in shapes) shape.Write(this);
 
             return this;
@@ -118,8 +121,8 @@ namespace Viewer.Writer
 
         private void WriteRectangleGeometry(Point a, Point b, bool filled)
         {
-            var c = new Point(b.X, a.Y);
-            var d = new Point(a.X , b.Y);
+            Point c = new Point(b.X, a.Y);
+            Point d = new Point(a.X , b.Y);
 
             m_canvas
                 .MoveTo(Tx(a.X), Ty(a.Y))
@@ -143,7 +146,7 @@ namespace Viewer.Writer
 
         private void SetDashStyle(DashStyle dashStyle)
         {
-            float[] floats = new float[dashStyle.Dashes.Count];
+            var floats = new float[dashStyle.Dashes.Count];
             for (int i = 0; i < dashStyle.Dashes.Count; i++) floats[i] = (float) dashStyle.Dashes[i];
 
             m_canvas.SetLineDash(floats, 0f);

@@ -14,47 +14,50 @@ namespace Viewer.Dialogs
     {
         public View View
         {
-            get => (View)GetValue(s_viewProperty);
-            set => SetValue(s_viewProperty, value);
+            get => (View)GetValue(SViewProperty);
+            set => SetValue(SViewProperty, value);
         }
 
-        public static readonly DependencyProperty s_viewProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty SViewProperty = DependencyProperty.Register(
             nameof(View), typeof(View), typeof(ViewPanel), new PropertyMetadata(OnViewPropertyChanged));
 
         public double Scale
         {
-            get => (double)GetValue(s_scaleProperty);
-            set => SetValue(s_scaleProperty, value);
+            get => (double)GetValue(SScaleProperty);
+            set => SetValue(SScaleProperty, value);
         }
 
-        public static readonly DependencyProperty s_scaleProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty SScaleProperty = DependencyProperty.Register(
             nameof(Scale), typeof(double), typeof(ViewPanel), new PropertyMetadata(1.0));
 
         public double Dx
         {
-            get => (double)GetValue(s_dxProperty);
-            set => SetValue(s_dxProperty, value);
+            get => (double)GetValue(SDxProperty);
+            set => SetValue(SDxProperty, value);
         }
 
-        public static readonly DependencyProperty s_dxProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty SDxProperty = DependencyProperty.Register(
             nameof(Dx), typeof(double), typeof(ViewPanel), null);
 
         public double Dy
         {
-            get => (double)GetValue(s_dyProperty);
-            set => SetValue(s_dyProperty, value);
+            get => (double)GetValue(SDyProperty);
+            set => SetValue(SDyProperty, value);
         }
 
-        public static readonly DependencyProperty s_dyProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty SDyProperty = DependencyProperty.Register(
             nameof(Dy), typeof(double), typeof(ViewPanel), null);
 
         private static void OnViewPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((ViewPanel)d).ZoomToExtents();
+            if (!(d is ViewPanel viewPanel))
+                return;
 
-            ((ViewPanel)d).Refresh();
+            viewPanel.ZoomToExtents();
 
-            ((ViewPanel)d).Annotations.Content = new Intersections(((ViewPanel)d).View, ((ViewPanel)d).Scale);
+            viewPanel.Refresh();
+
+            viewPanel.Annotations.Content = new Intersections(viewPanel.View, viewPanel.Scale);
         }
 
         public ViewPanel()
@@ -64,7 +67,7 @@ namespace Viewer.Dialogs
 
         private void Refresh()
         {
-            foreach (Shape shape in View.Shapes)
+            foreach (Shape shape in View.Shapes())
             {
                 shape.Thickness = 2d / Scale;
                 shape.InvalidateVisual();
@@ -107,7 +110,7 @@ namespace Viewer.Dialogs
         {
             Point pt = e.GetPosition((UIElement)sender);
 
-            var geom = new RectangleGeometry(new Rect(pt.X, pt.Y, PickCursor.Width, PickCursor.Height));
+            RectangleGeometry geom = new RectangleGeometry(new Rect(pt.X, pt.Y, PickCursor.Width, PickCursor.Height));
 
             VisualTreeHelper.HitTest(this, HitTestFilterCallback, HitTestCallback, new GeometryHitTestParameters(geom));
         }
@@ -119,7 +122,7 @@ namespace Viewer.Dialogs
                 : HitTestFilterBehavior.ContinueSkipSelf;
         }
 
-        private HitTestResultBehavior HitTestCallback(HitTestResult result)
+        private static HitTestResultBehavior HitTestCallback(HitTestResult result)
         {
             if (result.VisualHit is Shape shape)
             {

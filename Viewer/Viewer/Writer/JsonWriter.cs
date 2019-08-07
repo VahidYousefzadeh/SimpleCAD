@@ -15,7 +15,7 @@ namespace Viewer.Writer
             m_formatProvider = formatProvider;
         }
 
-        public string WriteLine(Point a, Point b, Color color, DashStyle dashStyle)
+        public string WriteLine(Point startPoint, Point endPoint, Color color, DashStyle dashStyle)
         {
             return string.Join(
                 "\n",
@@ -23,7 +23,7 @@ namespace Viewer.Writer
                 string.Join(
                     ",\n",
                     "\"type\": \"line\"",
-                    WriteLineGeometry(a, b),
+                    WriteLineGeometry(startPoint, endPoint),
                     WriteColor(color),
                     WriteDashStyle(dashStyle)),
                 "}");
@@ -44,7 +44,7 @@ namespace Viewer.Writer
                 "}");
         }
 
-        public string WriteTriangle(Point a, Point b, Point c, Color color, DashStyle dashStyle, bool filled)
+        public string WriteTriangle(Point firstCorner, Point secondCorner, Point thirdCorner, Color color, DashStyle dashStyle, bool filled)
         {
             return string.Join(
                 "\n",
@@ -52,14 +52,14 @@ namespace Viewer.Writer
                 string.Join(
                     ",\n",
                     "\"type\": \"triangle\"",
-                    WriteTriangleGeometry(a, b, c),
+                    WriteTriangleGeometry(firstCorner, secondCorner, thirdCorner),
                     WriteFilled(filled),
                     WriteColor(color),
                     WriteDashStyle(dashStyle)),
                 "}");
         }
 
-        public string WriteRectangle(Point a, Point b, Color color, DashStyle dashStyle, bool filled)
+        public string WriteRectangle(Point firstCorner, Point secondCorner, Color color, DashStyle dashStyle, bool filled)
         {
             return string.Join(
                 "\n",
@@ -67,7 +67,7 @@ namespace Viewer.Writer
                 string.Join(
                     ",\n",
                     "\"type\": \"rectangle\"",
-                    WriteLineGeometry(a, b),
+                    WriteLineGeometry(firstCorner, secondCorner),
                     WriteFilled(filled),
                     WriteColor(color),
                     WriteDashStyle(dashStyle)),

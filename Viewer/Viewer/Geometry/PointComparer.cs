@@ -7,15 +7,20 @@ namespace Viewer.Geometry
     {
         private readonly double m_epsilon;
 
-        public PointComparer(double epsilon = MathHelper.Epsilon)
+        public PointComparer()
+        {
+            m_epsilon = MathHelper.Epsilon;
+        }
+
+        public PointComparer(double epsilon)
         {
             m_epsilon = epsilon;
         }
 
-        public bool Equals(Point a, Point b)
+        public bool Equals(Point x, Point y)
         {
-            return a.X.AlmostEquals(b.X, m_epsilon) &&
-                   a.Y.AlmostEquals(b.Y, m_epsilon);
+            return x.X.AlmostEquals(y.X, m_epsilon) &&
+                   x.Y.AlmostEquals(y.Y, m_epsilon);
         }
 
         public int GetHashCode(Point obj)

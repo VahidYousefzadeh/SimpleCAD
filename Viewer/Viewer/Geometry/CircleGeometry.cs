@@ -27,7 +27,7 @@ namespace Viewer.Geometry
                 case CircleGeometry circle:
                     return IntersectionHelper.CircleCircleIntersecton(this, circle);
                 case PolygonGeometry polygon:
-                    return IntersectionHelper.CirclePolygonIntersection(this, polygon);
+                    return IntersectionHelper.GeometryPolygonIntersection(this, polygon);
                 default:
                     return new Point[0];
             }
@@ -42,8 +42,8 @@ namespace Viewer.Geometry
 
         private Rect GetBounds()
         {
-            var a = new Point(Center.X - Radius, Center.Y + Radius);
-            var b = new Point(Center.X + Radius, Center.Y - Radius);
+            Point a = new Point(Center.X - Radius, Center.Y + Radius);
+            Point b = new Point(Center.X + Radius, Center.Y - Radius);
 
             return new Rect(a, b);
         }

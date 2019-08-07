@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Media;
 using LineGeometry = Viewer.Geometry.LineGeometry;
 
@@ -18,14 +19,19 @@ namespace Viewer.Graphics
 
         protected override void Render(DrawingContext drawingContext)
         {
-            var lineGeometry = (LineGeometry) Geometry;
+            if (drawingContext == null) return;
+
+            LineGeometry lineGeometry = (LineGeometry) Geometry;
 
             drawingContext.DrawLine(Pen(), lineGeometry.StartPoint, lineGeometry.EndPoint);
         }
 
         public override T Write<T>(IWriter<T> writer)
         {
-            var lineGeometry = (LineGeometry) Geometry;
+            if (writer == null)
+                throw new ArgumentNullException(nameof(writer));
+
+            LineGeometry lineGeometry = (LineGeometry) Geometry;
             return writer.WriteLine(lineGeometry.StartPoint, lineGeometry.EndPoint, Color, LineStyle);
         }
     }

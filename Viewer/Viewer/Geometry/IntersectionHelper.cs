@@ -11,6 +11,9 @@ namespace Viewer.Geometry
         /// </summary>
         public static Point[] LineLineIntersection(LineGeometry la, LineGeometry lb)
         {
+            if (la == null || lb == null)
+                return new Point[0];
+
             if (!la.Bounds.IntersectsWith(lb.Bounds))
                 return new Point[0];
 
@@ -59,15 +62,18 @@ namespace Viewer.Geometry
             return pt;
         }
 
-        public static Point[] CircleCircleIntersecton(CircleGeometry circle1, CircleGeometry circle2)
+        public static Point[] CircleCircleIntersecton(CircleGeometry firstCircle, CircleGeometry secondCircle)
         {
-            double cx0 = circle1.Center.X;
-            double cx1 = circle2.Center.X;
-            double cy0 = circle1.Center.Y;
-            double cy1 = circle2.Center.Y;
+            if (firstCircle == null || secondCircle == null)
+                return new Point[0];
 
-            double radius0 = circle1.Radius;
-            double radius1 = circle2.Radius;
+            double cx0 = firstCircle.Center.X;
+            double cx1 = secondCircle.Center.X;
+            double cy0 = firstCircle.Center.Y;
+            double cy1 = secondCircle.Center.Y;
+
+            double radius0 = firstCircle.Radius;
+            double radius1 = secondCircle.Radius;
 
             double dx = cx0 - cx1;
             double dy = cy0 - cy1;
@@ -104,19 +110,22 @@ namespace Viewer.Geometry
             };
         }
 
-        public static Point[] PolygonPolygonIntersection(PolygonGeometry a, PolygonGeometry b)
+        public static Point[] PolygonPolygonIntersection(PolygonGeometry firstPolygon, PolygonGeometry secondPolygon)
         {
-            if (!a.Bounds.IntersectsWith(b.Bounds))
+            if (firstPolygon == null || secondPolygon == null)
                 return new Point[0];
 
-            LineGeometry[] edges = a.Edges;
+            if (!firstPolygon.Bounds.IntersectsWith(secondPolygon.Bounds))
+                return new Point[0];
+
+            var edges = firstPolygon.Edges;
 
             Point[] intersections = null;
             foreach (LineGeometry aEdge in edges)
             {
                 intersections = intersections == null
-                    ? GeometryPolygonIntersection(aEdge, b)
-                    : intersections.Union(GeometryPolygonIntersection(aEdge, b)).ToArray();
+                    ? GeometryPolygonIntersection(aEdge, secondPolygon)
+                    : intersections.Union(GeometryPolygonIntersection(aEdge, secondPolygon)).ToArray();
             }
 
             return intersections;
@@ -124,6 +133,9 @@ namespace Viewer.Geometry
 
         public static Point[] LineCircleIntersection(LineGeometry line, CircleGeometry circle)
         {
+            if (line == null || circle == null)
+                return new Point[0];
+
             if (!line.Bounds.IntersectsWith(circle.Bounds))
                 return new Point[0];
 
@@ -160,22 +172,15 @@ namespace Viewer.Geometry
             return new Point[0];
         }
 
-        public static Point[] LinePolygonIntersection(LineGeometry line, PolygonGeometry polygon)
+        public static Point[] GeometryPolygonIntersection(Geometry geometry, PolygonGeometry polygon)
         {
-            return GeometryPolygonIntersection(line, polygon);
-        }
+            if (geometry == null || polygon == null)
+                return null;
 
-        public static Point[] CirclePolygonIntersection(CircleGeometry circle, PolygonGeometry polygon)
-        {
-            return GeometryPolygonIntersection(circle, polygon);
-        }
-
-        private static Point[] GeometryPolygonIntersection(Geometry geometry, PolygonGeometry polygon)
-        {
             if (!geometry.Bounds.IntersectsWith(polygon.Bounds))
                 return new Point[0];
 
-            LineGeometry[] edges = polygon.Edges;
+            var edges = polygon.Edges;
 
             Point[] intersections = null;
             foreach (LineGeometry edge in edges)
@@ -190,6 +195,8 @@ namespace Viewer.Geometry
 
         private static bool IsPointOnLineSegment(Point a, LineGeometry line)
         {
+            if (line == null) return false;
+
             if (!IsPointOnLine(a, line))
                 return false;
 
@@ -207,6 +214,8 @@ namespace Viewer.Geometry
 
         private static bool IsPointOnLine(Point a, LineGeometry line)
         {
+            if (line == null) return false;
+
             double x1 = line.StartPoint.X;
             double x2 = line.EndPoint.X;
             double y1 = line.StartPoint.Y;

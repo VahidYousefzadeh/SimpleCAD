@@ -6,10 +6,10 @@ namespace Viewer
 {
     public interface IWriter<out T>
     {
-        T WriteLine(Point a, Point b, Color color, DashStyle dashStyle);
+        T WriteLine(Point startPoint, Point endPoint, Color color, DashStyle dashStyle);
         T WriteCircle(Point center, double radius, Color color, DashStyle dashStyle, bool filled);
-        T WriteTriangle(Point a, Point b, Point c, Color color, DashStyle dashStyle, bool filled);
-        T WriteRectangle(Point a, Point b, Color color, DashStyle dashStyle, bool filled);
+        T WriteTriangle(Point firstCorner, Point secondCorner, Point thirdCorner, Color color, DashStyle dashStyle, bool filled);
+        T WriteRectangle(Point firstCorner, Point secondCorner, Color color, DashStyle dashStyle, bool filled);
         T WriteShapes(Shape[] shapes);
     }
 }

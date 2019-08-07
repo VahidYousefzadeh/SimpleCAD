@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Viewer.Geometry;
 
 namespace Viewer.Graphics
@@ -16,13 +17,16 @@ namespace Viewer.Graphics
 
         private static Point[] Corners(Point firstCorner, Point secondCorner)
         {
-            var rectangle = new Rect(firstCorner, secondCorner);
+            Rect rectangle = new Rect(firstCorner, secondCorner);
             return new[] {rectangle.TopLeft, rectangle.TopRight, rectangle.BottomRight, rectangle.BottomLeft};
         }
 
         public override T Write<T>(IWriter<T> writer)
         {
-            var geometry = (PolygonGeometry)Geometry;
+            if (writer == null)
+                throw new ArgumentNullException(nameof(writer));
+
+            PolygonGeometry geometry = (PolygonGeometry)Geometry;
             Point[] points =
             {
                 geometry.Edges[0].StartPoint,

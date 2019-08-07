@@ -4,7 +4,7 @@ namespace Viewer.Graphics
 {
     public abstract class Shape : DrawingVisual
     {
-        protected bool m_isDirty = true;
+        protected bool IsDirty { get; set; } = true;
 
         /// <summary>
         /// Caches the pen to improve performance.
@@ -23,7 +23,7 @@ namespace Viewer.Graphics
             set
             {
                 m_lineStyle = value;
-                m_isDirty = true;
+                IsDirty = true;
             }
         }
 
@@ -33,7 +33,7 @@ namespace Viewer.Graphics
             set
             {
                 m_color = value;
-                m_isDirty = true;
+                IsDirty = true;
             }
         }
 
@@ -43,24 +43,24 @@ namespace Viewer.Graphics
             set
             {
                 m_thickness = value;
-                m_isDirty = true;
+                IsDirty = true;
             }
         }
 
         public void InvalidateVisual()
         {
-            if (!m_isDirty) return;
+            if (!IsDirty) return;
 
             using (DrawingContext drawingContext = RenderOpen()) Render(drawingContext);
 
-            m_isDirty = false;
+            IsDirty = false;
         }
 
         protected abstract void Render(DrawingContext drawingContext);
 
         protected Pen Pen()
         {
-            if (m_isDirty || m_pen == null)
+            if (IsDirty || m_pen == null)
                 m_pen = new Pen(Brush(), m_thickness) {DashStyle = DashStyle()}.AsFrozen();
 
             return m_pen;

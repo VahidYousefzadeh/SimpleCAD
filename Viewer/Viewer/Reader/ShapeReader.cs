@@ -16,16 +16,19 @@ namespace Viewer.Reader
             m_formatProvider = formatProvider;
         }
 
-        public abstract IEnumerable<Shape> Read(string filename);
+        public abstract IEnumerable<Shape> Read(string fileName);
 
-        protected double Double(string doubleString)
+        protected double Double(string value)
         {
-            return Convert.ToDouble(doubleString, m_formatProvider);
+            return Convert.ToDouble(value, m_formatProvider);
         }
 
         protected Point Point(string coordinates)
         {
-            string[] tokens = coordinates.Split(';');
+            if (string.IsNullOrWhiteSpace(coordinates))
+                throw new ArgumentNullException(nameof(coordinates));
+
+            var tokens = coordinates.Split(';');
 
             return double.TryParse(tokens[0], NumberStyles.Float, m_formatProvider, out double x) &&
                    double.TryParse(tokens[1], NumberStyles.Float, m_formatProvider, out double y)
@@ -33,9 +36,12 @@ namespace Viewer.Reader
                 : default(Point);
         }
 
-        protected Color Color(string color)
+        protected static Color Color(string colorValue)
         {
-            string[] tokens = color.Split(';');
+            if (string.IsNullOrWhiteSpace(colorValue))
+                throw new ArgumentNullException(nameof(colorValue));
+
+            var tokens = colorValue.Split(';');
             return byte.TryParse(tokens[0], out byte a) &&
                    byte.TryParse(tokens[1], out byte r) &&
                    byte.TryParse(tokens[2], out byte g) &&
@@ -44,9 +50,9 @@ namespace Viewer.Reader
                 : Colors.Black;
         }
 
-        protected DashStyle DashStyle(string dashStyle)
+        protected static DashStyle DashStyle(string dashStyleValue)
         {
-            return dashStyle.AsDashStyle();
+            return dashStyleValue.AsDashStyle();
         }
 
         private static Color Argb(byte a, byte r, byte g, byte b)

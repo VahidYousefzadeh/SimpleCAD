@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using Viewer.Geometry;
 
@@ -9,15 +10,18 @@ namespace Viewer.Graphics
         /// <summary>
         /// Initializes an instance of <see cref="Triangle"/> class.
         /// </summary>
-        public Triangle(Point a, Point b, Point c)
-            : base(a, b, c)
+        public Triangle(Point firstCorner, Point secondCorner, Point thirdCorner)
+            : base(firstCorner, secondCorner, thirdCorner)
         {
         }
 
         public override T Write<T>(IWriter<T> writer)
         {
-            var geometry = (PolygonGeometry) Geometry;
-            Point[] points = geometry.Edges.Select(o => o.StartPoint).ToArray();
+            if (writer == null)
+                throw new ArgumentNullException(nameof(writer));
+
+            PolygonGeometry geometry = (PolygonGeometry) Geometry;
+            var points = geometry.Edges.Select(o => o.StartPoint).ToArray();
             return writer.WriteTriangle(points[0], points[1], points[2], Color, LineStyle, Filled);
         }
     }

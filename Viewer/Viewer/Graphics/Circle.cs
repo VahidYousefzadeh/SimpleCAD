@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Media;
 using Viewer.Geometry;
 
@@ -14,7 +15,7 @@ namespace Viewer.Graphics
             set
             {
                 m_filled = value;
-                m_isDirty = true;
+                IsDirty = true;
             }
         }
 
@@ -30,7 +31,9 @@ namespace Viewer.Graphics
 
         protected override void Render(DrawingContext drawingContext)
         {
-            var circleGeometry = (CircleGeometry) Geometry;
+            if (drawingContext == null) return;
+
+            CircleGeometry circleGeometry = (CircleGeometry) Geometry;
             drawingContext.DrawEllipse(
                 m_filled ? Brush() : null,
                 Pen(),
@@ -41,7 +44,10 @@ namespace Viewer.Graphics
 
         public override T Write<T>(IWriter<T> writer)
         {
-            var circleGeometry = (CircleGeometry) Geometry;
+            if (writer == null)
+                throw new ArgumentNullException(nameof(writer));
+
+            CircleGeometry circleGeometry = (CircleGeometry) Geometry;
             return writer.WriteCircle(circleGeometry.Center, circleGeometry.Radius, Color, LineStyle, m_filled);
         }
     }

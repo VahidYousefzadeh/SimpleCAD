@@ -21,9 +21,9 @@ namespace Viewer.Geometry
             switch (other)
             {
                 case LineGeometry line:
-                    return IntersectionHelper.LinePolygonIntersection(line, this);
+                    return IntersectionHelper.GeometryPolygonIntersection(line, this);
                 case CircleGeometry circle:
-                    return IntersectionHelper.CirclePolygonIntersection(circle, this);
+                    return IntersectionHelper.GeometryPolygonIntersection(circle, this);
                 case PolygonGeometry polygon:
                     return IntersectionHelper.PolygonPolygonIntersection(polygon, this);
                 default:
@@ -48,7 +48,7 @@ namespace Viewer.Geometry
 
         private static LineGeometry[] GetEdges(IReadOnlyList<Point> points)
         {
-            LineGeometry[] edges = new LineGeometry[points.Count];
+            var edges = new LineGeometry[points.Count];
 
             int count = 0;
             while (count < points.Count - 1)

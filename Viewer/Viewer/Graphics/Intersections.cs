@@ -13,14 +13,14 @@ namespace Viewer.Graphics
 
         public Intersections(View view, double scale)
         {
+            if (view == null)
+                throw new ArgumentNullException(nameof(view));
+
             m_children = new VisualCollection(this);
 
-            Point[] intersections = FindIntersections(view.Shapes);
+            var intersections = FindIntersections(view.Shapes());
 
-            if (intersections != null)
-            {
-                m_children.Add(new CrossSymbols(scale, intersections));
-            }
+            m_children.Add(new CrossSymbols(scale, intersections));
         }
 
         protected override int VisualChildrenCount => m_children.Count;
@@ -29,7 +29,7 @@ namespace Viewer.Graphics
         {
             if (index < 0 || index >= m_children.Count)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
 
             return m_children[index];

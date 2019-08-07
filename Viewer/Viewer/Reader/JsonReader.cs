@@ -12,12 +12,12 @@ namespace Viewer.Reader
         {
         }
 
-        public override IEnumerable<Shape> Read(string filename)
+        public override IEnumerable<Shape> Read(string fileName)
         {
-            List<Shape> shapes = new List<Shape>();
+            var shapes = new List<Shape>();
 
-            var jsonSerializer = new JavaScriptSerializer();
-            var nodes = jsonSerializer.Deserialize<dynamic>(File.ReadAllText(filename));
+            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+            dynamic nodes = jsonSerializer.Deserialize<dynamic>(File.ReadAllText(fileName));
             foreach (dynamic node in nodes)
             {
                 switch (node["type"])

@@ -11,6 +11,8 @@ namespace Viewer.Graphics
 
         public CrossSymbols(double scale, IEnumerable<Point> locations)
         {
+            if (locations == null) return;
+
             Pen pen = Pen(scale).AsFrozen();
 
             Vector p = new Vector(+0.25 * Math.PI, +0.25 * Math.PI) * Size / scale;

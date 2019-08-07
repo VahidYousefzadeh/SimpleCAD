@@ -10,9 +10,7 @@ namespace Viewer.Graphics
     {
         private readonly VisualCollection m_children;
 
-        public Shape[] Shapes => m_children.OfType<Shape>().ToArray();
-
-        public View(IEnumerable<Shape> shapes = null)
+        public View(IEnumerable<Shape> shapes)
         {
             m_children = new VisualCollection(this);
 
@@ -22,9 +20,19 @@ namespace Viewer.Graphics
                 m_children.Add(shape);
         }
 
+        public View()
+        {
+            m_children = new VisualCollection(this);
+        }
+
         public Rect Bounds()
         {
-            return Shapes.Aggregate(Rect.Empty, (current, shape) => Rect.Union(current, shape.Geometry.Bounds));
+            return Shapes().Aggregate(Rect.Empty, (current, shape) => Rect.Union(current, shape.Geometry.Bounds));
+        }
+
+        public Shape[] Shapes()
+        {
+            return m_children.OfType<Shape>().ToArray();
         }
 
         protected override int VisualChildrenCount => m_children.Count;
@@ -33,7 +41,7 @@ namespace Viewer.Graphics
         {
             if (index < 0 || index >= m_children.Count)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
 
             return m_children[index];

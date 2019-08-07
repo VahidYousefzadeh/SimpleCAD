@@ -11,11 +11,11 @@ namespace Viewer.Reader
         {
         }
 
-        public override IEnumerable<Shape> Read(string filename)
+        public override IEnumerable<Shape> Read(string fileName)
         {
             IList<Shape> shapes = new List<Shape>();
 
-            XElement root = XElement.Load(filename);
+            XElement root = XElement.Load(fileName);
             foreach (XElement element in root.Descendants())
             {
                 switch ($"{element.Name}")
